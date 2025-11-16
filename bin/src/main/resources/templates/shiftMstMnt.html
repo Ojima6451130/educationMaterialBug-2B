@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Cache-Control" content="no-cache">
+  <meta http-equiv="Expires" content="Thu, 01 Dec 1994 16:00:00 GMT">
+  <title>シフトマスタメンテナンス画面</title>
+  <link rel="stylesheet" media="all" th:href="@{/css/common.css}" />
+  <script type="text/javascript" th:src="@{/js/common.js}"></script>
+  <script type="text/javascript" th:src="@{/js/message.js}"></script>
+</head>
+
+<body>
+  <div th:each="entry : ${dataMap}">
+    <h2 th:text="${entry.key}"></h2> <!-- Mapのキー -->
+
+    <ul>
+      <li th:each="dto : ${entry.value}">
+        <span th:text="${dto.value}"></span> <!-- Dtoのvalueフィールド -->
+      </li>
+    </ul>
+  </div>
+  <div id="wrapper">
+    <div id="header">
+      <table class="full-width">
+        <tr>
+          <td id="headLeft">
+            <form action="/kikin/menu" method="post">
+              <input value="戻る" type="submit" class="smallButton" />
+            </form>
+          </td>
+          <td id="headCenter">
+            シフトマスタメンテナンス
+          </td>
+          <td id="headRight">
+            <input value="ログアウト" type="button" class="smallButton" onclick="logout()" />
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div id="businessBody">
+      <form id = "update" action="/kikin/shiftMstMnt/update" th:object="${shiftMstMntForm}" method="post">
+        <div style="width: 620px; margin: 0 auto;">
+          <table class="tableHeader">
+            <tr>
+              <td width="108px" align="center">
+                シフト名
+              </td>
+              <td width="78px" align="center">
+                シンボル
+              </td>
+              <td width="242px" align="center">
+                時間
+              </td>
+              <td width="108px" align="center">
+                休憩
+              </td>
+              <td width="78px" align="center">
+                削除
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div style="overflow: auto; height: 400px; width: 620px; margin: 0 auto;">
+          <table class="tableBody">
+            <tbody>
+              <tr th:each="item, itemStat : *{shiftMstMntBeanList}">
+                <td>
+                  <input type="text" th:field="*{shiftMstMntBeanList[__${itemStat.index}__].shiftName}"
+                         style="width: 100px; text-align: center;" />
+                </td>
+                <td>
+                  <input type="text" th:field="*{shiftMstMntBeanList[__${itemStat.index}__].symbol}"
+                         style="width: 70px; text-align: center;" />
+                </td>
+                <td>
+                  <input type="text" th:field="*{shiftMstMntBeanList[__${itemStat.index}__].startTime}"
+                         style="width: 100px; text-align: center;" />
+                </td>
+                <td class="non-border" style="width: 28px; text-align: center;">&#xFF5E;</td>
+                <td>
+                  <input type="text" th:field="*{shiftMstMntBeanList[__${itemStat.index}__].endTime}"
+                         style="width: 100px; text-align: center;" />
+                </td>
+                <td>
+                  <input type="text" th:field="*{shiftMstMntBeanList[__${itemStat.index}__].breakTime}"
+                         style="width: 100px; text-align: center;" />
+                </td>
+                <td>
+                  <input type="checkbox" th:field="*{shiftMstMntBeanList[__${itemStat.index}__].deleteFlg}"
+                         style="width: 70px; text-align: center;" />
+                </td>
+                <td>
+                  <input type="hidden" th:field="*{shiftMstMntBeanList[__${itemStat.index}__].shiftId}">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </form>
+    </div>
+    <div id="footer">
+      <table>
+        <tr>
+          <td id="footLeft">
+            　
+          </td>
+          <td id="footCenter">
+          </td>
+          <td id="footRight">
+            <form action="/kikin/shiftMstMnt/regist" method="post">
+              <input value="新規登録" type="submit" class="smallButton" name = "regist"/>
+              <input value="更新" form="update" type="submit" class="smallButton"style="margin:10px;"/>
+          </td>
+          </form>
+        </tr>
+      </table>
+    </div>
+</body>
+</html>
