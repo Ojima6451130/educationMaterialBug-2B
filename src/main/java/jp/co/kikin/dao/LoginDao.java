@@ -45,12 +45,13 @@ public class LoginDao extends Dao {
 
             StringBuffer strSql = new StringBuffer();
             strSql.append("SELECT * FROM m_employee ");
-            strSql.append("WHERE employee_id = 'sh0001' ");
+            strSql.append("WHERE employee_id = ? ");	//sh0001→?に変更	(細井)
             strSql.append("AND password = ?");
 
             PreparedStatement ps = connection.prepareStatement(strSql.toString());
-
-            ps.setString(1, m_employeeDtoSearch.getPassword());
+            
+            ps.setString(1, m_employeeDtoSearch.getEmployeeId());	//　追加　(細井)
+            ps.setString(2, m_employeeDtoSearch.getPassword());		//	1→2に変更 (細井)
 
             // ログ出力
             log.info(ps);
