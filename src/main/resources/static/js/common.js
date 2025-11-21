@@ -10,7 +10,7 @@
  *  ログアウトボタンサブミット
  */
 function logout() {
-    document.forms[0].action = "/kikin";
+    document.forms[0].action = "/kikin/";
     document.forms[0].submit();
 }
 
