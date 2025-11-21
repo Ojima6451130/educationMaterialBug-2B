@@ -109,7 +109,7 @@ public class EmployeeMstMntDao extends Dao {
 
             StringBuffer strSql = new StringBuffer();
             strSql.append("SELECT * FROM m_employee ");
-            strSql.append("ORDER BY employee_id, pasword ");
+            strSql.append("ORDER BY employee_id");	//password削除(細井)
 
             PreparedStatement ps = connection.prepareStatement(strSql.toString());
 

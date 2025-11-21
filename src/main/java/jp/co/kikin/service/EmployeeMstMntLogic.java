@@ -109,7 +109,7 @@ public class EmployeeMstMntLogic {
         EmployeeMstMntDao employeeMstMntDao = new EmployeeMstMntDao();
 
         // 社員情報を取得する。
-        List<EmployeeMstMntDto> m_employeeList = null;
+        List<EmployeeMstMntDto> m_employeeList = employeeMstMntDao.getEmployeeAllList();	//nullから変更（細井）
 
         // 自分をリストから省く
         // 削除対象
