@@ -34,7 +34,7 @@ errorbody {
 }
 #headLeft {
     width:15%;
-    text-align:center;
+    text-align:left; /* centerからleftに変更　瀬口*/
 }
 #headCenter {
     font-size: 24px;
@@ -45,7 +45,7 @@ errorbody {
 }
 #headRight {
     width:15%;
-    text-align:center;
+    text-align:right; /*centerからrightに変更 瀬口*/
 }
 /*
 * メニュー画面のボタン
@@ -317,7 +317,7 @@ errorbody {
 }
 
 .centered-container {
-    width: 80%;
+    width: 100%; /*80%から100%に変更　瀬口*/
     margin: 0 auto;
 }
 /*
