@@ -35,10 +35,12 @@
     </div>
     <div id="businessBody">
       <div th:if="${authority_id == adminAuthority}" style="margin: auto;">
-
+      	
           <div class="menuBlock">
-            
-            <form action="/kikin/dailyShift" method="post">
+            <form action="/kikin/monthlyShiftCheck"> <!-- 月別シフト確認ボタン追加　（瀬口） -->
+              <input type="submit" value="月別シフト確認" class="bigButton" />
+            </form>
+            <form action="/kikin/dailyShift">
               <input type="submit" value="日別シフト確認" class="bigButton" />
             </form>
           </div>
@@ -51,11 +53,11 @@
               <input type="submit" value="勤務実績入力" class="bigButton" />
             </form>
           </div>
-          <div class="menuBlock">
+          <!--  <div class="menuBlock"> 管理者側のメニュー画面にいらない為コメントアウト　（瀬口）
             <form action="/kikin/workDateRequestInput" method="post">
               <input type="submit" value="出勤希望日入力" class="bigButton" />
             </form>
-          </div>
+          </div> -->
 
           <div class="menuBlock">
             <form action="/kikin/workDateRequestCheck">
