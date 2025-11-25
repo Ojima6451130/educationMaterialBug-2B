@@ -51,7 +51,8 @@ public class DbConstant {
      * シフトマスタ
      */
     public enum M_shift {
-        TABLE_NAME("mst_shift"),
+//    	TABLE_NAMEを修正：古賀
+        TABLE_NAME("m_shift"),
         PREFIX("sf"),
         SHIFT_ID("shift_id"),
         SHIFT_NAME("shift_name"),
