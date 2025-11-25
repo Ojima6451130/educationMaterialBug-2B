@@ -19,7 +19,7 @@
           <tr>
             <td id="headLeft">
               <form action="/kikin/menu" method="post">
-                <input value="ログアウト" type="button" class="smallButton" onclick="logout()" />
+                <input value="戻る" type="submit" class="smallButton" /> <!-- 戻るボタンとログアウトボタンの位置変更　瀬口 -->
               </form>
             </td>
             <td id="headCenter">
@@ -27,7 +27,7 @@
             </td>
             <td id="headRight">
             	<form action="/kikin/menu" method="post"> <!-- <form>を追記 -->
-              		<input value="戻る" type="submit" class="smallButton" />
+              		<input value="ログアウト" type="button" class="smallButton" onclick="logout()" />
               	</form>		<!-- </formを追記> -->
             </td>
           </tr>
@@ -35,8 +35,10 @@
       </div>
       <div>
         <form action="/kikin/dailyShift/search" method="post" th:object="${dailyShiftForm}">
+        <label>表示年月：</label>　<!-- 「表示年月」を追記　瀬口 -->
+         <!--   <a th:href=></a>-->
           <input type="date" th:field="*{yearMonthDayDisplay}" />
-          <input type="submit" value="表示" />
+         <!--   <input type="submit" value="表示" /> 　ボタン表記ではない為コメントアウト　瀬口-->
         </form>
       </div>
       <div id="businessBody" style="height: 500px;">
