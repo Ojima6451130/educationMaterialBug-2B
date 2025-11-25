@@ -174,13 +174,17 @@
                         style="width: 100%; box-sizing: border-box; text-overflow: clip; text-align: center;" />
               </td>
               <td style="width: 100px; box-sizing: border-box;">
-                <input type="text" th:field="*{shiftMstMntBeanList[__${itemStat.index}__].endTime}"
+                <input type="text" th:field="*{shiftMstMntBeanList[__${itemStat.index}__].startTime}"
                         style="width: 100%; box-sizing: border-box; text-overflow: clip; text-align: center;" />
               </td>
               <td class="non-border" style="width: 40px; box-sizing: border-box; text-align: center;">&#xFF5E;</td>
               <td style="width: 100px; box-sizing: border-box;">
-                <input type="text" th:field="*{shiftMstMntBeanList[__${itemStat.index}__].startTime}"
+                <input type="text" th:field="*{shiftMstMntBeanList[__${itemStat.index}__].endTime}"
                         style="width: 100%; box-sizing: border-box; text-overflow: clip; text-align: center;" />
+              </td>
+              
+              <td style="width: 100px; box-sizing: border-box;">
+                
               	 <input type="text" th:field="*{shiftMstMntBeanList[__${itemStat.index}__].breakTime}"
                         style="width: 100%; box-sizing: border-box; text-overflow: clip; text-align: center;" />
              
@@ -188,7 +192,7 @@
              
                
               <td style="width: 70px; box-sizing: border-box;">
-                <input type="hidden" th:field="*{shiftMstMntBeanList[__${itemStat.index}__].deleteFlg}"
+                <input type="checkbox" th:field="*{shiftMstMntBeanList[__${itemStat.index}__].deleteFlg}"
                         style="width: 100%; box-sizing: border-box; text-overflow: clip; text-align: center;" />
                 <input type="hidden" th:field="*{shiftMstMntBeanList[__${itemStat.index}__].shiftId}">
               </td>
