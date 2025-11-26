@@ -65,7 +65,7 @@ public class MonthlyShiftDao extends Dao{
             strSql.append("    m_employee emp LEFT OUTER JOIN  ");
             strSql.append("    (SELECT * FROM t_shift WHERE     SUBSTRING(year_month_day, 1, 6) = ?)  ");
             strSql.append("    ts ON emp.employee_id = ts.employee_id ");
-            strSql.append("WHERE emp.employee_name not like '社員%' ");
+//            strSql.append("WHERE emp.employee_name not like '社員%' "); 社員という名称の検索を除外していたためコメントアウト
             strSql.append("ORDER BY ");
             strSql.append("    employee_id, ");
             strSql.append("    year_month_day ");
@@ -158,6 +158,27 @@ public class MonthlyShiftDao extends Dao{
 
             StringBuffer strSql = new StringBuffer();
             
+            strSql.append("INSERT INTO ");
+            strSql.append("t_shift ");
+            strSql.append(" ( ");
+            strSql.append("employee_id,");
+            strSql.append("year_month_day,");
+            strSql.append("shift_id,");
+            strSql.append("creator_employee_id,");
+            strSql.append("creation_datetime,");
+            strSql.append("updater_employee_id,");
+            strSql.append("update_datetime");
+            strSql.append(") ");
+            strSql.append("VALUES ");
+            strSql.append(" ( ");
+            strSql.append("? ");
+            strSql.append(",? ");
+            strSql.append(",? ");
+            strSql.append(",? ");
+            strSql.append(", current_timestamp()");
+            strSql.append(",? ");
+            strSql.append(", current_timestamp()");
+            strSql.append(") ");
 
             PreparedStatement ps = connection.prepareStatement(strSql.toString());
 
@@ -200,6 +221,8 @@ public class MonthlyShiftDao extends Dao{
             strSql.append("update_datetime = current_timestamp() ");
             strSql.append("WHERE ");
             strSql.append("employee_id = ? ");
+            strSql.append("AND ");
+            strSql.append("year_month_day = ?"); //プレースホルダの数を合わせるために検索条件追加　古賀
             
 
 
