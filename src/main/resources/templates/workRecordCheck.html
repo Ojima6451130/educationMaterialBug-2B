@@ -52,8 +52,9 @@
 
     <div id="businessBody">
       <form action="/kikin/workRecordCheck/search" method="post" th:object="${workRecordInputForm}">
+        <!-- 表示年月と社員名を検索ボタンなしで表示しなおせるよう修正(久野) -->
         <label>表示年月：</label>
-        <select name="yearMonth" id="yearMonth">
+        <select name="yearMonth" id="yearMonth" onchange="this.form.submit()">
           <!-- yearMonthValues リストをループして表示 -->
           <option th:each="entry : ${yearMonthCmbMap.entrySet()}" th:text="${entry.value}" th:value="${entry.key}"
             th:selected="${entry.key == workRecordInputForm.yearMonth}" th:inline="text">[[${yearMonth}]>
@@ -61,13 +62,12 @@
         </select>
         <div style="display: inline;">
           社員名：
-          <select name="employeeId" id="employeeId">
-            <option th:each="entry : ${yearMonthCmbMap.entrySet()}" th:text="${entry.value}" th:value="${entry.key}"
-              th:selected="${entry.key == workRecordInputForm.employeeId}" th:inline="text">[[${entry.key}]>
+         <select name="employeeId" id="employeeId" onchange="this.form.submit()">
+             <option th:each="entry : ${employeeCmbMap.entrySet()}" th:text="${entry.value}" th:value="${entry.key}"
+              th:selected="${entry.key == workRecordInputForm.employeeId}" th:inline="text">[[${employeeId}]>
             </option>
           </select>
         </div>
-        <input value="検索" type="submit" />
       </form>
     </div>
     <br>
