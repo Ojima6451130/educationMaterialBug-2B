@@ -459,7 +459,12 @@ public class CommonUtils {
             }
 
             String yearMonthDay = yearMonth.concat(strDay);
-            dateBean.setPublicHolidayFlg(publicHolidaySet.contains(yearMonthDay));
+            //祝日フラグの判別処理を加筆　久野
+            for(String holiday:publicHolidayList) {
+            	if(yearMonthDay.equals(holiday)) {
+            		dateBean.setPublicHolidayFlg(true);	
+            	}
+            }
             dateBean.setYearMonthDay(yearMonthDay);
             dateBean.setWeekDay(dayOfWeek.toString());
 
