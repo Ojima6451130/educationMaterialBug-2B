@@ -249,8 +249,6 @@
                 <input type="text" th:field="*{WorkRecordInputList[__${iterStat.index}__].remark}"
                   style="width: 240px;" />
               </td>
-              <!-- 以下の処理は不要そうなのでコメントアウト(久野) -->
-              <!-- 
               <input type="hidden" th:field="*{WorkRecordInputList[__${iterStat.index}__].workDay}" />
               <input type="hidden" th:field="*{WorkRecordInputList[__${iterStat.index}__].employeeId}" />
 
@@ -260,7 +258,6 @@
               <input type="hidden" th:field="*{WorkRecordInputList[__${iterStat.index}__].actualWorkTime}" />
               <input type="hidden" th:field="*{WorkRecordInputList[__${iterStat.index}__].overTime}" />
               <input type="hidden" th:field="*{WorkRecordInputList[__${iterStat.index}__].holidayTime}" />
-             -->
             </tr>
           </tbody>
         </table>
