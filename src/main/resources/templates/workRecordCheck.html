@@ -111,7 +111,7 @@
         <tbody class="tableBody" style="display: block; width: max-content; height: 400px; overflow-y: scroll; scrollbar-gutter: stable;">
           <tr th:each="workRecordCheck, iterStat : ${WorkRecordInputList}" class="list">
             <td style="width: 70px; text-align: center; box-sizing: border-box;">
-              <span th:text="${workRecordCheck.workDayDisp}">
+              <span th:text="${workRecordCheck.workDayDisp}"></span><!-- </span>追記　久野 -->
             </td>
             <td style="width: 50px; text-align: center; box-sizing: border-box;"
               th:class="${workRecordCheck.weekDay == '土' ? 'fontBlue' : (workRecordCheck.weekDay == '日' or workRecordCheck.publicHolidayFlg) ? 'fontRed' : 'fontBlack'}">
@@ -140,14 +140,15 @@
               <span th:text="${workRecordCheck.holidayTime}"></span>
             </td>
             <td style="width: 250px; text-align: center; box-sizing: border-box;">
-              <span type="text" th:text="${workRecordCheck.remark}"></span>
+              <!-- type="text"→削除して修正(久野) -->
+              <span th:text="${workRecordCheck.remark}"></span>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
-  </div>
+  <!--必要ない</div>を削除(久野)-->
 </body>
 
 </html>
