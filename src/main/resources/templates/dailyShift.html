@@ -38,7 +38,7 @@
         <label>表示年月：</label>　<!-- 「表示年月」を追記　瀬口 -->
          <!--   <a th:href=></a>-->
           <input type="date" th:field="*{yearMonthDayDisplay}" />
-         <!--   <input type="submit" value="表示" /> 　ボタン表記ではない為コメントアウト　瀬口-->
+          <input type="submit" value="表示" />  <!-- 値をフォームで送るため再追記　長谷川 -->
         </form>
       </div>
       <div id="businessBody" style="height: 500px;">
@@ -81,7 +81,7 @@
               <td th:each="dailyShiftBean : ${dailyShiftBeanList}">
                   <table class="tableBodyDaily">
                       <tr style="height: 50px;">
-                        <td th:if="${dailyShiftBean.boolTime00}" style="width: 154px; text-align: center; font-size: 15px; white-space: nowrap; ">
+                        <td th:if="${dailyShiftBean.boolTime00}" style="width: 154px; text-align: center; font-size: 15px; white-space: nowrap;">
                           <span th:if="${dailyShiftBean.strTime00 == '出勤'}">[[${dailyShiftBean.workTime}]]</span>
                           <br>
                           <span th:if="${dailyShiftBean.strTime00 == '出勤'}">[[${dailyShiftBean.breakTime}]]</span>
