@@ -107,7 +107,7 @@
             <tr>
               <td id="footLeft">
               <div style="margin-left:50px;">
-                <input value="凡例表示" type="button" class="longButton"  onclick="openWindo()" />
+                <input value="凡例表示" type="button" class="longButton"  onclick="openWindow()" />
               </div>
               </td>
               <td id="footCenter">
@@ -120,5 +120,11 @@
           </table>
         </div>
     </div>
+    
+    <script> <!-- scriptの追記　瀬口 -->
+  	function openWindow(){
+  		window.open("/kikin/ShiftPattern", "windowBPopup", "menubar=no, toolbar=no, scrollbars=auto, resizable=yes, width=520px, height=650px");
+  	}
+  </script>
 </body>
 </html>
