@@ -209,7 +209,8 @@ public class EmployeeMstMntController {
         // List<EmployeeMstMntDto> EmployeeMstMntDtoList = new
         // ArrayList<EmployeeMstMntDto>();
         List<EmployeeMstMntDto> EmployeeMstMntDtoList = new ArrayList<>();
-
+        
+        //入力されたリストを取得
         List<EmployeeMstMntBean> EmployeeMstMntBeanList = employeeMstMntForm.getEmployeeMstMntBeanList();
         // 新しいリストを作成して、Beanを追加する
         List<EmployeeMstMntBean> updatedEmployeeMstMntBeanList = new ArrayList<>();
@@ -218,12 +219,12 @@ public class EmployeeMstMntController {
             EmployeeMstMntDto employeeMstMntDto = new EmployeeMstMntDto();
 
             // Dtoに値をセットする
-            
             employeeMstMntDto.setEmployeeName(employeeMstMntBean.getEmployeeName());
             employeeMstMntDto.setEmployeeNameKana(employeeMstMntBean.getEmployeeNameKana());
             employeeMstMntDto.setPassword(employeeMstMntBean.getPassword());
             employeeMstMntDto.setAuthorityId(employeeMstMntBean.getAuthorityId());
             employeeMstMntDto.setDeleteFlg(employeeMstMntBean.getDeleteFlg());
+            employeeMstMntDto.setEmployeeId(employeeMstMntBean.getEmployeeId());	//追加（細井）
 
             // Dtoリストに追加
             EmployeeMstMntDtoList.add(employeeMstMntDto);
