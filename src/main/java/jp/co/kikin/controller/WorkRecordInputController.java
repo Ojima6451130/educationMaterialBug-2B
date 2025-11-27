@@ -159,7 +159,7 @@ public class WorkRecordInputController {
         // フォームにデータをセットする
 
         model.addAttribute("dateBeanList", dateBeanList);
-        // model.addAttribute("WorkRecordInputList", workRecordList);
+        model.addAttribute("WorkRecordInputList", workRecordList); // コメントアウトを解除
         model.addAttribute("yearMonthCmbMap", yearMonthCmbMap);
 
         model.addAttribute("loginUserDto", loginUserDto);

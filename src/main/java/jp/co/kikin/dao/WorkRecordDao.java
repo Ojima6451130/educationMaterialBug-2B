@@ -61,8 +61,8 @@ public class WorkRecordDao extends Dao {
 			strSql.append("    shift.break_time_shift AS break_time_shift, ");
 			strSql.append("    (CASE WHEN shift.work_day IS NULL THEN twr.work_day  ");
 			strSql.append("    ELSE shift.work_day END) AS work_day, ");
-			strSql.append("    twr.end_time         AS start_time, ");
-			strSql.append("    twr.start_time           AS end_time, ");
+			strSql.append("    twr.start_time         AS start_time, ");
+			strSql.append("    twr.end_time           AS end_time, "); // start_timeとend_timeが逆だったものを修正　古賀
 			strSql.append("    twr.break_time         AS break_time, ");
 			strSql.append("    twr.actual_work_time      AS actual_work_time, ");
 			strSql.append("    twr.over_time      AS over_time, ");
@@ -85,7 +85,7 @@ public class WorkRecordDao extends Dao {
 			strSql.append("    FROM ");
 			strSql.append("        t_shift ");
 			strSql.append("    WHERE ");
-			strSql.append("        employee_id = 'sh0001' AND ");
+			strSql.append("        employee_id = ? AND "); // idがsh0001に固定だった部分をプレースホルダに修正　古賀
 			strSql.append("        year_month_day >= ? AND ");
 			strSql.append("        year_month_day <= ? ");
 			strSql.append("    ORDER BY ");
@@ -109,11 +109,12 @@ public class WorkRecordDao extends Dao {
 
 			PreparedStatement ps = connection.prepareStatement(strSql.toString());
 
-			ps.setString(1, startDay);
-			ps.setString(2, endDay);
-			ps.setString(3, employeeId);
-			ps.setString(4, startDay);
-			ps.setString(5, endDay);
+			ps.setString(1, employeeId); // プレースホルダに対する指定順序が誤っていたため修正　古賀
+			ps.setString(2, startDay);
+			ps.setString(3, endDay);
+			ps.setString(4, employeeId); // 一文追加　古賀
+			ps.setString(5, startDay);
+			ps.setString(6, endDay);
 
 			// ログ出力
 			log.info(ps);
@@ -247,10 +248,10 @@ public class WorkRecordDao extends Dao {
 
 			PreparedStatement ps = connection.prepareStatement(strSql.toString());
 
-			ps.setString(1, "sh0001");
+			ps.setString(1, employeeId); // sh0001に固定されていたものを修正　古賀
 			ps.setString(2, startDay);
 			ps.setString(3, endDay);
-			ps.setString(4, "sh0001");
+			ps.setString(4, employeeId);
 			ps.setString(5, startDay);
 			ps.setString(6, endDay);
 
@@ -448,7 +449,7 @@ public class WorkRecordDao extends Dao {
 			ps.setString(5, workRecordDto.getBreakTime());
 			ps.setString(6, workRecordDto.getActualWorkTime());
 			ps.setString(7, workRecordDto.getOverTime());
-			ps.setString(8, workRecordDto.getActualWorkTime());
+			ps.setString(8, workRecordDto.getHolidayTime()); // actualworktimeからholidaytimeに修正
 			ps.setString(9, workRecordDto.getRemark());
 			ps.setString(10, employeeId);
 			ps.setString(11, employeeId);
