@@ -91,8 +91,9 @@ public class EmployeeMstMntRegisterController {
 
         // 取得したセレクトボックスのマップをフォームへセットする。
         employeeMstMntRegisterForm.setAuthorityCmbMap(comboMap);
-
-       
+        
+        // データべースに登録処理		追加（細井）
+        employeeMstMntLogic.registerM_employee(m_employeeDto, loginUserDto);
 
         String redirectUrl = "redirect:/kikin/employeeMstMnt";
 

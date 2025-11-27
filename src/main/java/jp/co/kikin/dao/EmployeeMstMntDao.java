@@ -237,9 +237,22 @@ public class EmployeeMstMntDao extends Dao {
         try {
             // コネクション接続
             this.connect();
-
+            
+            //SQL文作成　追加（細井）
             StringBuffer strSql = new StringBuffer();
-           
+            strSql.append("INSERT into ");
+            strSql.append("m_employee (");
+            strSql.append("employee_id, ");
+            strSql.append("password, ");
+            strSql.append("employee_name, ");
+            strSql.append("employee_name_kana, ");
+            strSql.append("authority_id, ");
+            strSql.append("updater_employee_id, ");
+            strSql.append("creator_employee_id, ");
+            strSql.append("creation_datetime) ");
+            strSql.append("values (");
+            strSql.append("?,?,?,?,?,?,?,current_timestamp())");
+            
             PreparedStatement ps = connection.prepareStatement(strSql.toString());
 
             ps.setString(1, m_employeeDto.getEmployeeId());

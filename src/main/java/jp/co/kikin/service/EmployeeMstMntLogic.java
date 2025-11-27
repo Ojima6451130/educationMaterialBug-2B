@@ -50,8 +50,8 @@ public class EmployeeMstMntLogic {
                 boolean deleteFlg = employeeMstMntDto.getDeleteFlg();
 
                 if (deleteFlg) {
-                    // 削除
-                    employeeMstMntDao.updateEmployeeMst(employeeMstMntDto, loginUserDto);
+                    // 削除		updateEmployeeMst→deleteEmployeeMstに変更（細井）
+                    employeeMstMntDao.deleteEmployeeMst(employeeMstMntDto.getEmployeeId());
                 } else {
                     // 更新
                     employeeMstMntDao.updateEmployeeMst(employeeMstMntDto, loginUserDto);
