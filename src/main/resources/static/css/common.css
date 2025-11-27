@@ -340,3 +340,8 @@ errorbody {
 .fontRed {
     color: red;
 }
+
+/*追記　瀬口*/
+label {
+	margin-left: 120px;
+}
