@@ -60,7 +60,7 @@
             th:selected="${entry.key == workRecordInputForm.yearMonth}" th:inline="text">[[${yearMonth}]>
           </option>
         </select>
-        <div style="display: inline;">
+        <div style="display: inline; margin-left: 700px;"> <!-- margin-left: 700px 追記　瀬口  -->
           社員名：
          <select name="employeeId" id="employeeId" onchange="this.form.submit()">
              <option th:each="entry : ${employeeCmbMap.entrySet()}" th:text="${entry.value}" th:value="${entry.key}"
