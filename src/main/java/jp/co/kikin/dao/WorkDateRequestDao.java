@@ -138,7 +138,7 @@ public class WorkDateRequestDao extends Dao{
             strSql.append("ORDER BY ");
             strSql.append("employee_id,");
             strSql.append("year_month_day");
-            strSql.append(" limit 3");
+//            strSql.append(" limit 3");
 
             PreparedStatement ps = connection.prepareStatement(strSql.toString());
 
@@ -305,16 +305,28 @@ public class WorkDateRequestDao extends Dao{
     public void updateShiftTbl(WorkDateRequestInputDto workDateRequestInputDto, LoginUserDto loginUserDto) throws SQLException{
 
         try {
-
             StringBuffer strSql = new StringBuffer();
-            
-
+            //UPDATE文　追記　久野
+            strSql.append("UPDATE ");
+            strSql.append("t_shift ");
+            strSql.append("SET ");
+            strSql.append("request_shift_id = ? ,");
+            strSql.append("creator_employee_id = ? ,");
+            strSql.append("updater_employee_id = ? ,");
+            strSql.append("update_datetime = ? ");
+            strSql.append("WHERE ");
+            strSql.append("employee_id = ? ");
+            strSql.append("AND ");
+            strSql.append("year_month_day = ? ");
+           
             PreparedStatement ps = connection.prepareStatement(strSql.toString());
-
+            
             ps.setString(1, workDateRequestInputDto.getMyRequestShiftId());
             ps.setString(2, loginUserDto.getEmployeeId());
             ps.setString(3, workDateRequestInputDto.getEmployeeId());
             ps.setString(4, workDateRequestInputDto.getYearMonthDay());
+            ps.setString(5, workDateRequestInputDto.getEmployeeId());
+            ps.setString(6, workDateRequestInputDto.getYearMonthDay());
 
             // ログ出力
             log.info(ps);
