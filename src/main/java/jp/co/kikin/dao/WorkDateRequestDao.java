@@ -311,9 +311,8 @@ public class WorkDateRequestDao extends Dao{
             strSql.append("t_shift ");
             strSql.append("SET ");
             strSql.append("request_shift_id = ? ,");
-            strSql.append("creator_employee_id = ? ,");
             strSql.append("updater_employee_id = ? ,");
-            strSql.append("update_datetime = ? ");
+            strSql.append("update_datetime = current_timestamp() ");
             strSql.append("WHERE ");
             strSql.append("employee_id = ? ");
             strSql.append("AND ");
@@ -324,9 +323,9 @@ public class WorkDateRequestDao extends Dao{
             ps.setString(1, workDateRequestInputDto.getMyRequestShiftId());
             ps.setString(2, loginUserDto.getEmployeeId());
             ps.setString(3, workDateRequestInputDto.getEmployeeId());
+//            ps.setString(4, workDateRequestInputDto.getYearMonthDay());
+//            ps.setString(4, workDateRequestInputDto.getEmployeeId());
             ps.setString(4, workDateRequestInputDto.getYearMonthDay());
-            ps.setString(5, workDateRequestInputDto.getEmployeeId());
-            ps.setString(6, workDateRequestInputDto.getYearMonthDay());
 
             // ログ出力
             log.info(ps);
