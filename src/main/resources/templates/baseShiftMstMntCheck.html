@@ -120,8 +120,9 @@
                                 </td>
 
                                 <!-- 月曜日のシフト -->
-                                <td width="50px" align="center">
-                                    <select th:name="baseShiftMstMntBeanList[__${employeeStat.index}__].shiftIdOnMonday">
+                                <!-- 各曜日のselectにdisabled属性を追加し選択不可に　古賀 -->
+                                <td width="50px" align="center" >
+                                    <select th:name="baseShiftMstMntBeanList[__${employeeStat.index}__].shiftIdOnMonday" disabled>
                                         <option th:each="entry : ${baseShiftMstMntForm.shiftCmbMap}"
                                             th:value="${entry.key}" th:text="${entry.value}"
                                             th:selected="${employee.shiftIdOnMonday == entry.key}">
@@ -132,8 +133,8 @@
 
                                 <td width="50px" align="center">
                                     <select
-                                        th:name="baseShiftMstMntBeanList[__${employeeStat.index}__].shiftIdOnTuesday"
-                                        >
+                                        th:name="baseShiftMstMntBeanList[__${employeeStat.index}__].shiftIdOnTuesday" 
+                                        disabled>
                                         <option th:each="entry : ${baseShiftMstMntForm.shiftCmbMap}"
                                             th:value="${entry.key}" th:text="${entry.value}"
                                             th:selected="${employee.shiftIdOnTuesday == entry.key}">
@@ -143,7 +144,7 @@
                                 <td width="50px" align="center">
                                     <select
                                         th:name="baseShiftMstMntBeanList[__${employeeStat.index}__].shiftIdOnWednesday"
-                                        >
+                                        disabled>
                                         <option th:each="entry : ${baseShiftMstMntForm.shiftCmbMap}"
                                             th:value="${entry.key}" th:text="${entry.value}"
                                             th:selected="${employee.shiftIdOnWednesday == entry.key}">
@@ -153,7 +154,7 @@
                                 <td width="50px" align="center">
                                     <select
                                         th:name="baseShiftMstMntBeanList[__${employeeStat.index}__].shiftIdOnThursday"
-                                       >
+                                       disabled>
                                         <option th:each="entry : ${baseShiftMstMntForm.shiftCmbMap}"
                                             th:value="${entry.key}" th:text="${entry.value}"
                                             th:selected="${employee.shiftIdOnThursday == entry.key}">
@@ -162,7 +163,7 @@
                                 </td>
                                 <td width="50px" align="center">
                                     <select th:name="baseShiftMstMntBeanList[__${employeeStat.index}__].shiftIdOnFriday"
-                                        >
+                                        disabled>
                                         <option th:each="entry : ${baseShiftMstMntForm.shiftCmbMap}"
                                             th:value="${entry.key}" th:text="${entry.value}"
                                             th:selected="${employee.shiftIdOnFriday == entry.key}">
@@ -172,7 +173,7 @@
                                 <td width="50px" align="center">
                                     <select
                                         th:name="baseShiftMstMntBeanList[__${employeeStat.index}__].shiftIdOnSaturday"
-                                       >
+                                       disabled>
                                         <option th:each="entry : ${baseShiftMstMntForm.shiftCmbMap}"
                                             th:value="${entry.key}" th:text="${entry.value}"
                                             th:selected="${employee.shiftIdOnSaturday == entry.key}">
@@ -181,7 +182,7 @@
                                 </td>
                                 <td width="50px" align="center">
                                     <select th:name="baseShiftMstMntBeanList[__${employeeStat.index}__].shiftIdOnSunday"
-                                       >
+                                       disabled>
                                         <option th:each="entry : ${baseShiftMstMntForm.shiftCmbMap}"
                                             th:value="${entry.key}" th:text="${entry.value}"
                                             th:selected="${employee.shiftIdOnSunday == entry.key}">
