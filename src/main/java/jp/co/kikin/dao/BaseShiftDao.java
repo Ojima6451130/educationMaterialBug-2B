@@ -66,8 +66,8 @@ public class BaseShiftDao extends Dao {
             strSql.append(" LEFT JOIN m_base_shift mbs");
             strSql.append(" ON        emp.employee_id = mbs.employee_id ");
             strSql.append(" ORDER BY       ");
-            strSql.append("   mbs.employee_id     ");
-            strSql.append("   limit 3     ");
+            strSql.append("   emp.employee_id     "); // order byの基準を社員マスタに変更　古賀
+            // strSql.append("   limit 3     "); limit 3になっていたためコメントアウト　古賀
             PreparedStatement ps = connection.prepareStatement(strSql.toString());
 
             // ログ出力
