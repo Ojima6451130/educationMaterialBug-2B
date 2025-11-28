@@ -214,6 +214,10 @@ errorbody {
         padding: 0;
         border: 1px solid black;
 }
+
+.tableBody select{
+	max-width: 40px;
+}
 /* 日別シフト確認のテーブルヘッダー */
 .tableBodyDaily {
     background-color: #E0FFFF;
@@ -257,6 +261,7 @@ errorbody {
 .widthTable-S{
 	width: 950px;
     border-collapse: collapse;
+    table-layout: auto;
 }
 .widthTable-S td, .widthTable-S th {
         padding: 0;
