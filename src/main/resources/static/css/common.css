@@ -216,8 +216,14 @@ errorbody {
 }
 
 .tableBody select{
-	max-width: 40px;
+	max-width: 80%;/*40px→80%に変更（細井）*/
 }
+
+/*入力欄の周りの余白（細井）*/
+.tableBody input{
+	margin-bottom: 2px;
+}
+
 /* 日別シフト確認のテーブルヘッダー */
 .tableBodyDaily {
     background-color: #E0FFFF;

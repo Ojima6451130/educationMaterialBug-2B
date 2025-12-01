@@ -145,46 +145,41 @@
 								<tr
 									th:each="item, itemStat : ${employeeMstMntForm.employeeMstMntBeanList}"
 									class="employeeMntList">
-									<td style="width: 200px; text-align: center;">
-										<span th:text="*{employeeMstMntBeanList[__${itemStat.index}__].employeeId}"></span>
+									<td style="width: 200px; text-align: center;"><span
+										th:text="*{employeeMstMntBeanList[__${itemStat.index}__].employeeId}"></span>
 										<input type="hidden"
 										th:field="*{employeeMstMntBeanList[__${itemStat.index}__].employeeId}"
-										th:id="'employeeId_' + ${itemStat.index}"
-										size="20" readonly="readonly" />
-									</td>
+										th:id="'employeeId_' + ${itemStat.index}" size="20"
+										readonly="readonly" /></td>
 
-									<td style="width: 200px; text-align: center;">
-										<input type="text"
+									<td style="width: 200px; text-align: center;"><input
+										type="text"
 										th:field="*{employeeMstMntBeanList[__${itemStat.index}__].password}"
-										th:id="'password_' + ${itemStat.index}" 
-										size="10" maxlength="6" /> 
-									</td>
+										th:id="'password_' + ${itemStat.index}" size="10"
+										maxlength="6" /></td>
 
-									<td style="width: 200px; text-align: center;">
-										<input type="text"
+									<td style="width: 200px; text-align: center;"><input
+										type="text"
 										th:field="*{employeeMstMntBeanList[__${itemStat.index}__].employeeName}"
-										th:id="'employeeName_' + ${itemStat.index}"
-										size="20" maxlength="10" />
-									</td>
+										th:id="'employeeName_' + ${itemStat.index}" size="20"
+										maxlength="10" /></td>
 
-									<td style="width: 200px; text-align: center;">
-										<input type="text"
+									<td style="width: 200px; text-align: center;"><input
+										type="text"
 										th:field="*{employeeMstMntBeanList[__${itemStat.index}__].employeeNameKana}"
-										th:id="'employeeNameKana_' + ${itemStat.index}" 
-										size="20" maxlength="10" />
-									</td>
+										th:id="'employeeNameKana_' + ${itemStat.index}" size="20"
+										maxlength="10" /></td>
 
 									<td style="width: 100px; text-align: center;">
 									<select
 										th:field="*{employeeMstMntBeanList[__${itemStat.index}__].AuthorityId}"
-										style="width: 85%; text-align: center;">
+										style="width: 100px;">
 											<option value="01" th:selected="${item.AuthorityId == '01'}">管理者</option>
 											<option value="02" th:selected="${item.AuthorityId == '02'}">一般</option>
-									</select>
-									</td>
+									</select></td>
 
-									<td style="width: 100px; text-align: center;">
-										<input type="checkbox"
+									<td style="width: 100px; text-align: center;"><input
+										type="checkbox"
 										th:field="*{employeeMstMntBeanList[__${itemStat.index}__].deleteFlg}" />
 									</td>
 								</tr>
