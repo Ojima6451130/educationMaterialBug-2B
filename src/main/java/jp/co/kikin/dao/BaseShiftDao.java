@@ -83,6 +83,7 @@ public class BaseShiftDao extends Dao {
                 baseShiftDto.setEmployeeId        (rs.getString(M_base_shift.EMPLOYEE_ID.getName()));          // 社員ID
                 baseShiftDto.setEmployeeName      (rs.getString(M_employee.EMPLOYEE_NAME.getName()));             // 社員名
                 baseShiftDto.setShiftIdOnSunday   (rs.getString(M_base_shift.SUNDAY.getName()));            // 日曜日シフトＩＤ
+                baseShiftDto.setShiftIdOnMonday   (rs.getString(M_base_shift.MONDAY.getName()));            // 月曜日シフトＩＤが抜けていたので追加　古賀
                 baseShiftDto.setShiftIdOnTuesday  (rs.getString(M_base_shift.TUESDAY.getName()));           // 火曜日シフトＩＤ
                 baseShiftDto.setShiftIdOnWednesday(rs.getString(M_base_shift.WEDNESDAY.getName()));         // 水曜日シフトＩＤ
                 baseShiftDto.setShiftIdOnThursday (rs.getString(M_base_shift.THURSDAY.getName()));          // 木曜日シフトＩＤ
@@ -169,7 +170,7 @@ public class BaseShiftDao extends Dao {
             strSql.append("     ,saturday        = ? ");
             strSql.append("     ,sunday          = ? ");
             strSql.append("     ,updater_employee_id = ? ");
-            strSql.append("     ,update_datetime       = CURRENT_DATE ");
+            strSql.append("     ,update_datetime       = current_timestamp() "); //CURRENT_DATE をtimestampに変更　古賀
             strSql.append(" WHERE ");
             strSql.append("     employee_id   = ? ");
 
