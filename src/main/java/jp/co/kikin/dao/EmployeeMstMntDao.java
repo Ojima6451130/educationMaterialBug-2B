@@ -203,7 +203,20 @@ public class EmployeeMstMntDao extends Dao {
     public void deleteEmployeeMst(String employeeId) throws SQLException{
 
         try {
+        	//基本シフトマスタのデータ削除の追加　瀬口
+        	StringBuffer strSqlBaseShift = new StringBuffer();
+        	strSqlBaseShift.append("DELETE FROM ");
+        	strSqlBaseShift.append("m_base_shift ");
+        	strSqlBaseShift.append("WHERE ");
+        	strSqlBaseShift.append("employee_id = ? ");
+        	
+        	PreparedStatement psShift = connection.prepareStatement(strSqlBaseShift.toString());
 
+        	psShift.setString(1, employeeId);
+        	
+        	log.info(psShift);
+        	psShift.executeUpdate();
+        	
             StringBuffer strSql = new StringBuffer();
             strSql.append("DELETE FROM ");
             strSql.append("m_employee ");
