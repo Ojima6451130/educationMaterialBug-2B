@@ -212,11 +212,16 @@ errorbody {
 }
 .tableBody td, .tableBody th {
         padding: 0;
-        border: 1px solid black;
+        border: 1px solid black; 
 }
 
 .tableBody select{
-	max-width: 80%;/*40px→80%に変更（細井）*/
+	/*max-width: 80%;*//*40px→80%に変更（細井）*/
+	/*以下　selectボックスの表示修正　（久野）*/
+	max-width: 100%;
+    width: 35px;
+    height: 20px;
+    margin-bottom: 5px;
 }
 
 /*入力欄の周りの余白（細井）*/
