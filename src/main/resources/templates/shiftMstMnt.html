@@ -18,7 +18,7 @@
 
 		// 一覧のサイズ
 		// var listSize = <%= beanListSize %>;
-		var row = document.querySelectorAll('.list');
+		var row = document.querySelectorAll('.tableBody'); // クラス指定を.listから.tableBodyに修正　古賀
 		var listSize = row.length;
 
 		// 開始時間エラーメッセージ
@@ -64,33 +64,34 @@
 				breakTimeInput.style.backgroundColor = 'white';
 
 				// 時間チェック
-				if (!startTimeErrMsg) {
-					if (!checkTime(startTimeValue)) {
-						var strArr = [ '開始時間' ];
-						startTimeErrMsg = getMessage('E-MSG-000004', strArr);
-						startTimeInput.style.backgroundColor = 'red';
-					} else {
-						startTimeInput.style.backgroundColor = 'white';
-					}
+				// 各errMsgのif文を削除、入力欄すべてに背景色を適用するため　古賀
+			
+				if (!checkTime(startTimeValue)) {
+					var strArr = [ '開始時間' ];
+					startTimeErrMsg = getMessage('E-MSG-000004', strArr);
+					startTimeInput.style.backgroundColor = 'red';
+				} else {
+					startTimeInput.style.backgroundColor = 'white';
 				}
-				if (!endTimeErrMsg) {
-					if (!checkHalfWidthKana(endTimeValue)) {
-						var strArr = [ '終了時間' ];
-						endTimeErrMsg = getMessage('E-MSG-000006', strArr);
-						endTimeInput.style.backgroundColor = 'red';
-					} else {
-						endTimeInput.style.backgroundColor = 'white';
-					}
+			
+				// checkTimeメソッドを呼び出すように修正　古賀
+				if (!checkTime(endTimeValue)) {
+					var strArr = [ '終了時間' ];
+					endTimeErrMsg = getMessage('E-MSG-000004', strArr);　// エラーメッセージの指定を修正　古賀
+					endTimeInput.style.backgroundColor = 'red';
+				} else {
+					endTimeInput.style.backgroundColor = 'white';
 				}
-				if (!breakTimeErrMsg) {
-					if (!checkTime(breakTimeValue)) {
-						var strArr = [ '休憩時間' ];
-						breakTimeErrMsg = getMessage('E-MSG-000004', strArr);
-						breakTimeInput.style.backgroundColor = 'blue';
-					} else {
-						breakTimeInput.style.backgroundColor = 'white';
-					}
+			
+			
+				if (!checkTime(breakTimeValue)) {
+					var strArr = [ '休憩時間' ];
+					breakTimeErrMsg = getMessage('E-MSG-000004', strArr);
+					breakTimeInput.style.backgroundColor = 'red';　//backgroundColorをredに修正　古賀
+				} else {
+					breakTimeInput.style.backgroundColor = 'white';
 				}
+			
 
 				// from - to のチェック
 				if (!checkTimeCompare(startTimeValue, endTimeValue)) {
@@ -109,6 +110,7 @@
 				+ fromToErrMsg;
 
 		if (errorMsg) {
+			alert(errorMsg);　// alertを追加　古賀
 			// エラー
 			return false;
 		}
@@ -218,7 +220,8 @@
 					<td id="footRight">
 						<form action="/kikin/shiftMstMnt/regist" method="post">
 							<input value="新規登録" type="submit" class="smallButton"
-								name="regist" /> <input value="更新" form="update" type="submit"
+								name="regist" /> 
+								<input value="更新" form="update" type="submit"
 								class="smallButton" style="margin: 10px;"
 								onclick="return shiftMstMntUpdate()" />
 						</form>
