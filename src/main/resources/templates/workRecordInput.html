@@ -157,7 +157,7 @@
       </table>
     </div>
 
-    <div id="businessBody">
+    <div id="businessBody" style="text-align:center">
       <form action="/kikin/workRecordInput/search" method="post" th:object="${workRecordInputForm}">
         <label>表示年月：</label>
         <!-- 検索ボタンを削除しonchange="this.form.submit()"を追記(久野) -->
@@ -167,7 +167,7 @@
             th:selected="${entry.key == workRecordInputForm.yearMonth}" th:inline="text">[[${yearMonth}]>
           </option>
         </select>
-        <div style="float: right; width: 300px; text-align: center; box-sizing: border-box;">
+        <div style="display: inline; margin-left: 700px; box-sizing: border-box;">
           社員ID&nbsp;<span th:text="${loginUserDto.employeeId}"></span>
           ：社員名&nbsp;<span th:text="${loginUserDto.employeeName}"></span>
         </div>
