@@ -30,13 +30,15 @@
             </tr>
           </table>
         </div>
-        <div>
+        <div style="text-align: center;">
           <form id="searchForm" action="/kikin/workDateRequestCheck/search" method="post" th:object="${workDateRequestCheckForm}">
             <label>表示年月：</label>
             <!-- 以下select文にonchange="this.form.submit()"を実装　久野 -->
             <select th:name="yearMonth" id="yearMonth" style="width: 5%; color: black;"onchange="this.form.submit()">
                 <option th:each="yearMonth : ${yearMonthValues}" th:value="${yearMonth}" th:selected="${yearMonth} == *{yearMonth}" th:inline="text" inputmode="text">[[${yearMonth}]]</option>
             </select>
+            <a href="">前へ</a>
+            <a href="">次へ</a>
           </form>
         </div>
         <div id="businessBody">

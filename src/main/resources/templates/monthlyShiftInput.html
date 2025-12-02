@@ -51,6 +51,8 @@
             <option th:each="yearMonth : ${yearMonthValues}" th:value="${yearMonth}" th:selected="${yearMonth} == *{yearMonth}" th:inline="text" inputmode="text">[[${yearMonth}]]</option>
         </select>
       <!-- </form> -->
+      <a href="">前へ</a>
+      <a href="">次へ</a>
     </div>
     <div id="businessBody">
       <table class="daysTable" id="resize">
