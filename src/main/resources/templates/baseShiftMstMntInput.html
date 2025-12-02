@@ -5,7 +5,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="Expires" content="Thu, 01 Dec 1994 16:00:00 GMT">
-    <title>基本シフトマスタメンテナンス入力画面</title>
+    <title>基本登録画面</title>
     <link rel="stylesheet" media="all" th:href="@{/css/common.css}" />
     <script type="text/javascript" th:src="@{/js/common.js}"></script>
     <script type="text/javascript" th:src="@{/js/message.js}"></script>
@@ -74,7 +74,7 @@
 
                     </div>
                 </div>
-                <div id="data" style="width: max-content; margin-left:20px;  overflow:auto; float:left ">
+                <div id="data" style="width: max-content; margin-left:20px;float:left ">
                         <table class="tableHeader">
                             <tr>
                                 <td width="230px" align="center">
@@ -103,7 +103,7 @@
                                 </td>
                             </tr>
                         </table>
-                    <div style="height:450px; width: max-content;">
+                    <div style="height:450px; width: max-content;overflow-y: scroll; scrollbar-gutter: stable;">
                         <table class="tableBody">
                             <form id="registForm" class="baseShiftMstMntForm" action="/kikin/baseShiftInput/regist"
                                 method="post" th:object="${baseShiftMstMntForm}">

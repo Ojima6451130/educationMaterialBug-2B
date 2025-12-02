@@ -211,7 +211,7 @@
               </td>
             </tr>
           </thead>
-          <tbody class="tableBody" style="display: block; width: max-content; height: 400px;  scrollbar-gutter: stable;">
+          <tbody class="tableBody" style="display: block; width: max-content; height: 400px; overflow-y: scroll; scrollbar-gutter: stable;"><!-- scroll追加（細井）-->
             <tr style="background-color: #E0FFFF;" th:each="workRecordInput, iterStat : ${workRecordInputForm.workRecordInputList }" class="list">
               <td style="width: 70px; text-align: center; box-sizing: border-box;">
                 <span th:text="${workRecordInput.workDayDisp}"></span><!-- /spanを追記(久野) -->

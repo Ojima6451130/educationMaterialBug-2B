@@ -127,80 +127,72 @@
 		</div>
 		<div id="businessBody" style="overflow-x: hidden;">
 			<form id="mntform" action="/kikin/employeeMstMnt/update"
-				class="employeeMstMntForm" method="post"
-				th:object="${employeeMstMntForm}">
-				<div
-					style="overflow-y: scroll; overflow-x: hidden; height: 440px; margin: auto; width: 1030px; width: max-content;">
-					<div>
-						<table class="tableHeader">
-							<tr>
-								<td width="200px" align="center">社員ＩＤ</td>
-								<td width="200px" align="center">パスワード</td>
-								<td width="200px" align="center">社員名</td>
-								<td width="200px" align="center">社員名カナ</td>
-								<td width="100px" align="center">権限</td>
-								<td width="100px" align="center">削除</td>
-							</tr>
-							<tbody class="tableBody">
-								<tr
-									th:each="item, itemStat : ${employeeMstMntForm.employeeMstMntBeanList}"
-									class="employeeMntList">
-									<td style="width: 200px; text-align: center;"><span
-										th:text="*{employeeMstMntBeanList[__${itemStat.index}__].employeeId}"></span>
-										<input type="hidden"
-										th:field="*{employeeMstMntBeanList[__${itemStat.index}__].employeeId}"
-										th:id="'employeeId_' + ${itemStat.index}" size="20"
-										readonly="readonly" /></td>
-
-									<td style="width: 200px; text-align: center;"><input
-										type="text"
-										th:field="*{employeeMstMntBeanList[__${itemStat.index}__].password}"
-										th:id="'password_' + ${itemStat.index}" size="10"
-										maxlength="6" /></td>
-
-									<td style="width: 200px; text-align: center;"><input
-										type="text"
-										th:field="*{employeeMstMntBeanList[__${itemStat.index}__].employeeName}"
-										th:id="'employeeName_' + ${itemStat.index}" size="20"
-										maxlength="10" /></td>
-
-									<td style="width: 200px; text-align: center;"><input
-										type="text"
-										th:field="*{employeeMstMntBeanList[__${itemStat.index}__].employeeNameKana}"
-										th:id="'employeeNameKana_' + ${itemStat.index}" size="20"
-										maxlength="10" /></td>
-
-									<td style="width: 100px; text-align: center;">
-									<select
-										th:field="*{employeeMstMntBeanList[__${itemStat.index}__].AuthorityId}"
-										style="width: 100px;">
-											<option value="01" th:selected="${item.AuthorityId == '01'}">管理者</option>
-											<option value="02" th:selected="${item.AuthorityId == '02'}">一般</option>
-									</select></td>
-
-									<td style="width: 100px; text-align: center;"><input
-										type="checkbox"
-										th:field="*{employeeMstMntBeanList[__${itemStat.index}__].deleteFlg}" />
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<div id="footer">
-					<table>
-						<tr>
-							<td id="footLeft"></td>
-							<td id="footCenter"></td>
-							<td id="footRight"><input value="新規登録" name="button"
-								type="button" class="smallButton"
-								onclick="location.href='/kikin/employeeMstMnt/regist'" /> <input
-								value="更新" name="button" type="button" class="smallButton"
-								onclick="employeeMstMntUpdate()" /></td>
+				method="post" th:object="${employeeMstMntForm}">
+				<table class="overflowFixed">
+					<thead style="display: block; position: sticky;">
+						<tr class="tableHeader">
+							<td width="200px" align="center">社員ＩＤ</td>
+							<td width="200px" align="center">パスワード</td>
+							<td width="200px" align="center">社員名</td>
+							<td width="200px" align="center">社員名カナ</td>
+							<td width="100px" align="center">権限</td>
+							<td width="100px" align="center">削除</td>
 						</tr>
-					</table>
-				</div>
+					</thead>
+					<tbody class="tableBody"
+						style="display: block; overflow-x: hidden; overflow-y: scroll; height: 440px; scrollbar-gutter: stable;">
+						<tr
+							th:each="item, itemStat : ${employeeMstMntForm.employeeMstMntBeanList}"
+							class="employeeMntList">
+							<td style="width: 200px; text-align: center;"><span
+								th:text="*{employeeMstMntBeanList[__${itemStat.index}__].employeeId}"></span>
+								<input type="hidden"
+								th:field="*{employeeMstMntBeanList[__${itemStat.index}__].employeeId}"
+								th:id="'employeeId_' + ${itemStat.index}" size="20"
+								readonly="readonly" /></td>
+							<td style="width: 200px; text-align: center;"><input
+								type="text"
+								th:field="*{employeeMstMntBeanList[__${itemStat.index}__].password}"
+								th:id="'password_' + ${itemStat.index}" size="10" maxlength="6" /></td>
+							<td style="width: 200px; text-align: center;"><input
+								type="text"
+								th:field="*{employeeMstMntBeanList[__${itemStat.index}__].employeeName}"
+								th:id="'employeeName_' + ${itemStat.index}" size="20"
+								maxlength="10" /></td>
+							<td style="width: 200px; text-align: center;"><input
+								type="text"
+								th:field="*{employeeMstMntBeanList[__${itemStat.index}__].employeeNameKana}"
+								th:id="'employeeNameKana_' + ${itemStat.index}" size="20"
+								maxlength="10" /></td>
+							<td style="width: 100px; text-align: center;"><select
+								th:field="*{employeeMstMntBeanList[__${itemStat.index}__].AuthorityId}"
+								style="width: 100px;">
+									<option value="01" th:selected="${item.AuthorityId == '01'}">管理者</option>
+									<option value="02" th:selected="${item.AuthorityId == '02'}">一般</option>
+							</select></td>
+							<td style="width: 100px; text-align: center;"><input
+								type="checkbox"
+								th:field="*{employeeMstMntBeanList[__${itemStat.index}__].deleteFlg}" />
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</form>
+		</div>
+		<br>
+		<br>
+		<div id="footer">
+			<table>
+				<tr>
+					<td id="footLeft"></td>
+					<td id="footCenter"></td>
+					<td id="footRight"><input value="新規登録" name="button"
+						type="button" class="smallButton"
+						onclick="location.href='/kikin/employeeMstMnt/regist'" /> <input
+						value="更新" name="button" type="button" class="smallButton"
+						onclick="employeeMstMntUpdate()" /></td>
+				</tr>
+			</table>
 		</div>
 	</div>
 </body>
