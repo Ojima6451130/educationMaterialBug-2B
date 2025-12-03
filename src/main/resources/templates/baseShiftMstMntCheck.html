@@ -75,7 +75,7 @@
 
                 </div>
             </div>
-            <div id="data" style="width:max-content; margin-left:20px; overflow:auto; float:left">
+            <div id="data" style="width:max-content; margin-left:20px; float:left">
                 <div style="width: 580px;">
                     <table class="tableHeader">
                         <tr>
@@ -107,9 +107,9 @@
                         </tr>
                     </table>
                 </div>
-                <div style="height:450px;width: 580px">
+                <div style="height:450px;width: max-content;overflow-y: scroll; scrollbar-gutter: stable;">
+                <div style="width:580px">
                     <table class="tableBody">
-
                         <th:block th:each="employee, employeeStat : ${baseShiftMstMntForm.baseShiftMstMntBeanList}">
                             <tr>
                                 <input type="hidden"
@@ -193,7 +193,7 @@
                         </th:block>
                     </table>
                 </div>
-
+				</div>
             </div>
 
         </div>
