@@ -164,7 +164,7 @@ public class WorkDateRequestCheckController {
         //----------------------
         // 画面出勤希望データ取得
         //---------------------- 
-        // List<ResWorkDateRequestLogic> resWorkDateRequestLogics = workDateRequestLogic.getWorkDateRequestScreenData(workRequestCheckDtoList, dateBeanList);
+         List<ResWorkDateRequestLogic> resWorkDateRequestLogics = workDateRequestLogic.getWorkDateRequestScreenData(workRequestCheckDtoList, dateBeanList); // メソッド利用のためコメントアウトを外した　古賀
 
         //----------------
         // 画面への受渡し
@@ -173,6 +173,7 @@ public class WorkDateRequestCheckController {
         model.addAttribute("yearMonthValues", yearMonthValues);
         model.addAttribute("datebeanList", dateBeanList);
         model.addAttribute("workDateRequestCheckBeanList", workDateRequestCheckBeanList);
+        model.addAttribute("resWorkDateRequestLogics", resWorkDateRequestLogics); // modelにresWorkDateRequestLogicsを追加　古賀
         model.addAttribute("saturday", saturday);
         model.addAttribute("sunday", sunday);
         return "workDateRequestCheck";

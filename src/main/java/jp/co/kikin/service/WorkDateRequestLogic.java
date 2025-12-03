@@ -143,6 +143,7 @@ public class WorkDateRequestLogic {
         for (List<WorkDateRequestCheckDto> listWorkRequest : workRequestCheckDtoNestedList) {
             // 各社員の対象月画面データを格納
             ResWorkDateRequestLogic resWorkDateRequestLogic = new ResWorkDateRequestLogic();
+            
 
             if (listWorkRequest.size() < 2) {
                 // 対象年月の日数分データがない＝出勤希望登録未実施
@@ -162,6 +163,11 @@ public class WorkDateRequestLogic {
                         resWorkDateRequestLogic.setEmployeeId(listWorkRequest.get(0).getEmployeeId());
                         resWorkDateRequestLogic.setEmployeeName(listWorkRequest.get(0).getEmployeeName());
                     }
+                    // if文追加　古賀
+                    if (symbol.equals("")) {
+						symbol = "-";
+					}
+                    
                     this.setWorkRequestSymbols(indexDateNom, symbol, resWorkDateRequestLogic);
                     indexDateNom ++;
                 }

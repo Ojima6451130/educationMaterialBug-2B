@@ -65,41 +65,41 @@
               </tr>
             </thead>
             <tbody style="display: block; max-height: 400px; overflow-y: scroll;">
-              <tr th:each="workDateRequestCheck : ${workDateRequestCheckBeanList}" class="tableBody">
+              <tr th:each="workDateRequestCheck : ${resWorkDateRequestLogics}" class="tableBody"><!-- th:eachのlistを${resWorkDateRequestLogics} に変更　古賀 -->
                 <td class="tableBody" style="width: 150px; text-align: center;">
                   <span th:value="${workDateRequestCheck.employeeName}">[[${workDateRequestCheck.employeeName}]]</span>
                 </td>
-                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.symbol01}"></td>
-                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.symbol02}"></td>
-                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.symbol03}"></td>
-                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.symbol04}"></td>
-                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.symbol05}"></td>
-                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.symbol06}"></td>
-                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.symbol07}"></td>
-                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.symbol08}"></td>
-                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.symbol09}"></td>
-                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.symbol10}"></td>
-                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.symbol11}"></td>
-                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.symbol12}"></td>
-                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.symbol13}"></td>
-                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.symbol14}"></td>
-                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.symbol15}"></td>
-                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.symbol16}"></td>
-                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.symbol17}"></td>
-                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.symbol18}"></td>
-                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.symbol19}"></td>
-                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.symbol20}"></td>
-                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.symbol21}"></td>
-                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.symbol22}"></td>
-                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.symbol23}"></td>
-                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.symbol24}"></td>
-                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.symbol25}"></td>
-                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.symbol26}"></td>
-                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.symbol27}"></td>
-                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.symbol28}"></td>
-                <td th:if="${datebeanList.size() > 28}" class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.symbol29}"></td>
-                <td th:if="${datebeanList.size() > 29}" class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.symbol30}"></td>
-                <td th:if="${datebeanList.size() > 30}" class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.symbol31}"></td>
+                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.workRequest1}"></td><!-- objectが変わったため、呼び出す値をworkRequest1~31に変更　古賀 -->
+                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.workRequest2}"></td>
+                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.workRequest3}"></td>
+                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.workRequest4}"></td>
+                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.workRequest5}"></td>
+                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.workRequest6}"></td>
+                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.workRequest7}"></td>
+                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.workRequest8}"></td>
+                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.workRequest9}"></td>
+                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.workRequest10}"></td>
+                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.workRequest11}"></td>
+                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.workRequest12}"></td>
+                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.workRequest13}"></td>
+                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.workRequest14}"></td>
+                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.workRequest15}"></td>
+                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.workRequest16}"></td>
+                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.workRequest17}"></td>
+                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.workRequest18}"></td>
+                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.workRequest19}"></td>
+                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.workRequest20}"></td>
+                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.workRequest21}"></td>
+                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.workRequest22}"></td>
+                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.workRequest23}"></td>
+                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.workRequest24}"></td>
+                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.workRequest25}"></td>
+                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.workRequest26}"></td>
+                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.workRequest27}"></td>
+                <td class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.workRequest28}"></td>
+                <td th:if="${datebeanList.size() > 28}" class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.workRequest29}"></td>
+                <td th:if="${datebeanList.size() > 29}" class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.workRequest30}"></td>
+                <td th:if="${datebeanList.size() > 30}" class="tableBody" style="width: 40px; text-align: center;" th:text="${workDateRequestCheck.workRequest31}"></td>
               </tr>
             </tbody>
           </table>
