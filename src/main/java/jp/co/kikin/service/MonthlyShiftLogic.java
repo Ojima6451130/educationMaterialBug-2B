@@ -243,6 +243,9 @@ public class MonthlyShiftLogic {
     private Workbook makeMonthlyShiftExcel(Workbook workbook, Sheet sheet, List<String> dateList, List<String> weekDayList,
                                                 String yearMonth, List<MonthlyShiftCheckBean> monthlyShiftCheckBeanList) throws Exception{
 
+    	/*月別シフト確認を追記　長谷川 */
+    	replaceCellValue(sheet, "B1", "月別シフト確認");
+    	
         /* 対象年月を記入 */
         replaceCellValue(sheet, "P1", yearMonth);
 
