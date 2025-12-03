@@ -262,9 +262,10 @@ public class EmployeeMstMntDao extends Dao {
             strSql.append("authority_id, ");
             strSql.append("updater_employee_id, ");
             strSql.append("creator_employee_id, ");
+            strSql.append("update_datetime, ");
             strSql.append("creation_datetime) ");
             strSql.append("values (");
-            strSql.append("?,?,?,?,?,?,?,current_timestamp())");
+            strSql.append("?,?,?,?,?,?,?,current_timestamp(), current_timestamp())");
             
             PreparedStatement ps = connection.prepareStatement(strSql.toString());
 
