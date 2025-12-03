@@ -91,7 +91,7 @@ errorbody {
 * エラーページ ヘッダー、フッター共通定義
 */
 #errorHeader,#errorBusinessBody,#errorFooter {
-    width: 100%;
+    /* width: 100%; レイアウト調整のためコメントアウト*/
     margin: 0px;
     padding: 5px;
     background-color: #FFA4C6;
