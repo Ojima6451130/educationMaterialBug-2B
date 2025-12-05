@@ -83,7 +83,7 @@ public class MonthlyShiftCheckController {
 	public static final String SCREEN_PATH_SEARCH = "/monthlyShiftCheck/search";
 	/** 「印刷」押下時 */
 	public static final String SCREEN_PATH_PRINT = "/monthlyShiftCheck/print";
-	
+
 	/** 「ページ」押下時 */
 	public static final String SCREEN_PATH_DOPAGE = "/monthlyShiftCheck/dopage";
 
@@ -91,8 +91,8 @@ public class MonthlyShiftCheckController {
 
 	/** サービス機能名={@value} */
 	public static final String CONTENTS = "月別シフト確認画面";
-	
-	//1ページあたりの表示件数(細井追加)
+
+	// 1ページあたりの表示件数(細井追加)
 	private final int ROW = 16;
 
 	/**
@@ -124,17 +124,19 @@ public class MonthlyShiftCheckController {
 			BindingResult bindingResult, @PageableDefault(page = 0, size = ROW) Pageable pageable) throws Exception {
 		return view("init", request, model, form, bindingResult, pageable);
 	}
+
 	@RequestMapping(value = SCREEN_PATH_DOPAGE)
 	public String dopage(HttpServletRequest request, HttpSession session, Model model, MonthlyShiftCheckForm form,
 			BindingResult bindingResult, @PageableDefault(page = 0, size = ROW) Pageable pageable) throws Exception {
-		return view("init", request, model, form, bindingResult, pageable);
+		return view("page", request, model, form, bindingResult, pageable);
 	}
 
 	@RequestMapping(value = SCREEN_PATH_SEARCH)
 	public String search(HttpServletRequest request, HttpSession session, Model model, MonthlyShiftCheckForm form,
 			BindingResult bindingResult, @PageableDefault(page = 0, size = ROW) Pageable pageable) throws Exception {
-		return view("searchmth", request, model, form, bindingResult, pageable);
+		return view("search", request, model, form, bindingResult, pageable);
 	}
+
 	// 表示
 	private String view(String processType, HttpServletRequest request, Model model, MonthlyShiftCheckForm form,
 			BindingResult bindingResult, Pageable pageable) throws Exception {
@@ -170,9 +172,19 @@ public class MonthlyShiftCheckController {
 			String initYearMonth = CommonUtils.changeFormat(yearMonth, CommonConstant.YEARMONTH_NOSL,
 					CommonConstant.YEARMONTH);
 			form.setYearMonth(initYearMonth);
+
+			// ページ用にセッション属性に表示年月を設定(細井)
+			session.setAttribute("yearMonth", form.getYearMonth());
 		} else {
 			// 共通部品で対象年月の1ヶ月分の日付情報格納クラスのリストを取得する。
-			String searchYearMonth = form.getYearMonth();
+			String searchYearMonth = null;
+			if (processType == "search") {
+				searchYearMonth = form.getYearMonth();
+				// ページ用にセッション属性に表示年月を設定(細井)
+				session.setAttribute("yearMonth", form.getYearMonth());
+			} else {
+				searchYearMonth = (String) session.getAttribute("yearMonth");
+			}
 			yearMonth = CommonUtils.changeFormat(searchYearMonth, CommonConstant.YEARMONTH,
 					CommonConstant.YEARMONTH_NOSL);
 			dateBeanList = CommonUtils.getDateBeanList(yearMonth);
@@ -211,9 +223,9 @@ public class MonthlyShiftCheckController {
 			// データあり
 			monthlyShiftCheckBean = dtoToBean(monthlyShiftDtoMap, loginUserDto);
 		}
-	//ページング(細井)=============================================================================================
+		// ページング(細井)=============================================================================================
 		Page<MonthShift> p = page(pageable);
-		Page<MonthShift> page = new PageImpl<MonthShift>(p.getContent(),pageable,monthlyShiftCheckBean.size());
+		Page<MonthShift> page = new PageImpl<MonthShift>(p.getContent(), pageable, monthlyShiftCheckBean.size());
 		List<MonthlyShiftCheckBean> monthlyShiftCheckBeanNew = new ArrayList<MonthlyShiftCheckBean>();
 		// 表示しないデータを削除
 		String lstID = p.getContent().getLast().getEmployeeId();
@@ -224,27 +236,26 @@ public class MonthlyShiftCheckController {
 		while (iterator.hasNext()) {
 			MonthlyShiftCheckBean bean = iterator.next();
 			String id = bean.getEmployeeId();
-			
-			if(id.equals(firstID)) {
+
+			if (id.equals(firstID)) {
 				bF = true;
 			}
-			if(bF && !bL) {
+			if (bF && !bL) {
 				monthlyShiftCheckBeanNew.add(bean);
 			}
 			if (id.equals(lstID)) {
 				bL = true;
 			}
 		}
-		
-	//=============================================================================================
 
+		// =============================================================================================
 		// フォームにデータをセットする
 		// form.setShiftCmbMap(shiftCmbMap);
 		form.setYearMonthCmbMap(yearMonthCmbMap);
 		form.setMonthlyShiftCheckBeanList(monthlyShiftCheckBeanNew);
 		form.setDateBeanList(dateBeanList);
-		
-		model.addAttribute("Page",page);
+
+		model.addAttribute("Page", page);
 		model.addAttribute("MonthlyShiftCheckForm", form);
 		model.addAttribute("yearMonthValues", yearMonthValues);
 		model.addAttribute("monthlyShiftCheckBean", monthlyShiftCheckBeanNew);
