@@ -75,6 +75,7 @@ errorbody {
 	bottom: 1%;
 	height: 70px;
 	width: 100%;
+	 position: absolute;/*細井追加*/
 }
 
 #footLeft {
