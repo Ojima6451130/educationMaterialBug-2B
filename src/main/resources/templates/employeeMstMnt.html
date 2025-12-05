@@ -46,8 +46,8 @@
 		var row = document.querySelectorAll(".employeeMntList")
 		var listSize = row.length;
 
-		// パスワードエラーメッセージ
-		var passwordErrorMsg = '';
+		// パスワードエラーメッセージ 修正　久野
+		var newpasswordErrorMsg = '';
 		// 社員名エラーメッセージ　追記　長谷川
 		var employeeNameErrorMsg = '';
 		// 社員名カナエラーメッセージ
@@ -58,6 +58,14 @@
 			for (var i = 0; i < listSize; i++) {
 				// パスワードを取得する。
 				var password = document.getElementById('password_' + i).value;
+				
+				//パスワードが更新されていた場合の処理　追記　久野
+				 var newpassword = document.getElementById('newpassword_' + i).value;
+				    // newpassword が空でなく "●●●●●●" でなければ更新
+				    if (newpassword && newpassword !== "●●●●●●") {
+				        document.getElementById('password_' + i).value = newpassword;
+				    }
+				
 				// 社員名を取得する。　追記　長谷川
 				var employeeName = document.getElementById('employeeName_' + i).value;
 				// 社員名カナを取得する。
@@ -69,14 +77,15 @@
 				document.getElementById('employeeName_' + i).style.backgroundColor = 'white'; //追記　長谷川
 				document.getElementById('employeeNameKana_' + i).style.backgroundColor = 'white';
 
-				// パスワードチェック
-				if (!passwordErrorMsg) {
-					if (!checkRequired(password)) {
+				// パスワードチェック 修正(久野)
+				if (!newpasswordErrorMsg) {
+					if (!checkRequired(newpassword)) {
 						var strArr = [ 'パスワード' ];
-						passwordErrorMsg = getMessage('E-MSG-000001', strArr);
-						document.getElementById('password_' + i).style.backgroundColor = 'red';
+						newpasswordErrorMsg = getMessage('E-MSG-000001', strArr);
+						document.getElementById('newpassword_' + i).style.backgroundColor = 'red';
 					}
 				}
+
 				//　社員名チェック 追記　長谷川
 				if (!employeeNameErrorMsg) {
 					if (!checkRequired(employeeName)) {
@@ -102,14 +111,14 @@
 					}
 				}
 
-				if (passwordErrorMsg && employeeNameKanaErrorMsg) {
+				if (newpasswordErrorMsg && employeeNameKanaErrorMsg) {
 					// パスワード 、社員名カナが共にエラーの場合
 					break;
 				}
 			}
 		}
 		// エラーメッセージ
-		errorMsg = passwordErrorMsg + employeeNameErrorMsg + employeeNameKanaErrorMsg;// employeeNameErrorMsg追記　長谷川
+		errorMsg = newpasswordErrorMsg + employeeNameErrorMsg + employeeNameKanaErrorMsg;// employeeNameErrorMsg追記　長谷川
 
 		if (errorMsg) {
 			alert(errorMsg);
@@ -170,10 +179,13 @@
 								th:field="*{employeeMstMntBeanList[__${itemStat.index}__].employeeId}"
 								th:id="'employeeId_' + ${itemStat.index}" size="20"
 								readonly="readonly" /></td>
-							<td style="width: 200px; text-align: center;"><input
-								type="text"
+							<td style="width: 200px; text-align: center;">
+							<!-- パスワード処理　修正(久野) -->
+							<input type="hidden"
 								th:field="*{employeeMstMntBeanList[__${itemStat.index}__].password}"
-								th:id="'password_' + ${itemStat.index}" size="10" maxlength="6" /></td>
+								th:id="'password_' + ${itemStat.index}" size="10" maxlength="6" />
+								<input type="password" th:id="'newpassword_' + ${itemStat.index}" th:name="'newpassword_' + ${itemStat.index}" value="●●●●●●" />
+								</td>
 							<td style="width: 200px; text-align: center;"><input
 								type="text"
 								th:field="*{employeeMstMntBeanList[__${itemStat.index}__].employeeName}"
