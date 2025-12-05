@@ -117,7 +117,7 @@ public class WorkRecordInputController {
         WorkRecordLogic workRecordLogic = new WorkRecordLogic();
 
         // 勤務実績データの取得
-        Map<String, WorkRecordDto> workRecordMap = workRecordLogic.getWorkRecordShiftData(employeeId, yearMonth);
+        Map<String, WorkRecordDto> workRecordMap = workRecordLogic.getWorkRecordData(employeeId, yearMonth); //getWorkRecordShiftDataからgetWorkRecordDataに変更　瀬口
 
         // セレクトボックスの取得
         ComboListUtilLogic comboListUtils = new ComboListUtilLogic();
