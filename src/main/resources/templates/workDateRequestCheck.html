@@ -30,16 +30,36 @@
             </tr>
           </table>
         </div>
-        <div style="text-align: center;">
-          <form id="searchForm" action="/kikin/workDateRequestCheck/search" method="post" th:object="${workDateRequestCheckForm}">
+        <div class="header2" style="justify-content: center; align-items: center; width: auto;"><!-- 設計に合わせてスタイル調整　古賀 -->
+			<div class="header2Body" style="align-items: center;">
+          <form id="searchForm" action="/kikin/workDateRequestCheck/search" method="post" th:object="${workDateRequestCheckForm}" style="text-align: right;">
             <label>表示年月：</label>
             <!-- 以下select文にonchange="this.form.submit()"を実装　久野 -->
-            <select th:name="yearMonth" id="yearMonth" style="width: 5%; color: black;"onchange="this.form.submit()">
+            <select th:name="yearMonth" id="yearMonth" style="width: 20%; color: black;"onchange="this.form.submit()">
                 <option th:each="yearMonth : ${yearMonthValues}" th:value="${yearMonth}" th:selected="${yearMonth} == *{yearMonth}" th:inline="text" inputmode="text">[[${yearMonth}]]</option>
             </select>
+            <!-- aタグは利用しないためコメントアウト　古賀
             <a href="">前へ</a>
-            <a href="">次へ</a>
+            <a href="">次へ</a>  -->
           </form>
+          </div>
+     			<div class="pageSwitch header2Body" style="justify-content: left;"><!-- ページング要素追加　古賀 -->
+				<div>
+					<ul id="nav">
+						<li><span th:if="${Page.isFirst()}">前へ</span> <a
+							th:unless="${Page.isFirst()}"
+							th:href="@{/kikin/workDateRequestCheck/dopage(page = (${Page.getNumber() - 1}))}">前へ</a>
+						</li>
+						<li><span th:if="${Page.isLast()}">次へ</span> <a
+							th:unless="${Page.isLast()}"
+							th:href="@{/kikin/workDateRequestCheck/dopage(page = (${Page.getNumber() + 1}))}">次へ</a>
+						</li>
+					</ul>
+				</div>
+				<div>
+					<span th:text="|${Page.getNumber() + 1} / ${Page.getTotalPages()}|"></span>
+				</div>
+			</div>
         </div>
         <div id="businessBody">
           <table class="daysTable">
@@ -64,7 +84,7 @@
                 </td>
               </tr>
             </thead>
-            <tbody style="display: block; max-height: 400px; overflow-y: scroll;">
+            <tbody style="display: block; max-height: 100%;"> <!-- スクロール削除　古賀 -->
               <tr th:each="workDateRequestCheck : ${resWorkDateRequestLogics}" class="tableBody"><!-- th:eachのlistを${resWorkDateRequestLogics} に変更　古賀 -->
                 <td class="tableBody" style="width: 150px; text-align: center;">
                   <span th:value="${workDateRequestCheck.employeeName}">[[${workDateRequestCheck.employeeName}]]</span>
