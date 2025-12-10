@@ -6,6 +6,11 @@
  */
 package jp.co.kikin.controller;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -13,6 +18,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -36,9 +42,12 @@ import jp.co.kikin.dto.BaseShiftDto;
 import jp.co.kikin.dto.LoginUserDto;
 import jp.co.kikin.dto.MonthlyShiftDto;
 import jp.co.kikin.model.DateBean;
+import jp.co.kikin.model.MonthlyShiftCheckBean;
 import jp.co.kikin.model.MonthlyShiftInputBean;
 import jp.co.kikin.model.MonthlyShiftInputForm;
-import jp.co.kikin.model.WorkDateRequestInputBean;
+import jp.co.kikin.model.WorkDateRequestCheckForm;
+import jp.co.kikin.pentity.MonthShift;
+import jp.co.kikin.prepository.MonthShiftRepository;
 import jp.co.kikin.service.BaseShiftLogic;
 import jp.co.kikin.service.ComboListUtilLogic;
 import jp.co.kikin.service.CommonUtils;
@@ -58,6 +67,8 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping(value = "/kikin")
 public class MonthlyShiftInputController {
 
+    private final MonthlyShiftCheckController monthlyShiftCheckController;
+
     @Autowired
     CommonUtils util;
 
@@ -75,6 +86,9 @@ public class MonthlyShiftInputController {
 
     @Autowired
     CheckUtils checkUtils;
+    
+    @Autowired
+    MonthShiftRepository mr;
 
     /** 画面URL */
     public static final String SCREEN_PATH = "/monthlyShiftInput";
@@ -86,6 +100,12 @@ public class MonthlyShiftInputController {
     public static final String SCREEN_PATH_SUBMITIMPORTKIHON = "/monthlyShiftInput/submitImportKihon";
     /** 「出勤希望反映」押下時 */
     public static final String SCREEN_PATH_DATEREQUEST = "/monthlyShiftInput/dateRequest";
+    
+    /** 「前へ」「次へ」押下時 */
+    public static final String SCREEN_PATH_DOPAGE = "/monthlyShiftInput/dopage";
+    
+    //1ページあたりの表示件数追加（瀬口）
+    private final int ROW = 16;
 
     // public static final String SCREEN_PATH_PAGE =
     // "/monthlyShiftInput/monthlyShiftInputPage";
@@ -95,6 +115,10 @@ public class MonthlyShiftInputController {
     /** サービス機能名={@value} */
     public static final String CONTENTS = "月別シフト入力画面";
 
+    MonthlyShiftInputController(MonthlyShiftCheckController monthlyShiftCheckController) {
+        this.monthlyShiftCheckController = monthlyShiftCheckController;
+    }
+
     /**
      * Viewに共通URLを渡す.
      *
@@ -103,6 +127,12 @@ public class MonthlyShiftInputController {
     @ModelAttribute("path")
     public String getPath() {
         return PATH;
+    }
+    
+    //ページング用 瀬口追加
+    public Page<MonthShift> page(Pageable pageable){
+    	Page<MonthShift> pageList = mr.findAll(pageable);
+    	return pageList;
     }
 
     /**
@@ -115,9 +145,16 @@ public class MonthlyShiftInputController {
      */
     @RequestMapping(value = SCREEN_PATH)
     public String init(HttpServletRequest request, HttpSession session, Model model, MonthlyShiftInputForm form,
-            BindingResult bindingResult)
+            BindingResult bindingResult, @PageableDefault(page = 0, size = ROW)Pageable pageable)
             throws Exception {
-        return view("init", request, session, model, form, bindingResult);
+        return view("init", request, session, model, form, bindingResult, pageable);
+    }
+    
+    //doPage追加　瀬口
+    @RequestMapping(value = SCREEN_PATH_DOPAGE)
+    public String doPage(HttpServletRequest request, HttpSession session, Model model, MonthlyShiftInputForm form, 
+    		BindingResult result, @PageableDefault(page = 0, size = ROW) Pageable pageable) throws Exception {
+    	return view("page", request, session, model, form, result, pageable);
     }
 
     /**
@@ -130,14 +167,13 @@ public class MonthlyShiftInputController {
      */
     @RequestMapping(value = SCREEN_PATH_SEARCH)
     public String search(HttpServletRequest request, HttpSession session, Model model, MonthlyShiftInputForm form,
-            BindingResult bindingResult) throws Exception {
-        return view("search", request, session, model, form, bindingResult);
+            BindingResult bindingResult,@PageableDefault(page = 0, size = ROW) Pageable pageable) throws Exception {
+        return view("search", request, session, model, form, bindingResult, pageable);
     }
 
     // 表示
     private String view(String processType, HttpServletRequest request, HttpSession session, Model model,
-            MonthlyShiftInputForm form,
-            BindingResult bindingResult)
+            MonthlyShiftInputForm form,BindingResult bindingResult, Pageable pageable)
             throws Exception {
 
         // 対象年月日
@@ -170,9 +206,20 @@ public class MonthlyShiftInputController {
             String initYearMonth = CommonUtils.changeFormat(yearMonth, CommonConstant.YEARMONTH_NOSL,
                     CommonConstant.YEARMONTH);
             form.setYearMonth(initYearMonth);
+            
+            //ぺージングのためセッション追加　瀬口
+            session.setAttribute("yearMonth", form.getYearMonth());
         } else {
             // 共通部品で対象年月の1ヶ月分の日付情報格納クラスのリストを取得する。
-            String searchYearMonth = form.getYearMonth();
+        	//if文の追加　瀬口
+            String searchYearMonth = null;
+            if (processType == "search") {
+				searchYearMonth = form.getYearMonth();
+				// ページ
+				session.setAttribute("yearMonth", form.getYearMonth());
+			} else {
+				searchYearMonth = (String) session.getAttribute("yearMonth");
+			}
             yearMonth = CommonUtils.changeFormat(searchYearMonth, CommonConstant.YEARMONTH,
                     CommonConstant.YEARMONTH_NOSL);
             dateBeanList = CommonUtils.getDateBeanList(yearMonth);
@@ -217,10 +264,36 @@ public class MonthlyShiftInputController {
         }
 
         form.setMaxPage(CommonUtils.getMaxPage(monthlyShiftDtoMap.size(), 16));
+        
+        //ページング====================================================================================
+        Page<MonthShift> p = page(pageable);
+        Page<MonthShift> page = new PageImpl<MonthShift>(p.getContent(), pageable, monthlyShiftInputBean.size());
+        List<MonthlyShiftInputBean> monthlyShiftInputBeanNew = new ArrayList<MonthlyShiftInputBean>();
+        
+        String lstID = p.getContent().getLast().getEmployeeId();
+        String firstID = p.getContent().getFirst().getEmployeeId();
+        boolean bL = false;
+        boolean bF = false;
+        Iterator<MonthlyShiftInputBean> iterator = monthlyShiftInputBean.iterator();
+        while (iterator.hasNext()) {
+			MonthlyShiftInputBean bean = iterator.next();
+			String id = bean.getEmployeeId();
+			
+			if (id.equals(firstID)) {
+				bF = true;
+			}
+			if (bF && !bL) {
+				monthlyShiftInputBeanNew.add(bean);
+			}
+			if (id.equals(lstID)) {
+				bL = true;
+			}
+		}
 
         // フォームにデータをセットする
-        form.setShiftCmbMap(shiftCmbMap);
+        //form.setShiftCmbMap(shiftCmbMap);
         form.setYearMonthCmbMap(yearMonthCmbMap);
+        form.setMonthlyShiftInputBeanList(monthlyShiftInputBeanNew);
 
         // int offset = form.getOffset();
         // int limit = 16;
@@ -242,11 +315,12 @@ public class MonthlyShiftInputController {
         // 日曜日
         String sunday   = DayOfWeek.SUNDAY.getWeekdayShort();
 
+        model.addAttribute("Page",page);
         model.addAttribute("saturday", saturday);
         model.addAttribute("sunday", sunday);
         model.addAttribute("monthlyShiftInputForm", form);
         model.addAttribute("shiftCmbMap", shiftCmbMap);
-        model.addAttribute("monthlyShiftInputBean", monthlyShiftInputBean);
+        model.addAttribute("monthlyShiftInputBean", monthlyShiftInputBeanNew);
         model.addAttribute("yearMonthValues", yearMonthValues);
         model.addAttribute("monthlyShiftDtoMap", monthlyShiftDtoMap);
         model.addAttribute("dateBeanList", dateBeanList);
@@ -269,7 +343,7 @@ public class MonthlyShiftInputController {
      */
     @RequestMapping(value = SCREEN_PATH_REGIST)
     public String regist(HttpServletRequest request, HttpSession session, Model model,
-            MonthlyShiftInputForm form, BindingResult bindingResult) throws Exception {
+            MonthlyShiftInputForm form, BindingResult bindingResult, @PageableDefault(page = 0, size = ROW)Pageable pageable) throws Exception {
 
         // ログインユーザ情報をセッションより取得
         LoginUserDto loginUserDto = (LoginUserDto) session
@@ -308,7 +382,7 @@ public class MonthlyShiftInputController {
         // 登録・更新処理
         monthlyShiftLogic.registerMonthlyShift(monthlyShiftDtoNestedList, loginUserDto);
 
-        return view("regist", request, session, model, monthlyShiftForm, bindingResult);
+        return view("regist", request, session, model, monthlyShiftForm, bindingResult, pageable);
     }
 
     /**
@@ -321,7 +395,7 @@ public class MonthlyShiftInputController {
      */
     @RequestMapping(value = SCREEN_PATH_DATEREQUEST)
     public String dateRequest(HttpServletRequest request, HttpSession session, Model model,
-            MonthlyShiftInputForm form, BindingResult bindingResult) throws Exception {
+            MonthlyShiftInputForm form, BindingResult bindingResult, @PageableDefault(page = 0, size = ROW)Pageable pageable) throws Exception {
 
         // ログインユーザ情報をセッションより取得
         LoginUserDto loginUserDto = (LoginUserDto) session
@@ -378,7 +452,7 @@ public class MonthlyShiftInputController {
         // ページング用
         form.setMaxPage(CommonUtils.getMaxPage(monthlyShiftDtoMap.size(), 16));
 
-        return search(request, session, model, form, bindingResult);
+        return search(request, session, model, form, bindingResult, pageable);
     }
 
     /**
@@ -391,7 +465,7 @@ public class MonthlyShiftInputController {
      */
     @RequestMapping(value = SCREEN_PATH_SUBMITIMPORTKIHON)
     public String submitImportKihon(HttpServletRequest request, HttpSession session, Model model,
-            MonthlyShiftInputForm form, BindingResult bindingResult) throws Exception {
+            MonthlyShiftInputForm form, BindingResult bindingResult,@PageableDefault(page = 0, size = ROW) Pageable pageable) throws Exception {
 
         // ログインユーザ情報をセッションより取得
         LoginUserDto loginUserDto = (LoginUserDto) session
@@ -520,7 +594,7 @@ public class MonthlyShiftInputController {
         // ページング用
         form.setMaxPage(CommonUtils.getMaxPage(baseShiftDtoMap.size(), 16));
 
-        return search(request, session, model, form, bindingResult);
+        return search(request, session, model, form, bindingResult, pageable);
 
     }
 

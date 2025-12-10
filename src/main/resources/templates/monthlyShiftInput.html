@@ -43,17 +43,39 @@
         </tr>
       </table>
     </div>
-    <div style="text-align: center;">
-      <form id="searchForm" action="/kikin/monthlyShiftInput/search" method="post" th:object="${monthlyShiftInputForm}">
+    <div class="header2" style="justify-content: center; align-items: center; width: auto;">
+    	<div class="header2Body" style="align-items: center;">
+      <form id="searchForm" action="/kikin/monthlyShiftInput/search" method="post" th:object="${monthlyShiftInputForm}" style="text-align: right;">
         <label>表示年月：</label>
          <!-- 以下select文にonchange="this.form.submit()"を実装　久野 -->
-        <select name="yearMonth" id="yearMonth" style="width: 5%; color: black;"onchange="this.form.submit()">
+        <select name="yearMonth" id="yearMonth" style="width: 20%; color: black;"onchange="this.form.submit()">
             <option th:each="yearMonth : ${yearMonthValues}" th:value="${yearMonth}" th:selected="${yearMonth} == *{yearMonth}" th:inline="text" inputmode="text">[[${yearMonth}]]</option>
         </select>
-      <!-- </form> -->
-      <a href="">前へ</a>
-      <a href="">次へ</a>
+         <!-- aタグコメントアウト、以下ページング要素の追加　瀬口
+            <a href="">前へ</a>
+            <a href="">次へ</a>  -->
+            </form>
+            </div>
+     		 <div class="pageSwitch header2Body" style="justify-content: left;">
+				<div>
+					<ul id="nav">
+						<li><span th:if="${Page.isFirst()}">前</span> <a
+							th:unless="${Page.isFirst()}"
+							th:href="@{/kikin/monthlyShiftInput/dopage(page = (${Page.getNumber() - 1}))}">前</a>
+						</li>
+						<li><span th:if="${Page.isLast()}">後</span> <a
+							th:unless="${Page.isLast()}"
+							th:href="@{/kikin/monthlyShiftInput/dopage(page = (${Page.getNumber() + 1}))}">次</a>
+						</li>
+					</ul>
+				</div>
+				<div>
+					<span th:text="|${Page.getNumber() + 1} / ${Page.getTotalPages()}|"></span>
+				</div>
+			</div>
+      
     </div>
+    
     <div id="businessBody">
       <table class="daysTable" id="resize">
         <thead style="display: block; position: sticky;">
@@ -77,7 +99,7 @@
             </td>
           </tr>
         </thead>
-        <tbody style="display: block; max-height: 400px; overflow-y: scroll;">
+        <tbody style="display: block; max-height: 100%;"><!-- max-height: 400px;から100％へ overflow-y: scroll;を削除　瀬口 -->
           <tr th:each="monthlyShiftInput : ${monthlyShiftInputBean}" class="tableBody">
             <td class="tableBody" style="width: 150px; text-align: center;">
               <span th:text="${monthlyShiftInput.employeeName}"></span>
