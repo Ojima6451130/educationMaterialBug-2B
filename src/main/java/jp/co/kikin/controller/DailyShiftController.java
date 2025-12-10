@@ -9,6 +9,8 @@
 package jp.co.kikin.controller;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,7 +21,7 @@ import org.springframework.expression.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-
+import org.springframework.web.bind.annotation.PostMapping;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jp.co.kikin.CheckUtils;
@@ -58,9 +60,15 @@ public class DailyShiftController {
     public static final String SCREEN_PATH = "/dailyShift";
     /** 「検索」押下時 */
     public static final String SCREEN_PATH_SEARCH = "/dailyShift/search";
-
+    
     public static final String PATH = "/kikin";
-
+    
+    /** 「前日」押下時  */
+    public static final String SCREEN_PATH_PREV = "/dailyShift/prev";
+    
+    /** 「翌日」押下時  */
+    public static final String SCREEN_PATH_NEXT = "/dailyShift/next";
+    
     /** サービス機能名={@value} */
     public static final String CONTENTS = "日別シフト画面";
         /** 00:00 */
@@ -203,6 +211,47 @@ public class DailyShiftController {
         // model.addAttribute("yearMonthDay", yearMonthDay );
         return view("search", request, model, form, bindingResult,time);
     }
+    
+    //前日
+    @RequestMapping(SCREEN_PATH_PREV)
+    public String prev(HttpServletRequest request, HttpSession session, Model model, DailyShiftForm form,
+            BindingResult bindingResult, DailyShiftBean time)
+            throws Exception {
+    	 String current = form.getYearMonthDay();
+    	    LocalDate date = LocalDate.parse(current, DateTimeFormatter.ofPattern("yyyyMMdd"));
+    	    LocalDate prev = date.minusDays(1);
+
+    	    String prevStr = prev.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+    	    form.setYearMonthDay(prevStr);
+    	    // 必要なら表示用フォーマットもセット
+    	    String prevDisplay = CommonUtils.changeFormat(prevStr,
+                    CommonConstant.YEARMONTHDAY_NOSL,
+                    CommonConstant.YEARMONTHDAY);
+    	    		form.setYearMonthDayDisplay(prevDisplay);
+    	    
+    	    return view("search", request, model, form, bindingResult, time);
+    }
+    
+    //翌日
+    @RequestMapping(SCREEN_PATH_NEXT)
+    public String next(HttpServletRequest request, HttpSession session, Model model, DailyShiftForm form,
+            BindingResult bindingResult, DailyShiftBean time)
+            throws Exception {
+    	 String current = form.getYearMonthDay();
+    	    LocalDate date = LocalDate.parse(current, DateTimeFormatter.ofPattern("yyyyMMdd"));
+    	    LocalDate prev = date.plusDays(1);
+
+    	    String prevStr = prev.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+    	    form.setYearMonthDay(prevStr);
+    	    // 必要なら表示用フォーマットもセット
+    	    String prevDisplay = CommonUtils.changeFormat(prevStr,
+                    CommonConstant.YEARMONTHDAY_NOSL,
+                    CommonConstant.YEARMONTHDAY);
+    	    		form.setYearMonthDayDisplay(prevDisplay);
+    	    
+    	    return view("search", request, model, form, bindingResult, time);
+    }
+    
 
     // yyyy/MM/dd　→　yyyy―MM-dd
     private String dateFormat(String yearMonthDay)  throws Exception{
@@ -217,7 +266,8 @@ public class DailyShiftController {
             Date date = inputFormat.parse(yearMonthDay);
     
             // Dateオブジェクトを新しいフォーマットで文字列に変換
-            formattedDate = outputFormat.format(date);
+            //設計仕様を確認するとinputが正しい(久野)
+            formattedDate = inputFormat.format(date);
     
         } catch (ParseException e) {
             System.err.println("日付の形式が正しくありません: " + e.getMessage());
