@@ -447,24 +447,28 @@ errorbody {
 }
 .nav-menu{
 	list-style: none;
-	padding: 60px 0 0 0;
+	padding: 0;
 	margin: 0;
 	position: fixed;
 	top: 0;
 	right: 0;
 	background: #f2f2f2;
-	width: 250px;
-	height: 100vh;
+	width: 300px;
 	border-left: 1px solid #ccc;
 	z-index: 2000;
 	transform: translateX(100%);
 	transition: transform 0.3s ease;
-	
+	height: 100vh;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+.nav-menu.ul{
+	padding: 60px 0 20px 0;
 }
 .hamburger.active{
 	position: fixed;
 	top: 20px;
-	right: 260px;
+	right: 310px;
 	z-index: 2200;
 	background-color: #f2f2f2;
 	padding: 6px;
