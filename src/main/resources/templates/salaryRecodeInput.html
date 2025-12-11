@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Expires" content="Thu, 01 Dec 1994 16:00:00 GMT">
+<title>給料明細選択画面</title>
+<link rel="stylesheet" media="all" th:href="@{/css/common.css}" />
+<script type="text/javascript" th:src="@{/js/common.js}"></script>
+<script type="text/javascript" th:src="@{/js/message.js}"></script>
+<script type="text/javascript" th:src="@{/js/checkCommon.js}"></script>
+
+<style>
+    /* 全体中央寄せ */
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #555;
+    }
+
+    select {
+        width: 100%;
+        max-width: 300px;
+        padding: 8px 12px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        background-color: #fefefe;
+        font-size: 16px;
+        transition: all 0.2s ease;
+        cursor: pointer;
+    }
+
+</style>
+
+</head>
+<body>
+
+<div id="wrapper">
+    <div id="header">
+        <table class="full-width">
+            <tr>
+                <td id="headLeft">
+                    <form action="/kikin/menu" method="post">
+                        <input value="戻る" type="submit" class="smallButton" />
+                    </form>
+                </td>
+                <td id="headCenter">給料明細選択</td>
+                <td id="headRight">
+                    <input value="ログアウト" type="button" class="smallButton" onclick="logout()" />
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="businessBody">
+        <form action="/kikin/salaryRecodeOutput" method="post">
+            <div style="margin-bottom: 15px;">
+                <label for="postID">役職を選んでください</label>
+                <select name="postID" id="postID">
+                    <option th:each="entry : ${postList}" th:text="${entry.postName}" th:value="${entry.postID}"></option>
+                </select>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label for="yearMonth">表示年月</label>
+                <select name="yearMonth" id="yearMonth">
+                    <option th:each="entry : ${yearMonthCmbMap.entrySet()}" th:text="${entry.value}" th:value="${entry.key}"></option>
+                </select>
+            </div>
+            <input value="表示" type="submit" class="smallButton" />
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

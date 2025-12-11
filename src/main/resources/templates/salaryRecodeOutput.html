@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Expires" content="Thu, 01 Dec 1994 16:00:00 GMT">
+<title>給料明細</title>
+
+<link rel="stylesheet" media="all" th:href="@{/css/common.css}" />
+<script type="text/javascript" th:src="@{/js/common.js}"></script>
+<script type="text/javascript" th:src="@{/js/message.js}"></script>
+<script type="text/javascript" th:src="@{/js/checkCommon.js}"></script>
+
+<style>
+    .tableHeader {
+        border-collapse: collapse;
+        margin-bottom: 25px;
+    }
+
+    .tableHeader th, .tableHeader td {
+        padding: 10px 15px;
+        border: 1px solid #333;
+        text-align: center;
+        min-width: 120px;
+    }
+
+    .tableHeader th {
+        font-weight: bold;
+    }
+	
+	.tableHeader{
+		background-color: #ffffff;
+	}
+
+    #wrapper {
+        padding: 20px;
+    }
+
+    #businessBody {
+        margin-top: 20px;
+    }
+</style>
+
+</head>
+
+<body>
+<div id="wrapper">
+
+    <!-- ヘッダー部分 -->
+    <div id="header">
+        <table class="full-width">
+            <tr>
+                <td id="headLeft">
+                    <form action="/kikin/menu" method="post">
+                        <input value="戻る" type="submit" class="smallButton" />
+                    </form>
+                </td>
+                <td id="headCenter" th:text="${yearMonth} + ' 給料明細'"></td>
+                <td id="headRight">
+                    <input value="ログアウト" type="button" class="smallButton" onclick="logout()" />
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div>
+        <table >
+            <tr>
+                <th>ユーザID</th>
+                <th>ユーザ名</th>
+            </tr>
+            <tr>
+                <td><span th:text="${loginUserDto.employeeId}"></span></td>
+                <td><span th:text="${loginUserDto.employeeName}"></span></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- ▼ 給料情報 -->
+    <div>
+        <table class="tableHeader">
+            <tr>
+                <th>勤務日数</th>
+                <th>基本賃金</th>
+                <th>勤務時間</th>
+                <th>深夜勤務時間</th>
+                <th>時間外労働時間</th>
+                <th>特別手当</th>
+            </tr>
+            <tr>
+                <td><span th:text="${salaryDto.salaryRecodeEntity.workingday}"></span></td>
+                <td><span th:text="${#numbers.formatDecimal(bacePrice, 0, 'COMMA', 0, 'POINT')}"></span></td>
+                <td><span th:text="${salaryDto.salaryRecodeEntity.totalworkhours}"></span></td>
+                <td><span th:text="${salaryDto.salaryRecodeEntity.nighthours}"></span></td>
+                <td><span th:text="${salaryDto.salaryRecodeEntity.overtimehours}"></span></td>
+                <td><span th:text="${#numbers.formatDecimal(salaryDto.otherPrice, 0, 'COMMA', 0, 'POINT')}"></span></td>
+            </tr>
+        </table>
+
+        <!-- 支給額 -->
+        <div style="margin-top: 20px; font-size: 20px; font-weight: bold;">
+           支給額： <span th:text="${#numbers.formatDecimal(Salary, 0, 'COMMA', 0, 'POINT')}"></span>円
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

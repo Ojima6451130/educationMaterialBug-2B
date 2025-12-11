@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Expires" content="Thu, 01 Dec 1994 16:00:00 GMT">
+<title>エラー画面</title>
+<link rel="stylesheet" media="all" th:href="@{/css/common.css}" />
+<script type="text/javascript" th:src="@{/js/common.js}"></script>
+<script type="text/javascript" th:src="@{/js/message.js}"></script>
+<script type="text/javascript" th:src="@{/js/checkCommon.js}"></script>
+<body>
+	<div id="wrapper">
+		<div id="header">
+			<table class="full-width">
+				<tr>
+					<td id="headCenter">エラー画面</td>
+					<td id="headRight"><input value="ログアウト" type="button"
+						class="smallButton" onclick="logout()" /></td>
+				</tr>
+			</table>
+			<p>集計してください</p>
+		</div>
+	</div>
+</body>
+</html>

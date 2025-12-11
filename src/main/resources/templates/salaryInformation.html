@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Expires" content="Thu, 01 Dec 1994 16:00:00 GMT">
+<title>給料情報登録画面</title>
+<link rel="stylesheet" media="all" th:href="@{/css/common.css}" />
+<script type="text/javascript" th:src="@{/js/common.js}"></script>
+<script type="text/javascript" th:src="@{/js/message.js}"></script>
+<script type="text/javascript" th:src="@{/js/checkCommon.js}"></script>
+</head>
+<body>
+	<div id="wrapper">
+
+		<!-- ヘッダ -->
+		<div id="header">
+			<table class="full-width">
+				<tr>
+					<td id="headCenter">給料情報</td>
+					<td id="headRight"><input value="ログアウト" type="button"
+						class="smallButton" onclick="logout()" /></td>
+				</tr>
+			</table>
+		</div>
+
+		<!-- 給料情報一覧 -->
+		<div>
+			<table class="tableHeader">
+				<tr>
+					<th>役職</th>
+					<th>基本給</th>
+					<th>夜間/h</th>
+					<th>残業/h</th>
+					<th>特別手当</th>
+					<th>更新</th>
+					<th>削除</th>
+				</tr>
+
+				<!-- 更新可能な一覧 -->
+				<tr th:each="salaryInfo : ${salaryInfoList}">
+					<form th:action="@{/kikin/salaryInformation/update}" method="post">
+						<td><input type="text" name="postName"
+							th:value="${salaryInfo.postName}" readonly style="width: 100px;" />
+						</td>
+						<td><input type="number" name="basicSalary"
+							th:value="${salaryInfo.basicSalary}" style="width: 80px;" /></td>
+						<td><input type="number" name="nightPrice"
+							th:value="${salaryInfo.nightPrice}" style="width: 80px;" /></td>
+						<td><input type="number" name="overtimePrice"
+							th:value="${salaryInfo.overtimePrice}" style="width: 80px;" /></td>
+						<td><input type="number" name="otherPrice"
+							th:value="${salaryInfo.otherPrice}" style="width: 80px;" /></td>
+						<td><input type="submit" value="更新" /></td>
+						<td>
+							<form th:action="@{/kikin/salaryInformation/delete}"
+								method="post">
+								<input type="hidden" name="postName"
+									th:value="${salaryInfo.postName}" /> <input type="submit"
+									value="削除" />
+							</form>
+						</td>
+					</form>
+				</tr>
+
+				<!-- 新規登録 -->
+				<tr>
+					<form th:action="@{/kikin/salaryInformation/insert}" method="post">
+						<td><select name="postName" required style="width: 100px;">
+								<option th:each="postName : ${insertPostList}"
+									th:text="${postName}" th:value="${postName}"></option>
+						</select></td>
+						<td><input type="number" name="basicSalary" placeholder="0"
+							style="width: 80px;" /></td>
+						<td><input type="number" name="nightPrice" placeholder="0"
+							style="width: 80px;" /></td>
+						<td><input type="number" name="overtimePrice" placeholder="0"
+							style="width: 80px;" /></td>
+						<td><input type="number" name="otherPrice" placeholder="0"
+							style="width: 80px;" /></td>
+						<td colspan="2"><input type="submit" value="登録" /></td>
+					</form>
+				</tr>
+
+			</table>
+		</div>
+
+	</div>
+</body>
+</html>
