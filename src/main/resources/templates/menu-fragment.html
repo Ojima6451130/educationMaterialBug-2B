@@ -9,9 +9,10 @@
         <div class="nav-menu" id="navMenu">
            <div class="login-status">
            	<span th:text="${session.session_cmn_login_user_name} + 'さんでログイン中'"></span>
+           	<a href="/kikin/menu" class="icon-btn">🏠</a>
+           	<a href="/kikin/" class="icon-btn" onclick="return confirm('ログアウトしますか？')">🚪</a>
            </div>
            <ul>
-            <li><a href="/kikin/menu">メニューに戻る</a></li>
             <li><a href="/kikin/monthlyShiftCheck">月別シフト確認画面</a></li>
             <li><a href="/kikin/dailyShift">日別シフト確認画面</a></li>
             <li><a href="/kikin/workRecordInput">勤務実績入力画面</a></li>
@@ -39,7 +40,10 @@
             <li th:if="${session.session_cmn_login_user_authority_id == '01'}">
             	<a href="/kikin/baseShiftInput">基本シフト登録画面</a>
             </li>
-            <li><a href="/kikin/">ログアウト</a></li>
+            <li th:if="${session.session_cmn_login_user_authority_id == '01'}">
+            	<a href="/kikin/salaryInformation">給料情報</a>
+            </li>
+            <li><a href="/kikin/salaryRecodeInput">給料明細</a></li>
            </ul>
          </div>
       </div>

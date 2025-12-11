@@ -453,7 +453,7 @@ errorbody {
 	top: 0;
 	right: 0;
 	background: #f2f2f2;
-	width: 300px;
+	width: 250px;
 	border-left: 1px solid #ccc;
 	z-index: 2000;
 	transform: translateX(100%);
@@ -463,12 +463,14 @@ errorbody {
 	overflow-x: hidden;
 }
 .nav-menu.ul{
-	padding: 60px 0 20px 0;
+	padding-left: 10px !important;
+	padding-right: 0;
+	margin: 0;
 }
 .hamburger.active{
 	position: fixed;
 	top: 20px;
-	right: 310px;
+	right: 260px;
 	z-index: 2200;
 	background-color: #f2f2f2;
 	padding: 6px;
@@ -479,7 +481,8 @@ errorbody {
 }
 
 .nav-menu li{
-	padding: 15px;
+	padding: 10px 5px;
+	text-align: left;
 	border-bottom: 1px solid #eee;
 }
 .nav-menu li a{
@@ -495,13 +498,24 @@ errorbody {
 	padding-left: 28px;
 }
 .login-status{
-	padding: 20px 15px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 15px 15px;
 	background: #e9e9e9;
 	font-weight: bold;
-	border-bottom: 1px solid #ccc; 
+	border-bottom: 1px solid #ccc;
 }
 .login-status span{
 	font-size: 14px;
+}
+.login-icons{
+	display: flex;
+	gap: 10px;
+}
+.icon-btn{
+	font-size: 20px;
+	text-decoration: none;
 }
 
 #workRecordPage .tableAndSummary {
