@@ -499,3 +499,25 @@ errorbody {
 .login-status span{
 	font-size: 14px;
 }
+
+#workRecordPage .tableAndSummary {
+    width: max-content;   /* テーブルの実幅にピッタリ */
+    margin: 0 auto;       /* その全体を中央寄せ */
+    position: relative;   /* summaryBox の右寄せに対応 */
+}
+.workWrapper {
+    width: max-content;    
+    margin: 0 auto;        
+    text-align: right;     
+}
+.summaryBox {
+    display: inline-block;
+    background: #E0FFFF;
+    border: 3px solid #000;
+    border-radius: 5px;
+    padding: 0px 10px 0px 20px;
+    margin-top: 5px;
+    position: absolute;
+    right: 15%;  /* 右端に寄せる */
+    text-align: right;
+}

@@ -112,6 +112,45 @@
       document.getElementById("registForm").submit();
     }
 
+    
+    // 時:分 の文字列 → 分数（数値）に変換
+    function parseTimeToMinutes(timeStr) {
+      if (!timeStr) return 0;
+      const parts = timeStr.split(':');
+      if (parts.length !== 2) return 0;
+      const h = parseInt(parts[0], 10);
+      const m = parseInt(parts[1], 10);
+      if (isNaN(h) || isNaN(m)) return 0;
+      return h * 60 + m;
+    }
+
+ 	// 分数 → 時:分 表示文字列に変換
+    function formatMinutes(minutes) {
+      const h = Math.floor(minutes / 60);
+      const m = minutes % 60;
+      return h + ':' + (m < 10 ? '0' + m : m);
+    }
+  	//総就業時間と総残業時間の計算
+    function calcTotals() {
+      const rows = document.querySelectorAll('tbody.tableBody tr.list');
+      let totalWorkMin = 0;
+      let totalOverMin = 0;
+
+      rows.forEach(tr => {
+        const workSpan = tr.querySelector('td:nth-child(7) span');  // 実働時間列: 7番目の td の span を取得
+        const overSpan = tr.querySelector('td:nth-child(8) span');  // 残業時間列: 8番目の td の span
+        const workStr = workSpan ? workSpan.textContent.trim() : '';
+        const overStr = overSpan ? overSpan.textContent.trim() : '';
+
+        totalWorkMin += parseTimeToMinutes(workStr);
+        totalOverMin += parseTimeToMinutes(overStr);
+      });
+
+      document.getElementById('totalWorkTime').textContent = formatMinutes(totalWorkMin);
+      document.getElementById('totalOverTime').textContent = formatMinutes(totalOverMin);
+    }
+
+    window.addEventListener('load', calcTotals);
 
   </script>
 </head>
@@ -140,6 +179,7 @@
 <body>
   <div id="wrapper">
     <div id="header">
+    
       <table class="centered-container">
         <tr>
           <td id="headLeft">
@@ -177,6 +217,7 @@
 
     <div id="businessBody" style="justify-content: center; padding: 0;">
       <form action="/kikin/workRecordInput/regist" id="registForm" method="post" th:object="${workRecordInputForm}">
+        <div id="workRecordPage" class="tableAndSummary">
         <table class="overflowFixed">
           <thead class="tableHeader" style="display: block; position: sticky; top: 0; width: max-content;">
             <tr>
@@ -249,7 +290,6 @@
               <td style="width: 250px; text-align: center; box-sizing: border-box;">
                 <input type="text" th:field="*{WorkRecordInputList[__${iterStat.index}__].remark}"
                   style="width: 240px;" />
-              </td>
               <input type="hidden" th:field="*{WorkRecordInputList[__${iterStat.index}__].workDay}" />
               <input type="hidden" th:field="*{WorkRecordInputList[__${iterStat.index}__].employeeId}" />
 
@@ -262,10 +302,19 @@
               <input type="hidden" th:field="*{WorkRecordInputList[__${iterStat.index}__].actualWorkTime}" />
               <input type="hidden" th:field="*{WorkRecordInputList[__${iterStat.index}__].overTime}" />
               <input type="hidden" th:field="*{WorkRecordInputList[__${iterStat.index}__].holidayTime}" />
+              </td>
             </tr>
           </tbody>
         </table>
+        <div id="summaryBox" class="summaryBox">
+        	<span>総就業時間：</span>
+        	<span id="totalWorkTime">00:00</span>
+        	<span style="margin-left: 20px;">総残業時間：</span>
+        	<span id="totalOverTime">00:00</span>
+        </div>
+        </div>
        </form><!-- /formの位置を修正(久野) -->
+      </div>
       </div>
 
       <div id="footer">
@@ -282,10 +331,7 @@
             </td>
           </tr>
         </table>
-
     </div>
-
-  </div>
 </body>
 
 </html>
