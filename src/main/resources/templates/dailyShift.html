@@ -25,11 +25,12 @@
 					</td>
 					<td id="headCenter">日別シフト確認</td>
 					<td id="headRight">
-						<form action="/kikin/menu" method="post">
+						<!-- <form action="/kikin/menu" method="post"> -->
 							<!-- <form>を追記 -->
-							<input value="ログアウト" type="button" class="smallButton"
-								onclick="logout()" />
-						</form> <!-- </formを追記> -->
+							<!--<input value="ログアウト" type="button" class="smallButton"
+								onclick="logout()" />  -->
+						 <!-- </form></formを追記> ハンバーガーメニューのためコメントアウト　長谷川-->
+						 <div th:insert="menu-fragment :: hamburgerMenu"></div>
 					</td>
 				</tr>
 			</table>
