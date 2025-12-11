@@ -39,5 +39,11 @@ public class WorkRecordInputForm {
     /** ページング用 */
     private String paging;
 
+    /** 勤労日数*/
+    private Integer totalWorkingDays;
+    /** 総就業時間*/
+    private Integer totalWorkMinutes;
+    /** 総残業時間*/
+    private Integer totalOverMinutes;
 
 }
