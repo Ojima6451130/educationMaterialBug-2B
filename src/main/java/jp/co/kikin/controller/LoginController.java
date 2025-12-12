@@ -112,7 +112,7 @@ public class LoginController {
             model.addAttribute("userAuthority", CommonConstant.Authority.USER.getId());
             model.addAttribute("adminAuthority", CommonConstant.Authority.ADMIN.getId());
 
-            redirectUrl = "redirect:/kikin/menu";
+            redirectUrl = "redirect:/kikin/home";
         }
 
         return redirectUrl;
