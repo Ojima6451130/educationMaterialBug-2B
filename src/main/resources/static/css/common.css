@@ -2,7 +2,7 @@
 * body定義
 */
 body {
-	background-color: #66CCFF;
+	background-color: #e6f0ff;
 	overflow: hidden;
 	width: 100%;
 }
@@ -421,8 +421,7 @@ errorbody {
 	width: 30px;
 	cursor: pointer;
 	position: absolute;
-	right: 15px;
-	top: 15px;
+	right: 20px;
 	z-index: 2100;
 	background-color: #f2f2f2;
 	padding: 6px;

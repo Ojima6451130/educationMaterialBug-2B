@@ -1,0 +1,176 @@
+#leftArea {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 200px;
+	height: 100%;
+	color: #fff;
+	padding-top: 40px;
+	text-align: center;
+	font-family: "メイリオ", sans-serif;
+	z-index: 9999;
+	box-shadow: 3px 0 6px rgba(0, 0, 0, 0.4);
+	background-color: #0058ac;
+}
+
+/* ▼ 日付 */
+#today {
+	margin-bottom: 20px;
+	font-size: 1.2em;
+	box-shadow: 3px 0 6px rgba(0, 0, 0, 0.4); /*仮*/
+	border-radius: 20px;
+	width: 80%;
+	margin: 0 auto 20px auto;
+	text-align: center;
+	padding-left: 10px;
+}
+
+/* ▼ デジタル時刻 */
+#digitalTime {
+	margin-bottom: 5px;
+	font-size: 1.3em;
+	letter-spacing: 1px;
+}
+
+/* ▼ アナログ時計 */
+.clock {
+	width: 140px;
+	height: 140px;
+	border: 6px solid #fff;
+	border-radius: 50%;
+	margin: 0 auto;
+	position: relative;
+	background: #222;
+}
+
+.hand {
+	position: absolute;
+	bottom: 50%;
+	left: 50%;
+	transform-origin: bottom;
+	transform: translateX(-50%) rotate(0deg);
+	background: #fff;
+}
+
+.second-hand {
+	width: 2px;
+	height: 60px;
+	background: red;
+}
+
+.minute-hand {
+	width: 4px;
+	height: 52px;
+}
+
+.hour-hand {
+	width: 6px;
+	height: 38px;
+}
+
+.center-dot {
+	width: 12px;
+	height: 12px;
+	background: #fff;
+	border-radius: 50%;
+	position: absolute;
+	top: calc(50% - 6px);
+	left: calc(50% - 6px);
+}
+/* 写真 */
+#leftArea img {
+	width: 120px; /* 横幅を固定 */
+	height: auto; /* 縦は自動で比率を保持 */
+	display: block;
+	margin: 0 auto 20px auto; /* 上下の余白を調整して中央寄せ */
+	border-radius: 8px; /* 角丸（任意） */
+}
+
+/* ▼ メイン画面を右にずらす */
+#content {
+	display: flex;
+	flex-direction: column; /* 縦に並べる */
+	gap: 45px; /* 要素の間隔（調整可） */
+	padding: 20px;
+	margin-left: 220px;
+	margin-right: 20px;
+	margin-Top: 20px;
+	margin-bottom: 40px; /* ← 画面下に余白を作る */
+}
+
+/* ユーザ情報 */
+.userInfo {
+	padding: 10px; /* 内側の余白を少しつけると見やすい */
+	border-radius: 4px; /* 角を少し丸くする（お好みで） */
+	margin: 10px;
+	background-color: #e6f0ff;
+	height: 300px;
+}
+
+/* 日付時間情報 */
+.time {
+	position: absolute;
+	bottom: 50px; /* 下からの距離 */
+	width: 100%;
+	text-align: center; /* 中央寄せ */
+}
+
+/* グーグルフォント(時間) */
+.share-tech-regular {
+	font-family: "Share Tech", sans-serif;
+	font-weight: 400;
+	font-style: normal;
+}
+/*打刻 */
+.attendance {
+	height: 200px;
+	margin-top: 40px;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	gap: 20px; /* ボタンの間隔 */
+}
+
+.buttonDesign {
+	display: inline;
+	background-color: #fff;
+	border: solid 2px #191970;
+	color: #191970;
+	border-radius: 20px;
+	padding: 50px 150px;
+	text-decoration: none;
+	font-size: 1em;
+	box-shadow: 0 5px 0 #191970;
+	display: inline-block;
+	transition: .3s;
+	background-color: #fff;
+	font-size: 2em;
+}
+
+.buttonDesign:hover {
+	color: #191970;
+	transform: translateY(5px);
+	box-shadow: 0 0 0 #191970;
+}
+
+/*今日のシフト */
+.todayShift {
+	padding: 0 10px;
+	border: 3px solid #df6279;
+	height: 150px;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-top-right-radius: 30px;
+	border-bottom-right-radius: 30px;
+}
+
+/*お知らせ */
+.news {
+	padding: 0 10px; 
+	border: 3px solid #df6279;
+	height: 150px;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-top-right-radius: 30px;
+	border-bottom-right-radius: 30px;
+}

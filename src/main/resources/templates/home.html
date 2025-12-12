@@ -4,34 +4,125 @@
 <head>
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Cache-Control" content="no-cache">
-<meta http-equiv="Expires" content="Thu, 01 Dec 1994 16:00:00 GMT">
-<title>メニュー画面</title>
+<meta http equiv="Expires" content="Thu, 01 Dec 1994 16:00:00 GMT">
+<title>勤怠システム</title>
 <link rel="stylesheet" media="all" th:href="@{/css/common.css}" />
+<link rel="stylesheet" media="all" th:href="@{/css/home.css}" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Share+Tech&display=swap"
+	rel="stylesheet">
 <script type="text/javascript" th:src="@{/js/common.js}"></script>
 <script type="text/javascript" th:src="@{/js/message.js}"></script>
 <script>
-	function updateClock() {
-		const now = new Date();
-		const h = String(now.getHours()).padStart(2, '0');
-		const m = String(now.getMinutes()).padStart(2, '0');
-		const s = String(now.getSeconds()).padStart(2, '0');
-		document.getElementById('clock').textContent = `${h}:${m}:${s}`;
-	}
+document.addEventListener("DOMContentLoaded", function () {
 
-	// 1秒ごとに時計を更新
-	setInterval(updateClock, 1000);
+    // ▼ 日付（曜日付き）
+    function updateDate() {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = today.getMonth() + 1;
+        const day = today.getDate();
+        const week = ["日","月","火","水","木","金","土"];
+        const w = week[today.getDay()];
+        document.getElementById("today").textContent =
+            `${month}月${day}日（${w}）`;
+    }
 
-	// ページ表示時に1回実行
-	updateClock();
+    // ▼ デジタル時間（HH:mm:ss）
+    function updateDigitalTime() {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2, '0');
+        const m = String(now.getMinutes()).padStart(2, '0');
+        const s = String(now.getSeconds()).padStart(2, '0');
+        document.getElementById("digitalTime").textContent = `${h}:${m}:${s}`;
+    }
+
+    // ▼ アナログ時計
+    function updateAnalogClock() {
+        const now = new Date();
+        const seconds = now.getSeconds();
+        const minutes = now.getMinutes();
+        const hours = now.getHours();
+
+        const secondDeg = seconds * 6;
+        const minuteDeg = minutes * 6 + seconds * 0.1;
+        const hourDeg   = hours * 30 + minutes * 0.5;
+
+        document.querySelector('.second-hand').style.transform =
+            `translateX(-50%) rotate(${secondDeg}deg)`;
+        document.querySelector('.minute-hand').style.transform =
+            `translateX(-50%) rotate(${minuteDeg}deg)`;
+        document.querySelector('.hour-hand').style.transform =
+            `translateX(-50%) rotate(${hourDeg}deg)`;
+    }
+
+    // ▼ 初回実行
+    updateDate();
+    updateDigitalTime();
+    updateAnalogClock();
+
+    // ▼ 時計類を1秒ごとに更新
+    setInterval(() => {
+        updateDigitalTime();
+        updateAnalogClock();
+    }, 1000);
+});
 </script>
 </head>
-
 <body>
-	<div id="wrapper">
-		<div id="clock">--:--:--</div>
-		<div id="header"></div>
-		<div th:insert="menu-fragment :: hamburgerMenu"></div>
+	<!-- ▼ 左側固定エリア（ここに日付・時刻・アナログ時計） -->
+	<div id="leftArea">
+		<div class="userInfo">
+			<img th:src="@{/images/{employeeId}.png(employeeId=${employeeID})}"
+				alt="写真" />
+			<p
+				style="font-weight: bold; background-color: #0058ac; border-radius: 20px;">
+				<span th:text="${employeeName + '(ID:' + employeeID + ')'	}"></span>
+			</p>
+		</div>
+		<div class="time">
+			<div class="share-tech-regular" id="today">--月--日（-）</div>
+			<div class="share-tech-regular" id="digitalTime">--:--:--</div>
+			<div class="clock">
+				<div class="hand hour-hand"></div>
+				<div class="hand minute-hand"></div>
+				<div class="hand second-hand"></div>
+				<div class="center-dot"></div>
+			</div>
+		</div>
 	</div>
+
+	<!-- ▼ ハンバーガメニュー -->
+	<div th:insert="menu-fragment :: hamburgerMenu"></div>
+	
+	<!-- ▼ メイン画面 -->
+	<div id="content">
+
+		<!-- ▼ 打刻 -->
+		<div class="attendance">
+			<form th:action="@{#}" method="post">
+				<button type="submit" name="actionType" value="start"
+					class="buttonDesign">出勤</button>
+			</form>
+			<form th:action="@{#}" method="post">
+				<button type="submit" name="actionType" value="end"
+					class="buttonDesign">退勤</button>
+			</form>
+		</div>
+		<!-- ▼ シフト -->
+		<div class="todayShift">
+			<p>■今日のシフト</p>
+			<p>内容</p>
+		</div>
+		<!-- ▼ お知らせ -->
+		<div class="news">
+			<p>■お知らせ</p>
+			<p>内容</p>
+		</div>
+	</div>
+
 </body>
 
 </html>
