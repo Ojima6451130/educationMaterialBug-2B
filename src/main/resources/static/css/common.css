@@ -413,128 +413,156 @@ errorbody {
 #nav{
 	margin: 0;
 }
-/*ハンバーガーメニューのstyle　長谷川*/
-.hamburger-wrapper{
-	position: relative;
-}
-.hamburger{
-	width: 30px;
-	cursor: pointer;
-	position: absolute;
-	right: 20px;
-	z-index: 2100;
-	background-color: #f2f2f2;
-	padding: 6px;
-	border-radius: 6px;
-	transition: top 0.3s ease, right 0.3s ease, transform 0.4s ease;
-}
-.hamburger span{
-	display: block;
-	height: 3px;
-	background: #333;
-	margin: 6px 0;
-	transition: 0.4s;
-}
-.hamburger.active span:nth-child(1){
-	transform: translateY(9px) rotate(45deg);
-}
-.hamburger.active span:nth-child(2){
-	opacity: 0;
-}
-.hamburger.active span:nth-child(3){
-	transform: translateY(-9px) rotate(-45deg);
-}
-.nav-menu{
-	list-style: none;
-	padding: 0;
-	margin: 0;
-	position: fixed;
-	top: 0;
-	right: 0;
-	background: #f2f2f2;
-	width: 250px;
-	border-left: 1px solid #ccc;
-	z-index: 2000;
-	transform: translateX(100%);
-	transition: transform 0.3s ease;
-	height: 100vh;
-	overflow-y: auto;
-	overflow-x: hidden;
-}
-.nav-menu.ul{
-	padding-left: 10px !important;
-	padding-right: 0;
-	margin: 0;
-}
-.hamburger.active{
-	position: fixed;
-	top: 20px;
-	right: 260px;
-	z-index: 2200;
-	background-color: #f2f2f2;
-	padding: 6px;
-	border-radius: 6px;
-}
-.nav-menu.active{
-	transform: translateX(0);
+/* --------------------------------------
+  ハンバーガーメニュー全体
+--------------------------------------- */
+#hamburger {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    z-index: 2000;
 }
 
-.nav-menu li{
-	padding: 10px 5px;
-	text-align: left;
-	border-bottom: 1px solid #eee;
-}
-.nav-menu li a{
-	display: block;
-	padding: 12px 20px;
-	text-decoration: none;
-	color: #333;
-	font-size: 14px;
-	transition: background 0.3s ease, padding-left 0.3s ease;
-}
-.nav-menu li a:hover{
-	background: #e0e0e0;
-	padding-left: 28px;
-}
-.login-status{
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 15px 15px;
-	background: #e9e9e9;
-	font-weight: bold;
-	border-bottom: 1px solid #ccc;
-}
-.login-status span{
-	font-size: 14px;
-}
-.login-icons{
-	display: flex;
-	gap: 10px;
-}
-.icon-btn{
-	font-size: 20px;
-	text-decoration: none;
+/* クリック領域 */
+#hamburger .open {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
 }
 
-#workRecordPage .tableAndSummary {
-    width: max-content;   /* テーブルの実幅にピッタリ */
-    margin: 0 auto;       /* その全体を中央寄せ */
-    position: relative;   /* summaryBox の右寄せに対応 */
-}
-.workWrapper {
-    width: max-content;    
-    margin: 0 auto;        
-    text-align: right;     
-}
-.summaryBox {
-    display: inline-block;
-    background: #E0FFFF;
-    border: 3px solid #000;
-    border-radius: 5px;
-    padding: 0px 10px 0px 20px;
-    margin-top: 5px;
+#hamburger .open span {
     position: absolute;
-    right: 15%;  /* 右端に寄せる */
+    right: 5px;
+    width: 40px;
+    height: 4px;
+    background: #fff;
+    border-radius: 40px;
+    transition: all .4s ease;
+}
+
+/* 3本線の位置 */
+#hamburger .open span:nth-child(1) { top: 10px; }
+#hamburger .open span:nth-child(2) { top: 23px; }
+#hamburger .open span:nth-child(3) { top: 36px; }
+
+/* --------------------------------------
+  メニュー（閉じているとき）
+--------------------------------------- */
+#hamburger .sub-menu {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    background: rgba(38, 84, 133, 0.54);
+    border-radius: 50%;
+    transition: all .8s cubic-bezier(0.68,-0.55,0.265,1.55);
+    z-index: 1500;
+}
+
+/* 項目の土台（右寄せ） */
+#hamburger .sub-menu ul {
+    padding-right: 60px;
+    padding-top: 230px;
+}
+
+#hamburger .sub-menu li {
+    display: block;
+    margin-right: -200px; /* ← 閉じているとき画面外へ */
+    transition: all .5s cubic-bezier(0.68,-0.55,0.265,1.55);
+}
+
+/* 遅延アニメーション */
+#hamburger .sub-menu li:nth-child(1) { transition-delay: .05s; }
+#hamburger .sub-menu li:nth-child(2) { transition-delay: .10s; }
+#hamburger .sub-menu li:nth-child(3) { transition-delay: .15s; }
+#hamburger .sub-menu li:nth-child(4) { transition-delay: .20s; }
+#hamburger .sub-menu li:nth-child(5) { transition-delay: .25s; }
+
+/* --------------------------------------
+  開いた状態
+--------------------------------------- */
+#hamburger.oppenned .sub-menu {
+    width: 500px;
+    height: 680px;
+    right: -100px;
+    top: -150px;
+}
+
+/* ×印（1本目） */
+#hamburger.oppenned .open span:nth-child(1) {
+    transform: rotate(45deg) translateY(12px) translateX(12px);
+}
+
+/* 真ん中の巨大円（2本目） */
+#hamburger.oppenned .open span:nth-child(2) {
+    width: 500px;
+    height: 680px;
+    right: -80px;
+    top: -130px;
+    border-radius: 50%;
+    background: rgba(38, 84, 133, 0.54);
+}
+
+/* ×印（3本目） */
+#hamburger.oppenned .open span:nth-child(3) {
+    transform: rotate(-45deg) translateY(-10px) translateX(10px);
+}
+
+/* メニュー項目 スライドイン */
+#hamburger.oppenned .sub-menu li {
+    margin-right: 100px;
+}
+
+/* メニュー文字 */
+#hamburger .sub-menu a {
+    display: block;
+    padding: 6px 0;
+    font-size: 18px;
     text-align: right;
+    color: #ffffff;
+}
+
+/* --------------------------------------
+  ログインステータス（右上に寄せる）
+--------------------------------------- */
+#hamburger .login-status {
+    position: absolute;
+    top: 200px;
+    right: 140px; /* ← ハンバーガーの左側に表示させる距離 */
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    color: #fff;
+    white-space: nowrap; /* ← テキスト折り返し防止 */
+}
+
+/* 文字 */
+#hamburger .login-status span {
+    font-size: 18px;
+    color: #fff;
+}
+
+/* アイコン */
+#hamburger .login-status .icon-btn {
+    font-size: 20px;
+    text-decoration: none;
+    padding: 4px;
+    color: #fff;
+}
+.sub-menu a {
+    transition: 
+        transform 0.25s ease,
+        background-color 0.25s ease,
+        color 0.25s ease,
+        font-size 0.25s ease;
+}
+
+.sub-menu a:hover {
+    background-color: #b673ac;
+    transform: translateX(-10px) scale(1.05); /* ← 左へ + 少し拡大 */
+    color: black;
+    font-size: 1.05em; /* ← 1.2 は大きすぎるので自然に */
 }

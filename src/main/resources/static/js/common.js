@@ -30,17 +30,27 @@ function doSubmit(action) {
 }
 
 //ハンバーガーメニューのｊｓ
-document.addEventListener("DOMContentLoaded", () =>{
-	const hamburger = document.getElementById("hamburger");
-	const navMenu = document.getElementById("navMenu");
-		
-	if(!hamburger || !navMenu){
-		return;
-	}
-	
-	hamburger.addEventListener("click",()=>{
-	  		navMenu.classList.toggle("active");
-	  		hamburger.classList.toggle("active");
-	  	});
-	
+// ハンバーガーメニュー開閉
+document.addEventListener("DOMContentLoaded", () => {
+
+    const hamburger = document.getElementById("hamburger");
+
+    hamburger.addEventListener("click", (e) => {
+        e.stopPropagation();
+        hamburger.classList.toggle("oppenned");
+    });
+
+    // メニュー外をクリックしたら閉じる
+    document.body.addEventListener("click", () => {
+        hamburger.classList.remove("oppenned");
+    });
+
+    // × 部分のクリックも閉じる
+    document.querySelectorAll("#hamburger .cls").forEach(c => {
+        c.addEventListener("click", (e) => {
+            hamburger.classList.remove("oppenned");
+            e.stopPropagation();
+        });
+    });
 });
+

@@ -15,9 +15,7 @@
 
 /* ▼ 日付 */
 #today {
-	margin-bottom: 20px;
-	font-size: 1.2em;
-	box-shadow: 3px 0 6px rgba(0, 0, 0, 0.4); /*仮*/
+	font-size: 1.5em;
 	border-radius: 20px;
 	width: 80%;
 	margin: 0 auto 20px auto;
@@ -82,8 +80,10 @@
 	width: 120px; /* 横幅を固定 */
 	height: auto; /* 縦は自動で比率を保持 */
 	display: block;
-	margin: 0 auto 20px auto; /* 上下の余白を調整して中央寄せ */
+	margin: 10px auto 15px auto; /* 上下の余白を調整して中央寄せ */
 	border-radius: 8px; /* 角丸（任意） */
+	background-color: #0058ac;
+	padding: 5px 20px 0 20px;
 }
 
 /* ▼ メイン画面を右にずらす */
@@ -104,7 +104,16 @@
 	border-radius: 4px; /* 角を少し丸くする（お好みで） */
 	margin: 10px;
 	background-color: #e6f0ff;
-	height: 300px;
+	height: 180px;
+	margin: 10px;
+}
+
+.user {
+	font-weight: bold;
+	background-color: #0058ac;
+	border-radius: 20px;
+	border: 3px solid #e6f0ff;
+	padding: 5px;
 }
 
 /* 日付時間情報 */
@@ -113,6 +122,7 @@
 	bottom: 50px; /* 下からの距離 */
 	width: 100%;
 	text-align: center; /* 中央寄せ */
+	height:300px;
 }
 
 /* グーグルフォント(時間) */
@@ -134,13 +144,13 @@
 .buttonDesign {
 	display: inline;
 	background-color: #fff;
-	border: solid 2px #191970;
+	border: solid 2px #0058ac;
 	color: #191970;
 	border-radius: 20px;
 	padding: 50px 150px;
 	text-decoration: none;
 	font-size: 1em;
-	box-shadow: 0 5px 0 #191970;
+	box-shadow: 0 5px 0 #67a19d;
 	display: inline-block;
 	transition: .3s;
 	background-color: #fff;
@@ -156,7 +166,7 @@
 /*今日のシフト */
 .todayShift {
 	padding: 0 10px;
-	border: 3px solid #df6279;
+	border: 3px solid #67a19d;
 	height: 150px;
 	border-top-left-radius: 5px;
 	border-bottom-left-radius: 5px;
@@ -166,8 +176,8 @@
 
 /*お知らせ */
 .news {
-	padding: 0 10px; 
-	border: 3px solid #df6279;
+	padding: 0 10px;
+	border: 3px solid #67a19d;
 	height: 150px;
 	border-top-left-radius: 5px;
 	border-bottom-left-radius: 5px;
