@@ -1,51 +1,67 @@
 <div th:fragment="hamburgerMenu">
 	<nav class="navbar">
-      <div class="hamburger-wrapper">
-        <div class="hamburger" id="hamburger">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <div class="nav-menu" id="navMenu">
-           <div class="login-status">
-           	<span th:text="${session.session_cmn_login_user_name} + 'さんでログイン中'"></span>
-           	<a href="/kikin/home" class="icon-btn">🏠</a>
-           	<a href="/kikin/" class="icon-btn" onclick="return confirm('ログアウトしますか？')">🚪</a>
-           </div>
-           <ul>
-            <li><a href="/kikin/monthlyShiftCheck">月別シフト確認画面</a></li>
-            <li><a href="/kikin/dailyShift">日別シフト確認画面</a></li>
-            <li><a href="/kikin/workRecordInput">勤務実績入力画面</a></li>
-            <li th:if="${session.session_cmn_login_user_authority_id == '02'}">
-            	<a href="/kikin/workDateRequestInput">出勤希望日入力画面</a>
-            </li>
-            <li th:if="${session.session_cmn_login_user_authority_id == '02'}">
-            	<a href="/kikin/BaseShiftCheck">基本シフト確認画面</a>
-            </li>
-            <li th:if="${session.session_cmn_login_user_authority_id == '01'}">
-            	<a href="/kikin/workRecordCheck">勤務実績確認画面</a>
-            </li>
-            <li th:if="${session.session_cmn_login_user_authority_id == '01'}">
-            	<a href="/kikin/workDateRequestCheck">出勤希望日確認画面</a>
-            </li>
-            <li　th:if="${session.session_cmn_login_user_authority_id == '01'}">
-            	<a href="/kikin/monthlyShiftInput">月別シフト入力画面</a>
-            </li>
-            <li　th:if="${session.session_cmn_login_user_authority_id == '01'}">
-            	<a href="/kikin/shiftMstMnt">シフトマスタメンテナンス画面</a>
-            </li>
-            <li　th:if="${session.session_cmn_login_user_authority_id == '01'}">
-            	<a href="/kikin/employeeMstMnt">社員マスタメンテナンス画面</a>
-            </li>
-            <li th:if="${session.session_cmn_login_user_authority_id == '01'}">
-            	<a href="/kikin/baseShiftInput">基本シフト登録画面</a>
-            </li>
-            <li th:if="${session.session_cmn_login_user_authority_id == '01'}">
-            	<a href="/kikin/salaryInformation">給料情報</a>
-            </li>
-            <li><a href="/kikin/salaryRecodeInput">給料明細</a></li>
-           </ul>
-         </div>
-      </div>
-    </nav>
+
+		<div id="hamburger">
+
+			<!-- ハンバーガーアイコン -->
+			<div class="open">
+				<span class="cls"></span>
+				<span class="cls"></span>
+				<span class="cls"></span>
+			</div>
+
+			<!-- ▼ メニュー本体（円の中） -->
+			<div class="sub-menu">
+
+				<!-- ▼ ログイン中・ホーム・ログアウト（横並び） -->
+				<div class="login-status">
+					<span th:text="${session.session_cmn_login_user_name} + ' さんでログイン中'"></span>
+
+					<a href="/kikin/home" class="icon-btn">🏠</a>
+					<a href="/kikin/" class="icon-btn" onclick="return confirm('ログアウトしますか？')">🚪</a>
+				</div>
+
+				<!-- ▼ メニュー一覧 -->
+				<ul>
+					<li><a href="/kikin/monthlyShiftCheck">月別シフト確認画面</a></li>
+					<li><a href="/kikin/dailyShift">日別シフト確認画面</a></li>
+					<li><a href="/kikin/workRecordInput">勤務実績入力画面</a></li>
+
+					<li th:if="${session.session_cmn_login_user_authority_id == '02'}">
+						<a href="/kikin/workDateRequestInput">出勤希望日入力画面</a>
+					</li>
+					<li th:if="${session.session_cmn_login_user_authority_id == '02'}">
+						<a href="/kikin/BaseShiftCheck">基本シフト確認画面</a>
+					</li>
+
+					<li th:if="${session.session_cmn_login_user_authority_id == '01'}">
+						<a href="/kikin/workRecordCheck">勤務実績確認画面</a>
+					</li>
+					<li th:if="${session.session_cmn_login_user_authority_id == '01'}">
+						<a href="/kikin/workDateRequestCheck">出勤希望日確認画面</a>
+					</li>
+					<li th:if="${session.session_cmn_login_user_authority_id == '01'}">
+						<a href="/kikin/monthlyShiftInput">月別シフト入力画面</a>
+					</li>
+					<li th:if="${session.session_cmn_login_user_authority_id == '01'}">
+						<a href="/kikin/shiftMstMnt">シフトマスタメンテナンス画面</a>
+					</li>
+					<li th:if="${session.session_cmn_login_user_authority_id == '01'}">
+						<a href="/kikin/employeeMstMnt">社員マスタメンテナンス画面</a>
+					</li>
+					<li th:if="${session.session_cmn_login_user_authority_id == '01'}">
+						<a href="/kikin/baseShiftInput">基本シフト登録画面</a>
+					</li>
+					<li th:if="${session.session_cmn_login_user_authority_id == '01'}">
+						<a href="/kikin/salaryInformation">給料情報</a>
+					</li>
+
+					<li><a href="/kikin/salaryRecodeInput">給料明細</a></li>
+
+				</ul>
+			</div>
+		</div>
+
+	</nav>
 </div>
+	
