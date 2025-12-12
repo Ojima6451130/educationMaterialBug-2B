@@ -130,74 +130,115 @@
       const m = minutes % 60;
       return h + ':' + (m < 10 ? '0' + m : m);
     }
+  	
+  //夜勤計算（0時以降の時間を正しく扱う）
+    function calcNightMinutes(startMin, endMin) {
+  	  if (isNaN(startMin) || isNaN(endMin) || startMin === endMin) return 0;
 
- // 1行分の実働時間と残業時間を計算
-    function calcRowWorkTime(tr) {
+  	  const nightRanges = [
+  	    { start: 22 * 60, end: 24 * 60 }, // 22:00 - 24:00
+  	    { start: 0,       end: 4 * 60 }   // 00:00 - 04:00
+  	  ];
+
+  	  let totalNight = 0;
+
+  	  nightRanges.forEach(range => {
+  	    let overlapStart = Math.max(startMin, range.start);
+  	    let overlapEnd   = Math.min(endMin, range.end);
+
+  	    // 日跨ぎ対応（終了が24時以上の場合）
+  	    if (endMin < startMin) { 
+  	      overlapEnd = Math.min(endMin + 24*60, range.end);
+  	      overlapStart = Math.max(startMin, range.start);
+  	    }
+
+  	    if (overlapEnd > overlapStart) {
+  	      totalNight += overlapEnd - overlapStart;
+  	    }
+  	  });
+
+  	  return totalNight;
+  	}
+ 
+ 
+ // 1行分の実働・夜間勤務時間を計算
+  function calcRowWorkTime(tr) {
   const startInput = tr.querySelector('input[name*="startTime"]');
   const endInput   = tr.querySelector('input[name*="endTime"]');
   const breakInput = tr.querySelector('input[name*="breakTime"]');
 
-  const workInput  = tr.querySelector('input[name*="actualWorkTime"]');
-  const workSpan   = tr.querySelector('td:nth-child(7) span');
+  const workSpan   = tr.querySelector('td:nth-child(7) span'); // 実働
+  const overSpan   = tr.querySelector('td:nth-child(8) span'); // 時間外
+  const nightSpan  = tr.querySelector('.nightTimeCell span');  // 夜勤
 
-  const startMin = parseTimeToMinutes(startInput?.value);
-  const endMin   = parseTimeToMinutes(endInput?.value);
-  const breakMin = parseTimeToMinutes(breakInput?.value);
+  const startMin = parseTimeToMinutes(startInput.value);
+  const endMin   = parseTimeToMinutes(endInput.value);
+  const breakMin = parseTimeToMinutes(breakInput.value);
 
+  // 実働時間
   let workMin = 0;
+  if (!isNaN(startMin) && !isNaN(endMin) && endMin > startMin) {
+    workMin = endMin - startMin - breakMin;
+    if (workMin < 0) workMin = 0;
+  }
 
-      if (startMin > 0 && endMin > startMin) {
-    	    workMin = endMin - startMin - breakMin;
-    	    if (workMin < 0) workMin = 0;
-    	  }
+  if (workSpan) workSpan.textContent = formatMinutes(workMin);
 
-    	  const workStr = formatMinutes(workMin);
+  // 夜間勤務時間
+  const nightMin = calcNightMinutes(startMin, endMin);
+  if (nightSpan) nightSpan.textContent = formatMinutes(nightMin);
 
-    	  // hidden と span 両方更新
-    	  if (workInput) workInput.value = workStr;
-    	  if (workSpan)  workSpan.textContent = workStr;
+  // 時間外
+  const scheduledMin = 8 * 60; // 8時間
+  const overMin = Math.max(0, workMin - scheduledMin);
+  if (overSpan) overSpan.textContent = formatMinutes(overMin);
 
-    	  return workMin;
-    	}
-  	
+  // ここで overMin も返す
+  return { workMin, nightMin, overMin };
+}
+ 
+ 
+ 
  	//全体集計を更新する関数
- 	function calcTotals() {
-  		const rows = document.querySelectorAll('tbody.tableBody tr.list');
-  		let totalWorkMin = 0;
-  		let workingDays = 0;
+ function calcTotals() {
+  const rows = document.querySelectorAll('tbody.tableBody tr.list');
+  let totalWorkMin = 0;
+  let totalNightMin = 0;
+  let totalOverMin = 0;
+  let workingDays = 0;
 
-  		rows.forEach(tr => {
-  		    const workMin = calcRowWorkTime(tr);
-  		    if (workMin > 0) workingDays++;
-  		    totalWorkMin += workMin;
-  		  });
+  rows.forEach(tr => {
+    const result = calcRowWorkTime(tr);
+    totalWorkMin += result.workMin || 0;
+    totalNightMin += result.nightMin || 0;
+    totalOverMin += result.overMin || 0;
 
-  		  // 月160時間（9600分）を基準に残業算出
-  		  const monthlyOverMin = Math.max(0, totalWorkMin - 160 * 60);
+    if ((result.workMin || 0) > 0) workingDays++;
+  });
 
-  		  // 画面へ表示
-  		  document.getElementById('workingDays').textContent = workingDays;
-  		  document.getElementById('totalWorkTime').textContent = formatMinutes(totalWorkMin);
-  		  document.getElementById('totalOverTime').textContent = formatMinutes(monthlyOverMin);
-  		  
-  		//hidden へ値をセット（サーバに送る用）
-  		  document.getElementById('totalWorkingDaysHidden').value = workingDays;
-  		  document.getElementById('totalWorkMinutesHidden').value = totalWorkMin;
-  		  document.getElementById('totalOverMinutesHidden').value = monthlyOverMin;
-  		}
+  document.getElementById('workingDays').textContent = workingDays;
+  document.getElementById('totalWorkTime').textContent = formatMinutes(totalWorkMin);
+  document.getElementById('totalOverTime').textContent = formatMinutes(totalOverMin);
+  document.getElementById('totalNightTime').textContent = formatMinutes(totalNightMin);
+
+  document.getElementById('totalWorkingDaysHidden').value = workingDays;
+  document.getElementById('totalWorkMinutesHidden').value = totalWorkMin;
+  document.getElementById('totalOverMinutesHidden').value = totalOverMin;
+  document.getElementById('totalNightMinutesHidden').value = totalNightMin;
+}
 
   		// リアルタイム再計算
-  		function setupRealtimeCalculation() {
-  		  const rows = document.querySelectorAll('tbody.tableBody tr.list');
-  		  rows.forEach(tr => {
-  		    const inputs = tr.querySelectorAll(
-  		      'input[name*="startTime"], input[name*="endTime"], input[name*="breakTime"]'
-  		    );
-  		    inputs.forEach(input => {
-  		      input.addEventListener('input', calcTotals);
-  		    });
-  		  });
-  		}
+  function setupRealtimeCalculation() {
+  	const rows = document.querySelectorAll('tbody.tableBody tr.list');
+  	rows.forEach(tr => {
+    const inputs = tr.querySelectorAll(
+      'input[name*="startTime"], input[name*="endTime"], input[name*="breakTime"]'
+    );
+    inputs.forEach(input => {
+      input.addEventListener('input', calcTotals);
+    	});
+  	});
+  	}
 
   		// 初期化
   		window.addEventListener('load', () => {
@@ -301,6 +342,7 @@
 								<td
 									style="width: 100px; text-align: center; box-sizing: border-box;">
 									時間外</td>
+								<td style="width: 100px; text-align: center;">夜間</td>
 								<td
 									style="width: 100px; text-align: center; box-sizing: border-box;">
 									休日</td>
@@ -356,6 +398,9 @@
 									style="width: 100px; text-align: center; box-sizing: border-box;">
 									<span th:text="${workRecordInput.overTime}"></span>
 								</td>
+								<td class="nightTimeCell"
+									style="width: 100px; text-align: center;"><span>00:00</span>
+								</td>
 								<td
 									style="width: 100px; text-align: center; box-sizing: border-box;">
 									<span th:text="${workRecordInput.holidayTime}"></span>
@@ -395,11 +440,15 @@
 						<span>勤労日数：</span> <span id="workingDays">0</span> <span
 							style="margin-left: 20px;">総就業時間：</span> <span id="totalWorkTime">00:00</span>
 						<span style="margin-left: 20px;">総残業時間：</span> <span
-							id="totalOverTime">00:00</span>
+							id="totalOverTime">00:00</span> <span style="margin-left: 20px;">総夜勤時間：</span>
+						<span id="totalNightTime">00:00</span>
 					</div>
-					<input type="hidden" name="totalWorkingDays" id="totalWorkingDaysHidden" />
-					<input type="hidden" name="totalWorkMinutes" id="totalWorkMinutesHidden" />
-					<input type="hidden" name="totalOverMinutes" id="totalOverMinutesHidden" />
+					<input type="hidden" name="totalWorkingDays"
+						id="totalWorkingDaysHidden" /> <input type="hidden"
+						name="totalWorkMinutes" id="totalWorkMinutesHidden" /> <input
+						type="hidden" name="totalOverMinutes" id="totalOverMinutesHidden" />
+					<input type="hidden" name="totalNightMinutes"
+						id="totalNightMinutesHidden" />
 				</div>
 			</form>
 			<!-- /formの位置を修正(久野) -->
