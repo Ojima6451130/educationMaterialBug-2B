@@ -114,7 +114,15 @@ document.addEventListener("DOMContentLoaded", function () {
 		<!-- ▼ シフト -->
 		<div class="todayShift">
 			<p>■今日のシフト</p>
-			<p>内容</p>
+			<div th:if="${todayShift != null}">
+				<span>勤務時間：</span>
+				<span th:text="${todayShift.startTime}"></span>
+				<span>～</span>
+				<span th:text="${todayShift.endTime}"></span>
+			</div>
+			<div th:if="${todayShift == null}">
+				<span th:text="${todayShiftMessage}"></span>
+			</div>
 		</div>
 		<!-- ▼ お知らせ -->
 		<div class="news">
