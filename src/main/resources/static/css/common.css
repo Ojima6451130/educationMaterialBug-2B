@@ -190,6 +190,7 @@ td #headCenter {
 	-webkit-transition: all .3s;
 	transition: all .3s;
 	height: 30px;
+	margin-right: 20px;
 }
 
 .smallButton:hover {
@@ -299,8 +300,8 @@ td #headCenter {
 
 .tableBody td, .tableBody th {
 	padding: 0;
-	border-top: 1px solid #00c6b7; /* 横線（上） */ 
-	border-bottom : 1px solid #00c6b7;/* 横線（下） */
+	border-top: 1px solid #00c6b7; /* 横線（上） */
+	border-bottom: 1px solid #00c6b7; /* 横線（下） */
 	border-left: 1px dotted #00c6b7; /* 縦線（左）点線 */
 	border-right: 1px dotted #00c6b7;
 }
@@ -461,10 +462,58 @@ td #headCenter {
 }
 
 /*一旦以下をコメントアウト*/
-/*追記　瀬口*/
-/*label {
-	margin-left: 120px;
-}*/
+/*表示年月*/
+.selectbox-1 {
+	position: relative;
+	width: 20%;
+	background-color: #00c6b7;
+	border-radius: 25px;
+	padding-left: 4px;
+}
+
+.selectbox-1::before, .selectbox-1::after {
+	position: absolute;
+	content: '';
+	pointer-events: none;
+}
+
+.selectbox-1::before {
+	display: inline-block;
+	right: 0;
+	width: 1.4em;
+	height: 1.4em;
+	border-radius: 0 25px 25px 0;
+	background-color: #00c6b7;
+}
+
+.selectbox-1::after {
+	position: absolute;
+	top: 50%;
+	right: 1.0em;
+	transform: translate(50%, -50%) rotate(45deg);
+	width: 6px;
+	height: 6px;
+	border-bottom: 3px solid #fff;
+	border-right: 3px solid #fff;
+}
+
+.selectbox-1 select {
+	appearance: none;
+	min-width: 130px;
+	height: 1.6em;
+	padding: 0 .2em;
+	border: none;
+	border-radius: 25px;
+	color: #3f4753;
+	font-size: 1em;
+	cursor: pointer;
+	background-color: transparent;
+	text-align: center;
+}
+
+.selectbox-1 select:focus {
+	outline: none;
+}
 
 /*
 * ページの列（細井）
@@ -479,6 +528,7 @@ td #headCenter {
 
 .header2Body {
 	width: 400px;
+	margin-bottom: 5px;
 }
 
 .header2Body #yearMonth {
