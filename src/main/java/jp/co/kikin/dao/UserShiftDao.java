@@ -16,7 +16,7 @@ public class UserShiftDao extends Dao{
 	private Log log = LogFactory.getLog(this.getClass());
 	
 	//ログインユーザー1人文の今日のシフトを取得
-	
+	//ホーム画面の今日のシフト表示のDAO 長谷川
 	public DailyShiftDto getTodayShiftByUser(String yearMonthday, String employeeId) throws SQLException{
 		DailyShiftDto dto = null;
 		try {

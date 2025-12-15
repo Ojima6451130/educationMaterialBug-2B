@@ -70,6 +70,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 1000);
 });
 </script>
+<script th:if="${errorMessage != null}">
+	var errorMessage = '[[${errorMessage}]]';
+	if(messageArr[errorMessage]){
+		alert(messageArr[errorMessage]);
+	}else{
+		alert('エラーが発生しました')
+	}
+</script>
 </head>
 <body>
 	<!-- ▼ 左側固定エリア（ここに日付・時刻・アナログ時計） -->
@@ -102,11 +110,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 		<!-- ▼ 打刻 -->
 		<div class="attendance">
-			<form th:action="@{#}" method="post">
+			<form th:action="@{/kikin/attendance/start}" method="post">
 				<button type="submit" name="actionType" value="start"
 					class="buttonDesign">出勤</button>
 			</form>
-			<form th:action="@{#}" method="post">
+			<form th:action="@{/kikin/attendance/end}" method="post">
 				<button type="submit" name="actionType" value="end"
 					class="buttonDesign">退勤</button>
 			</form>

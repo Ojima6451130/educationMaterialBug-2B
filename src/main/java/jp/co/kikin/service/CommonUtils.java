@@ -600,4 +600,21 @@ public class CommonUtils {
 
         return (hh * 3600) + (mm * 60);
     }
+    //現在の日時（Timestamp）取得 長谷川
+    //@return 現在時刻　Timestamp
+    public static Timestamp getCurrentTimestamp() {
+    	
+		return new Timestamp(System.currentTimeMillis());
+		
+	}
+    
+    //Timestamp　を　"HH:mm" に変換する 長谷川
+    //@param timestamp
+    //@return 時刻文字 （例："09:00"）
+    public static String formatTimeToHHmm(Timestamp timestamp) {
+    	SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		return sdf.format(timestamp);
+		
+	}
+    
 }
