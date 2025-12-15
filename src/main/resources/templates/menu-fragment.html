@@ -17,8 +17,12 @@
 				<div class="login-status">
 					<span th:text="${session.session_cmn_login_user_name} + ' さんでログイン中'"></span>
 
-					<a href="/kikin/home" class="icon-btn">🏠</a>
-					<a href="/kikin/" class="icon-btn" onclick="return confirm('ログアウトしますか？')">🚪</a>
+					<a href="/kikin/home" class="icon-btn">
+					<img src="/images/home.png" alt="ホーム">
+					</a>
+					<a href="/kikin/" class="icon-btn" onclick="return confirm('ログアウトしますか？')">
+					<img src="/images/logout.png" alt="ログアウト">
+					</a>
 				</div>
 
 				<!-- ▼ メニュー一覧 -->

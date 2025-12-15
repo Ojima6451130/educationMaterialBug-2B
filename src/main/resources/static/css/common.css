@@ -2,9 +2,10 @@
 * body定義
 */
 body {
-	background-color: #e6f0ff;
+	background-color: #f2f4f7;
 	overflow: hidden;
 	width: 100%;
+	color: #3f4753;
 }
 
 errorbody {
@@ -32,6 +33,8 @@ errorbody {
 #header {
 	top: 2px;
 	height: 40px;
+	margin-bottom: 40px;
+	position: relative;
 }
 
 #headLeft {
@@ -40,10 +43,38 @@ errorbody {
 }
 
 #headCenter {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
 	font-size: 24px;
-	color: #FFFF00;
-	width: 70%;
+	padding: 0 8px;
+	white-space: nowrap;
+	text-shadow: 0 0 2px white;
+	letter-spacing: 0.08em;
+}
+
+td #headCenter {
 	text-align: center;
+}
+
+#headCenter:before {
+	content: "";
+	position: absolute;
+	background: rgba(0, 88, 172, 1);
+	width: 50px;
+	height: 10px;
+	border-radius: 10%;
+	top: 85%;
+	left: 1px;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+	z-index: -1;
+}
+
+#headCenter:first-letter {
+	font-size: 1.7em;
+	color: #00c6b7;
+	text-shadow: 0 2px 0 #3f4753;
 }
 
 #headRight {
@@ -75,7 +106,7 @@ errorbody {
 	bottom: 1%;
 	height: 70px;
 	width: 100%;
-	 position: absolute;/*細井追加*/
+	position: absolute; /*細井追加*/
 }
 
 #footLeft {
@@ -101,7 +132,7 @@ errorbody {
 	/* width: 100%; レイアウト調整のためコメントアウト*/
 	margin: 0px;
 	padding: 5px;
-	background-color: #FFA4C6;
+	/*background-color: #FFA4C6;*/
 }
 
 /*
@@ -147,27 +178,75 @@ errorbody {
 * ボタンサイズ通常
 */
 .smallButton {
+	display: inline-block;
 	width: 100px;
 	height: 30px;
+	text-align: center;
+	text-decoration: none;
+	outline: none;
+	color: #0058ac;
+	border: 1px solid #0058ac;
+	background-color: #fff;
+	-webkit-transition: all .3s;
+	transition: all .3s;
+	height: 30px;
+}
+
+.smallButton:hover {
+	color: #fff;
+	border: 1px solid #0058ac;
+	background-color: #0058ac;
 }
 
 /*
 * ボタンサイズ大
 */
 .bigButton {
+	margin-bottom: 15px;
+	display: inline-block;
 	width: 200px;
 	height: 50px;
-	margin-bottom: 15px;
+	text-align: center;
+	text-decoration: none;
+	outline: none;
+	color: #0058ac;
+	border: 1px solid #0058ac;
+	background-color: #fff;
+	-webkit-transition: all .3s;
+	transition: all .3s;
+	height: 30px;
 }
 
+.bigButton:hover {
+	color: #fff;
+	border: 1px solid #0058ac;
+	background-color: #0058ac;
+}
 /*
 * ボタンサイズロング
 */
 .longButton {
+	margin-bottom: 15px;
+	display: inline-block;
 	width: 200px;
+	height: 30px;
+	text-align: center;
+	text-decoration: none;
+	outline: none;
+	color: #0058ac;
+	border: 1px solid #0058ac;
+	background-color: #fff;
+	-webkit-transition: all .3s;
+	transition: all .3s;
+	height: 30px;
 	height: 30px;
 }
 
+.longButton:hover {
+	color: #fff;
+	border: 1px solid #0058ac;
+	background-color: #0058ac;
+}
 /*
 * 戻るボタンのスタイル
 */
@@ -180,22 +259,21 @@ errorbody {
 * テーブルヘッダーのスタイル
 */
 .tableHeader {
-	background-color: #98FB98;
+	background-color: #00c6b7;
 	font-weight: bold;
-	border: 1px solid black;
+	border: 10px solid 00c6b7;
 	border-collapse: collapse;
 }
 
 .tableHeader td, .tableHeader th {
 	padding: 0;
-	border: 1px solid black;
+	border-left: 1px dotted #ffe6f1; /* 縦線（左）点線 */
+	border-right: 1px dotted #ffe6f1; /* 縦線（右）点線 */
 }
 /* 日別シフト確認のテーブルヘッダー */
 .tableHeaderDaily {
-	background-color: #98FB98;
+	background-color: #00c6b7;
 	font-weight: bold;
-	border-collapse: collapse;
-	border: 1px solid black;
 	border-collapse: collapse;
 	table-layout: fixed;
 	width: 154px;
@@ -206,21 +284,25 @@ errorbody {
 
 .tableHeaderDaily td, .tableHeaderDaily th {
 	padding: 0;
-	border: 1px solid black;
+	border-left: 1px dotted #ffe6f1; /* 縦線（左）点線 */
+	border-right: 1px dotted #ffe6f1; /* 縦線（右）点線 */
 }
 
 /*
 * テーブルボディのスタイル
 */
 .tableBody {
-	background-color: #E0FFFF;
-	border: 1px solid black;
+	background-color: #ffffff;
 	border-collapse: collapse;
+	border: 1px solid #00c6b7;
 }
 
 .tableBody td, .tableBody th {
 	padding: 0;
-	border: 1px solid black;
+	border-top: 1px solid #00c6b7; /* 横線（上） */ 
+	border-bottom : 1px solid #00c6b7;/* 横線（下） */
+	border-left: 1px dotted #00c6b7; /* 縦線（左）点線 */
+	border-right: 1px dotted #00c6b7;
 }
 
 .tableBody select {
@@ -238,8 +320,8 @@ errorbody {
 
 /* 日別シフト確認のテーブルヘッダー */
 .tableBodyDaily {
-	background-color: #E0FFFF;
-	border: 1px solid black;
+	background-color: #ffffff;
+	border: 1px solid #00c6b7;
 	border-collapse: collapse;
 	width: 154px;
 	box-sizing: border-box;
@@ -253,7 +335,7 @@ errorbody {
 
 .tableBodyDaily td, .tableBodyDaily th {
 	padding: 0;
-	border: 1px solid black;
+	border: 1px solid #00c6b7;
 	font-size: 15px;
 	width: 100%;
 }
@@ -263,13 +345,13 @@ errorbody {
 }
 
 .nomalTable {
-	border: 0px solid black;
+	border: 0px solid #00c6b7;
 	border-collapse: collapse;
 }
 
 .nomalTable td, .nomalTable th {
 	padding: 0;
-	border: 0px solid black;
+	border: 0px solid #00c6b7;
 }
 
 .widthTable {
@@ -388,9 +470,9 @@ errorbody {
 * ページの列（細井）
 */
 .header2 {
-	margin:0 auto;
+	margin: 0 auto;
 	width: 1200px;
-	display:flex;
+	display: flex;
 	justify-content: space-between;
 	align-items: flex-end;
 }
@@ -398,171 +480,234 @@ errorbody {
 .header2Body {
 	width: 400px;
 }
-.header2Body #yearMonth{
-	width:100px;
+
+.header2Body #yearMonth {
+	width: 100px;
 }
 
 .pageSwitch {
 	display: inline-flex;
 	justify-content: center;
 }
+
 .pageSwitch li {
 	margin-right: 10px;
 	display: inline;
 }
-#nav{
+
+#nav {
 	margin: 0;
 }
 /* --------------------------------------
   ハンバーガーメニュー全体
 --------------------------------------- */
 #hamburger {
-    position: fixed;
-    top: 30px;
-    right: 30px;
-    z-index: 2000;
+	position: fixed;
+	top: 30px;
+	right: 30px;
+	z-index: 9999;
 }
 
 /* クリック領域 */
 #hamburger .open {
-    position: relative;
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
+	position: relative;
+	width: 50px;
+	height: 50px;
+	cursor: pointer;
+	transition: .4s cubic-bezier(0.37, 0, 0.63, 1);
+}
+
+#hamburger .open:hover {
+	background: rgba(255, 186, 209, 0.8); /*色*/
+	border-radius: 5px;
 }
 
 #hamburger .open span {
-    position: absolute;
-    right: 5px;
-    width: 40px;
-    height: 4px;
-    background: #fff;
-    border-radius: 40px;
-    transition: all .4s ease;
+	position: absolute;
+	right: 5px;
+	width: 40px;
+	height: 4px;
+	background: #3f4753;
+	border-radius: 40px;
+	transition: all .4s ease;
+}
+
+#hamburger.oppenned .open span:nth-child(1), #hamburger.oppenned .open span:nth-child(3)
+	{
+	z-index: 10000;
 }
 
 /* 3本線の位置 */
-#hamburger .open span:nth-child(1) { top: 10px; }
-#hamburger .open span:nth-child(2) { top: 23px; }
-#hamburger .open span:nth-child(3) { top: 36px; }
+#hamburger .open span:nth-child(1) {
+	top: 10px;
+}
+
+#hamburger .open span:nth-child(2) {
+	top: 23px;
+}
+
+#hamburger .open span:nth-child(3) {
+	top: 36px;
+}
 
 /* --------------------------------------
   メニュー（閉じているとき）
 --------------------------------------- */
 #hamburger .sub-menu {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 0;
-    height: 0;
-    overflow: hidden;
-    background: rgba(38, 84, 133, 0.54);
-    border-radius: 50%;
-    transition: all .8s cubic-bezier(0.68,-0.55,0.265,1.55);
-    z-index: 1500;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	background: rgba(0, 88, 172, 0.9);
+	border-radius: 50%;
+	transition: all .8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+	z-index: 1500;
 }
 
 /* 項目の土台（右寄せ） */
 #hamburger .sub-menu ul {
-    padding-right: 60px;
-    padding-top: 230px;
+	padding-right: 60px;
+	padding-top: 230px;
 }
 
 #hamburger .sub-menu li {
-    display: block;
-    margin-right: -200px; /* ← 閉じているとき画面外へ */
-    transition: all .5s cubic-bezier(0.68,-0.55,0.265,1.55);
+	display: block;
+	margin-right: -200px; /* ← 閉じているとき画面外へ */
+	transition: all .5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 /* 遅延アニメーション */
-#hamburger .sub-menu li:nth-child(1) { transition-delay: .05s; }
-#hamburger .sub-menu li:nth-child(2) { transition-delay: .10s; }
-#hamburger .sub-menu li:nth-child(3) { transition-delay: .15s; }
-#hamburger .sub-menu li:nth-child(4) { transition-delay: .20s; }
-#hamburger .sub-menu li:nth-child(5) { transition-delay: .25s; }
+#hamburger .sub-menu li:nth-child(1) {
+	transition-delay: .05s;
+}
+
+#hamburger .sub-menu li:nth-child(2) {
+	transition-delay: .10s;
+}
+
+#hamburger .sub-menu li:nth-child(3) {
+	transition-delay: .15s;
+}
+
+#hamburger .sub-menu li:nth-child(4) {
+	transition-delay: .20s;
+}
+
+#hamburger .sub-menu li:nth-child(5) {
+	transition-delay: .25s;
+}
 
 /* --------------------------------------
   開いた状態
 --------------------------------------- */
 #hamburger.oppenned .sub-menu {
-    width: 500px;
-    height: 680px;
-    right: -100px;
-    top: -150px;
+	width: 500px;
+	height: 680px;
+	right: -100px;
+	top: -150px;
+}
+
+#hamburger.oppenned .open span {
+	background: #ffffff;
+}
+
+/* 開いたときは中央に集める */
+#hamburger.oppenned .open span:nth-child(1), #hamburger.oppenned .open span:nth-child(3)
+	{
+	top: 23px; /* 真ん中に揃える */
+	width: 32px; /* 少し短く */
+	height: 3px; /* 細くする */
+	border-radius: 2px; /* 角を控えめに */
 }
 
 /* ×印（1本目） */
 #hamburger.oppenned .open span:nth-child(1) {
-    transform: rotate(45deg) translateY(12px) translateX(12px);
+	transform: rotate(45deg);
 }
 
 /* 真ん中の巨大円（2本目） */
 #hamburger.oppenned .open span:nth-child(2) {
-    width: 500px;
-    height: 680px;
-    right: -80px;
-    top: -130px;
-    border-radius: 50%;
-    background: rgba(38, 84, 133, 0.54);
+	width: 500px;
+	height: 680px;
+	right: -80px;
+	top: -130px;
+	border-radius: 50%;
+	background-color: rgba(255, 186, 209, 0.5); /*色*/
 }
 
 /* ×印（3本目） */
 #hamburger.oppenned .open span:nth-child(3) {
-    transform: rotate(-45deg) translateY(-10px) translateX(10px);
+	transform: rotate(-45deg);
 }
 
 /* メニュー項目 スライドイン */
 #hamburger.oppenned .sub-menu li {
-    margin-right: 100px;
+	margin-right: 100px;
 }
 
 /* メニュー文字 */
 #hamburger .sub-menu a {
-    display: block;
-    padding: 6px 0;
-    font-size: 18px;
-    text-align: right;
-    color: #ffffff;
+	display: block;
+	padding: 6px 0;
+	font-size: 18px;
+	text-align: right;
+	color: #ffffff;
 }
 
 /* --------------------------------------
   ログインステータス（右上に寄せる）
 --------------------------------------- */
 #hamburger .login-status {
-    position: absolute;
-    top: 200px;
-    right: 140px; /* ← ハンバーガーの左側に表示させる距離 */
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    color: #fff;
-    white-space: nowrap; /* ← テキスト折り返し防止 */
+	position: absolute;
+	top: 200px;
+	right: 140px; /* ← ハンバーガーの左側に表示させる距離 */
+	display: flex;
+	gap: 10px;
+	align-items: center;
+	white-space: nowrap; /* ← テキスト折り返し防止 */
 }
 
 /* 文字 */
 #hamburger .login-status span {
-    font-size: 18px;
-    color: #fff;
+	font-size: 18px;
+	color: #ffffff;
 }
 
 /* アイコン */
-#hamburger .login-status .icon-btn {
-    font-size: 20px;
-    text-decoration: none;
-    padding: 4px;
-    color: #fff;
-}
-.sub-menu a {
-    transition: 
-        transform 0.25s ease,
-        background-color 0.25s ease,
-        color 0.25s ease,
-        font-size 0.25s ease;
+#hamburger .icon-btn img {
+	width: 35px; /* ← 小さくしたいならここ */
+	height: 35px;
+	display: block;
+	border-radius: 20px;
+	padding: 1px;
 }
 
-.sub-menu a:hover {
-    background-color: #b673ac;
-    transform: translateX(-10px) scale(1.05); /* ← 左へ + 少し拡大 */
-    color: black;
-    font-size: 1.05em; /* ← 1.2 は大きすぎるので自然に */
+#hamburger .icon-btn img:hover {
+	background: #f2f4f7;
+}
+
+.sub-menu ul li>a {
+	padding-bottom: 5px;
+	position: relative;
+	text-decoration: none;
+}
+
+.sub-menu ul li>a::before {
+	background: #f2f4f7;
+	content: '';
+	width: 100%;
+	height: 2px;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	transform-origin: right top;
+	transform: scale(0, 1);
+	transition: transform .3s;
+}
+
+.sub-menu ul li>a:hover::before {
+	transform-origin: left top;
+	transform: scale(1, 1);
 }

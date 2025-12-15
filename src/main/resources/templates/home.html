@@ -77,9 +77,9 @@ document.addEventListener("DOMContentLoaded", function () {
 		<div class="userInfo">
 			<img th:src="@{/images/{employeeId}.png(employeeId=${employeeID})}"
 				alt="写真" />
-			<p
-				style="font-weight: bold; background-color: #0058ac; border-radius: 20px;">
-				<span th:text="${employeeName + '(ID:' + employeeID + ')'	}"></span>
+			<p class="user">
+				<span th:text="${employeeName}"></span><br>
+				<span th:text="${'(ID : ' + employeeID + ')'	}"></span>
 			</p>
 		</div>
 		<div class="time">
@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	<!-- ▼ ハンバーガメニュー -->
 	<div th:insert="menu-fragment :: hamburgerMenu"></div>
-	
+
 	<!-- ▼ メイン画面 -->
 	<div id="content">
 
@@ -115,9 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		<div class="todayShift">
 			<p>■今日のシフト</p>
 			<div th:if="${todayShift != null}">
-				<span>勤務時間：</span>
-				<span th:text="${todayShift.startTime}"></span>
-				<span>～</span>
+				<span>勤務時間：</span> <span th:text="${todayShift.startTime}"></span> <span>～</span>
 				<span th:text="${todayShift.endTime}"></span>
 			</div>
 			<div th:if="${todayShift == null}">
