@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -32,6 +33,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.kikin.CheckUtils;
@@ -153,7 +155,7 @@ public class MonthlyShiftInputController {
     //doPage追加　瀬口
     @RequestMapping(value = SCREEN_PATH_DOPAGE)
     public String doPage(HttpServletRequest request, HttpSession session, Model model, MonthlyShiftInputForm form, 
-    		BindingResult result, @PageableDefault(page = 0, size = ROW) Pageable pageable) throws Exception {
+    		BindingResult result, @PageableDefault(size = ROW) Pageable pageable) throws Exception {
     	return view("page", request, session, model, form, result, pageable);
     }
 
@@ -314,6 +316,10 @@ public class MonthlyShiftInputController {
         String saturday = DayOfWeek.SATURDAY.getWeekdayShort();
         // 日曜日
         String sunday   = DayOfWeek.SUNDAY.getWeekdayShort();
+        
+        // セッションにページ番号を持たせるよう追記
+        int pageNum = pageable.getPageNumber();
+        session.setAttribute("pageNum", pageNum);
 
         model.addAttribute("Page",page);
         model.addAttribute("saturday", saturday);
@@ -400,6 +406,9 @@ public class MonthlyShiftInputController {
         // ログインユーザ情報をセッションより取得
         LoginUserDto loginUserDto = (LoginUserDto) session
                 .getAttribute(RequestSessionNameConstant.SESSION_CMN_LOGIN_USER_INFO);
+        // page番号をセッションから取得
+        Integer pageNum = (Integer)session.getAttribute("pageNum");
+        pageable = PageRequest.of(pageNum, ROW);
 
         // フォーム
         MonthlyShiftInputForm monthlyShiftForm = (MonthlyShiftInputForm) form;
@@ -463,14 +472,19 @@ public class MonthlyShiftInputController {
      * @return view名称
      * @throws Exception
      */
+    // PutからRequestに変更,Defaultのpage=0を削除
     @RequestMapping(value = SCREEN_PATH_SUBMITIMPORTKIHON)
     public String submitImportKihon(HttpServletRequest request, HttpSession session, Model model,
-            MonthlyShiftInputForm form, BindingResult bindingResult,@PageableDefault(page = 0, size = ROW) Pageable pageable) throws Exception {
+            MonthlyShiftInputForm form, BindingResult bindingResult,@PageableDefault(size = ROW) Pageable pageable) throws Exception {
 
         // ログインユーザ情報をセッションより取得
         LoginUserDto loginUserDto = (LoginUserDto) session
                 .getAttribute(RequestSessionNameConstant.SESSION_CMN_LOGIN_USER_INFO);
-
+        
+        // page番号をセッションから取得
+        Integer pageNum = (Integer)session.getAttribute("pageNum");
+        pageable = PageRequest.of(pageNum, ROW);
+        
         // フォーム
         MonthlyShiftInputForm monthlyShiftForm = (MonthlyShiftInputForm) form;
 
@@ -594,7 +608,7 @@ public class MonthlyShiftInputController {
         // ページング用
         form.setMaxPage(CommonUtils.getMaxPage(baseShiftDtoMap.size(), 16));
 
-        return search(request, session, model, form, bindingResult, pageable);
+        return doPage(request, session, model, form, bindingResult, pageable);
 
     }
 

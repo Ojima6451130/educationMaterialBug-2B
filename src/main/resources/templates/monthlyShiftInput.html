@@ -302,15 +302,15 @@
         <tr>
           <td id="footLeft">
             <div style="margin-left:50px;white-space: nowrap;">
-              <input value="凡例表示" type="button" class="longButton" onclick="openWindow()" />
-              <input value="基本シフト反映" type="submit" class="longButton"  formaction="/kikin/monthlyShiftInput/submitImportKihon" />
-              <input value="出勤希望日反映" type="submit" class="longButton"  formaction="/kikin/monthlyShiftInput/dateRequest" /><!-- actionのパスを修正　古賀 -->
+              <input form="searchForm" value="凡例表示" type="button" class="longButton" onclick="openWindow()" />
+              <input form="searchForm" value="基本シフト反映" type="submit" class="longButton"  formaction="/kikin/monthlyShiftInput/submitImportKihon" />
+              <input form="searchForm" value="出勤希望日反映" type="submit" class="longButton"  formaction="/kikin/monthlyShiftInput/dateRequest" /><!-- actionのパスを修正　古賀 -->
             </div>
           </td>
           <td id="footCenter" style="text-align: right;">
           </td>
           <td id="footRight">
-            <input value="登録" type="submit" class="smallButton" formaction="/kikin/monthlyShiftInput/regist" />
+            <input form="searchForm" value="登録" type="submit" class="smallButton" formaction="/kikin/monthlyShiftInput/regist" />
           </td>
         </tr>
       </table>
