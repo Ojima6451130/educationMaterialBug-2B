@@ -2,6 +2,8 @@ package jp.co.kikin.controller;
 
 import java.util.List;
 import jp.co.kikin.service.UserShiftLogic;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,9 @@ import jp.co.kikin.constant.CommonConstant;
 import jp.co.kikin.constant.RequestSessionNameConstant;
 import jp.co.kikin.dto.DailyShiftDto;
 import jp.co.kikin.dto.LoginDto;
+import jp.co.kikin.pentity.NewsRecode;
+import jp.co.kikin.prepository.NewsRepository;
+import jp.co.kikin.prepository.PostRepository;
 import jp.co.kikin.service.CommonUtils;
 import jp.co.kikin.service.DailyShiftLogic;
 
@@ -20,6 +25,9 @@ import jp.co.kikin.service.DailyShiftLogic;
 public class HomeController {
 
 	private final UserShiftLogic userShiftLogic;
+
+	@Autowired
+	NewsRepository newsRepository;
 
 	HomeController(UserShiftLogic userShiftLogic) {
 		this.userShiftLogic = userShiftLogic;
@@ -55,6 +63,11 @@ public class HomeController {
 			model.addAttribute("todayShift", null);
 		}
 
+		// お知らせ情報取得(細井)
+		List<NewsRecode> news = newsRepository.findAll();
+		model.addAttribute("news", news);
+		
+		//画面表示のためユーザ情報を保存(細井)
 		String employeeName = (String) session.getAttribute(RequestSessionNameConstant.SESSION_CMN_LOGIN_USER_NAME);
 		model.addAttribute("employeeID", employeeId);
 		model.addAttribute("employeeName", employeeName);

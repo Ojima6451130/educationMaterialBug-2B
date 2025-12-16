@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Expires" content="Thu, 01 Dec 1994 16:00:00 GMT">
+
+<title>お知らせ情報更新</title>
+
+<link rel="stylesheet" media="all" th:href="@{/css/common.css}" />
+<script type="text/javascript" th:src="@{/js/common.js}"></script>
+<script type="text/javascript" th:src="@{/js/message.js}"></script>
+<script type="text/javascript" th:src="@{/js/checkCommon.js}"></script>
+</head>
+
+<body>
+	<div id="wrapper">
+
+		<!-- ヘッダ -->
+		<div id="header">
+			<table class="full-width">
+				<tr>
+					<td id="headCenter">給料情報</td>
+				</tr>
+			</table>
+
+			<!-- ハンバーガーメニュー -->
+			<div th:insert="~{menu-fragment :: hamburgerMenu}"></div>
+		</div>
+
+		<!-- 一覧 -->
+		<div id="businessBody" style="overflow-x: hidden;">
+			<table class="overflowFixed">
+
+				<thead>
+					<tr class="tableHeader">
+						<th width="50">id</th>
+						<th width="100">作成者</th>
+						<th width="300">内容</th>
+						<th width="100">重要度</th>
+						<th width="100">更新</th>
+						<th width="100">削除</th>
+					</tr>
+				</thead>
+
+				<tbody class="tableBody">
+					<tr th:each="news : ${newsList}">
+
+						<!-- 更新フォーム（1行1フォーム） -->
+						<form th:action="@{/kikin/news/update}" method="post">
+
+							<!-- id -->
+							<td align="center"><input type="hidden" name="id"
+								th:value="${news.id}"> <span th:text="${news.id}"></span>
+							</td>
+
+							<!-- 作成者（表示のみ） -->
+							<td align="center"><span th:text="${news.employeeId}"></span> <input
+								type="hidden" name="employeeId" th:value="${employeeId}">
+							</td>
+
+							<!-- 内容 -->
+							<td align="center"><input type="text" name="memo"
+								th:value="${news.memo}" style="width: 300px;"></td>
+
+							<!-- 重要度 -->
+							<td align="center"><input type="text" name="newsPriority"
+								th:value="${news.newsPriority}" style="width: 100px;"></td>
+
+							<!-- 更新 -->
+							<td align="center"><input type="submit" value="更新">
+							</td>
+						</form>
+
+						<!-- 削除フォーム -->
+						<td align="center">
+							<form th:action="@{/kikin/news/delete}" method="post">
+								<input type="hidden" name="id" th:value="${news.id}"> <input
+									type="submit" value="削除">
+							</form>
+						</td>
+
+					</tr>
+				</tbody>
+
+				<!-- 新規登録 -->
+				<tfoot class="tableBody">
+					<form th:action="@{/kikin/news/insert}" method="post">
+						<tr>
+							<!-- id（最後 + 1） -->
+							<td align="center"><span
+								th:text="${#lists.isEmpty(newsList) ? 1 : newsList[newsList.size() - 1].id + 1}">
+							</span> <input type="hidden" name="id"
+								th:value="${#lists.isEmpty(newsList) ? 1 : newsList[newsList.size() - 1].id + 1}">
+							</td>
+
+							<!-- 作成者 -->
+							<td align="center"><span th:text="${employeeId}"></span> <input
+								type="hidden" name="employeeId" th:value="${employeeId}">
+							</td>
+
+							<!-- 内容 -->
+							<td align="center"><input type="text" name="memo"
+								placeholder="内容" style="width: 300px;"></td>
+
+							<!-- 重要度 -->
+							<td align="center"><input type="text" name="newsPriority"
+								placeholder="重要度" style="width: 100px;"></td>
+
+							<!-- 新規登録ボタン -->
+							<td colspan="2" align="center"><input type="submit"
+								value="新規登録"></td>
+						</tr>
+					</form>
+				</tfoot>
+
+
+			</table>
+		</div>
+
+	</div>
+</body>
+</html>

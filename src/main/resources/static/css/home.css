@@ -178,9 +178,24 @@
 	background-color:rgba(0, 198, 183, 0.2);
 	padding: 0 10px;
 	border: 3px solid #ffffff;
-	height: 150px;
+	height: 200px;
 	border-top-left-radius: 5px;
 	border-bottom-left-radius: 5px;
 	border-top-right-radius: 30px;
 	border-bottom-right-radius: 30px;
+}
+.news table{
+  border-collapse:collapse;
+}
+.news td{
+  border-bottom:1px dashed #00c6b7;
+}
+.news tr:last-child td{
+  border-bottom:2px solid #00c6b7;
+}
+.news tr:first-child td{
+  border-top:2px solid #00c6b7;
+}
+.news td{
+  padding:10px;
 }

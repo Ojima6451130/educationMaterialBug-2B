@@ -78,6 +78,36 @@ document.addEventListener("DOMContentLoaded", function () {
 		alert('エラーが発生しました')
 	}
 </script>
+<style>
+.priority-red {
+	color: red;
+	font-weight: bold; /* 任意 */
+}
+
+.news-header {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	margin: 10px 0;
+}
+
+.news-header p {
+	margin: 0;
+}
+
+.news-add {
+	font-size: 0.9em;
+	text-decoration: underline;
+}
+
+.news-header a {
+	text-decoration: none;
+}
+
+.news-header a:hover {
+	color: #00c6b7;
+}
+</style>
 </head>
 <body>
 	<!-- ▼ 左側固定エリア（ここに日付・時刻・アナログ時計） -->
@@ -86,8 +116,8 @@ document.addEventListener("DOMContentLoaded", function () {
 			<img th:src="@{/images/{employeeId}.png(employeeId=${employeeID})}"
 				alt="写真" />
 			<p class="user">
-				<span th:text="${employeeName}"></span><br>
-				<span th:text="${'(ID : ' + employeeID + ')'	}"></span>
+				<span th:text="${employeeName}"></span><br> <span
+					th:text="${'(ID : ' + employeeID + ')'	}"></span>
 			</p>
 		</div>
 		<div class="time">
@@ -132,11 +162,31 @@ document.addEventListener("DOMContentLoaded", function () {
 		</div>
 		<!-- ▼ お知らせ -->
 		<div class="news">
-			<p>■お知らせ</p>
-			<p>内容</p>
+			<div class="news-header">
+				<p>■お知らせ</p>
+				<span th:if="${session.session_cmn_login_user_authority_id == '01'}">
+					<a href="/kikin/news" class="news-add">追加</a>
+				</span>
+			</div>
+			<div th:if="${news != null and !#lists.isEmpty(news)}">
+				<div class="newsTable"
+					style="width: 1200px; margin: 0 auto 10px auto; text-align: left;">
+					<table>
+						<tr th:each="news, stat : ${news}"
+							th:classappend="${#strings.isEmpty(news.newsPriority) == false} ? 'priority-red'">
+							<td><span th:text="${stat.count}"></span></td>
+							<td><span
+								th:text="${#temporals.format(news.updateDatetime, 'yyyy/MM/dd')}"></span></td>
+							<td><span th:text="${news.memo}"></span></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div th:if="${news == null or #lists.isEmpty(news)}">
+				<span>お知らせはありません。</span>
+			</div>
 		</div>
 	</div>
-
 </body>
 
 </html>
