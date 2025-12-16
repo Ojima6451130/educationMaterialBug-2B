@@ -354,6 +354,10 @@ public class MonthlyShiftInputController {
         // ログインユーザ情報をセッションより取得
         LoginUserDto loginUserDto = (LoginUserDto) session
                 .getAttribute(RequestSessionNameConstant.SESSION_CMN_LOGIN_USER_INFO);
+        
+     // page番号をセッションから取得　古賀
+        Integer pageNum = (Integer)session.getAttribute("pageNum");
+        pageable = PageRequest.of(pageNum, ROW);
 
         // フォーム
         MonthlyShiftInputForm monthlyShiftForm = (MonthlyShiftInputForm) form;
@@ -380,7 +384,7 @@ public class MonthlyShiftInputController {
         // 画面の希望シフト情報をList<MonthlyShiftInputBean>に格納 ※対象社員分のみ変更される
         String[] shiftIds = form.getShiftIdList();
         List<MonthlyShiftInputBean> monthlyShiftBeanList2 = this.getEditedBeanList(monthlyShiftBeanList, shiftIds,
-                loginUserDto, dateBeanList);
+                loginUserDto, dateBeanList, session);
 
         // フォームデータをDtoに変換する
         List<List<MonthlyShiftDto>> monthlyShiftDtoNestedList = this.formToDto(monthlyShiftBeanList2, dateBeanList);
@@ -823,19 +827,26 @@ public class MonthlyShiftInputController {
      *
      */
     private List<MonthlyShiftInputBean> getEditedBeanList(List<MonthlyShiftInputBean> monthlyShiftBeanList,
-            String[] shiftIds, LoginUserDto loginUserDto, List<DateBean> dateBeanList) throws Exception {
+            String[] shiftIds, LoginUserDto loginUserDto, List<DateBean> dateBeanList, HttpSession session) throws Exception {
 
            // 社員数を推定（1日目のデータを split して数える）
     int employeeCount = shiftIds[0].split(",", -1).length;
-
+    
+    // ページ数取得
+    int page = (int) session.getAttribute("pageNum");
     // 社員ごとのBeanを用意（元のデータがあれば再利用）
     List<MonthlyShiftInputBean> editedList = new ArrayList<>();
     for (int i = 0; i < employeeCount; i++) {
         MonthlyShiftInputBean bean = new MonthlyShiftInputBean();
-
+        
+        MonthlyShiftInputBean original;
         // 元のリストから社員情報をコピー
         if (i < monthlyShiftBeanList.size()) {
-            MonthlyShiftInputBean original = monthlyShiftBeanList.get(i);
+        	if (page == 0) {
+        		original = monthlyShiftBeanList.get(i);				
+			}else {
+				original = monthlyShiftBeanList.get(i + page * ROW);								
+			}
             bean.setEmployeeId(original.getEmployeeId());
             bean.setEmployeeName(original.getEmployeeName());
         }

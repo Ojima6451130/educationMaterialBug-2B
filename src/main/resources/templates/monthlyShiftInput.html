@@ -44,9 +44,9 @@
         </tr>
       </table>
     </div>
+      <form id="searchForm" action="/kikin/monthlyShiftInput/search" method="post" th:object="${monthlyShiftInputForm}" style="text-align: right;">
     <div class="header2" style="justify-content: center; align-items: center; width: auto;">
     	<div class="header2Body" style="align-items: center;">
-      <form id="searchForm" action="/kikin/monthlyShiftInput/search" method="post" th:object="${monthlyShiftInputForm}" style="text-align: right;">
         <label>表示年月：</label>
          <!-- 以下select文にonchange="this.form.submit()"を実装　久野 -->
         <select name="yearMonth" id="yearMonth" style="width: 20%; color: black;"onchange="this.form.submit()">
@@ -55,7 +55,7 @@
          <!-- aタグコメントアウト、以下ページング要素の追加　瀬口
             <a href="">前へ</a>
             <a href="">次へ</a>  -->
-            </form>
+           
             </div>
      		 <div class="pageSwitch header2Body" style="justify-content: left;">
 				<div>
