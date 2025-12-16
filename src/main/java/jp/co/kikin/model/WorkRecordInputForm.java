@@ -45,5 +45,7 @@ public class WorkRecordInputForm {
     private Integer totalWorkMinutes;
     /** 総残業時間*/
     private Integer totalOverMinutes;
+    /** 夜間時間*/
+    private Integer totalNightMinutes;
 
 }

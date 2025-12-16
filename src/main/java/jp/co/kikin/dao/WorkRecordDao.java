@@ -19,7 +19,7 @@ import jp.co.kikin.dao.Dao;
 import jp.co.kikin.service.CheckUtils;
 
 import jp.co.kikin.dto.WorkRecordDto;
-
+import jp.co.kikin.dto.WorkRecordMonthDto;
 import jp.co.kikin.constant.DbConstant.M_shift;
 import jp.co.kikin.constant.DbConstant.T_work_record;
 
@@ -343,6 +343,8 @@ public class WorkRecordDao extends Dao {
 			throw e;
 		}
 	}
+	
+
 
 	/**
 	 * 勤務実績のデータを更新する。
@@ -453,6 +455,129 @@ public class WorkRecordDao extends Dao {
 			ps.setString(9, workRecordDto.getRemark());
 			ps.setString(10, employeeId);
 			ps.setString(11, employeeId);
+
+			// ログ出力
+			log.info(ps);
+
+			// SQLを実行する
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			// 例外発生
+			throw e;
+		}
+	}
+	
+	// 月次データの存在チェック用に追加　古賀
+	public boolean isDataMonth(String employeeId, String yearMonth) throws SQLException {
+		try {
+			StringBuffer strSql = new StringBuffer();
+			strSql.append("SELECT * ");
+			strSql.append("FROM t_monthly_salary ");
+			strSql.append("WHERE employee_id = ? ");
+			strSql.append("AND `year_month` = ? ");
+
+
+			PreparedStatement ps = connection.prepareStatement(strSql.toString());
+
+			ps.setString(1, employeeId);
+			ps.setString(2, yearMonth);
+
+			// ログ出力
+			log.info(ps);
+
+			// 実行
+			ResultSet rs = ps.executeQuery();
+
+			// 取得結果セット
+			if (rs.next()) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (SQLException e) {
+			// 例外発生
+			throw e;
+		}
+	}
+	
+	/**
+	 * 月次勤務実績を更新する　古賀
+	 */
+	public void updateWorkRecordMonth(WorkRecordMonthDto workRecordMonthDto) throws SQLException{
+		try {
+			StringBuffer strSql = new StringBuffer();
+			strSql.append("UPDATE t_monthly_salary SET ");
+			strSql.append("working_day = ?, ");
+			strSql.append("total_work_hours = ?, ");
+			strSql.append("night_hours = ?, ");
+			strSql.append("overtime_hours = ?, ");
+			strSql.append("other = ? ");
+			strSql.append("WHERE ");
+			strSql.append("employee_id = ? ");
+			strSql.append("AND `year_month` =  ? ");
+
+			PreparedStatement ps = connection.prepareStatement(strSql.toString());
+
+			ps.setInt(1, workRecordMonthDto.getTotalWorkingDays());
+			ps.setInt(2, workRecordMonthDto.getTotalWorkMinutes() / 60);
+			ps.setInt(3, workRecordMonthDto.getTotalNightMinutes() / 60);
+			ps.setInt(4, workRecordMonthDto.getTotalOverMinutes() / 60);
+			ps.setInt(5, 0);
+			ps.setString(6, workRecordMonthDto.getEmployeeId());
+			ps.setString(7, workRecordMonthDto.getYearMonth());
+
+			
+			// ログ出力
+			log.info(ps);
+
+			// SQLを実行する
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			// 例外発生
+			throw e;
+		}
+	}
+
+	/**
+	 * 月次勤務実績データを登録する　古賀
+	 */
+	public void insertWorkRecordMonth(WorkRecordMonthDto workRecordMonthDto) throws SQLException{
+
+		try {
+			StringBuffer strSql = new StringBuffer();
+			strSql.append("INSERT INTO ");
+			strSql.append("t_monthly_salary ");
+			strSql.append("( ");
+			strSql.append("employee_id, ");
+			strSql.append(" `year_month` , ");
+			strSql.append("working_day, ");
+			strSql.append("total_work_hours, ");
+			strSql.append("night_hours, ");
+			strSql.append("overtime_hours, ");
+			strSql.append("other ");
+			strSql.append(") ");
+			strSql.append("VALUES ");
+			strSql.append("( ");
+			strSql.append("? ");
+			strSql.append(",? ");
+			strSql.append(",? ");
+			strSql.append(",? ");
+			strSql.append(",? ");
+			strSql.append(",? ");
+			strSql.append(",? ");
+			strSql.append(") ");
+
+			PreparedStatement ps = connection.prepareStatement(strSql.toString());
+			ps.setString(1, workRecordMonthDto.getEmployeeId());
+			ps.setString(2, workRecordMonthDto.getYearMonth());
+			ps.setInt(3, workRecordMonthDto.getTotalWorkingDays());
+			ps.setInt(4, workRecordMonthDto.getTotalWorkMinutes() / 60);
+			ps.setInt(5, workRecordMonthDto.getTotalNightMinutes() / 60);
+			ps.setInt(6, workRecordMonthDto.getTotalOverMinutes() / 60);
+			ps.setInt(7, 0);
+			
 
 			// ログ出力
 			log.info(ps);

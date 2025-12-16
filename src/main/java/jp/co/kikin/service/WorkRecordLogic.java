@@ -18,7 +18,7 @@ import jp.co.kikin.service.CommonUtils;
 
 import jp.co.kikin.dao.WorkRecordDao;
 import jp.co.kikin.dto.WorkRecordDto;
-
+import jp.co.kikin.dto.WorkRecordMonthDto;
 import jp.co.kikin.exception.CommonException;
 
 /**
@@ -126,6 +126,50 @@ public class WorkRecordLogic {
 		// 切断
 		connection.close();
 
+	}
+	
+	/* 月次勤務実績のデータの登録を行う　古賀追加 */
+	
+	public void registerWorkRecordMonth(WorkRecordMonthDto workRecordMonthDto) throws Exception {
+		// 勤務実績Dao
+				WorkRecordDao workRecordDao = new WorkRecordDao();
+				// コネクション
+				Connection connection = workRecordDao.getConnection();
+
+				// トランザクション処理
+				connection.setAutoCommit(false);
+
+				try {
+						String employeeId = workRecordMonthDto.getEmployeeId();
+						String yearMonth = workRecordMonthDto.getYearMonth();
+
+						// データが存在するか確認
+						boolean updateFlg = workRecordDao.isDataMonth(employeeId, yearMonth);
+
+						if (updateFlg) {
+							// 更新
+							workRecordDao.updateWorkRecordMonth(workRecordMonthDto);
+						} else {
+							// 登録
+							workRecordDao.insertWorkRecordMonth(workRecordMonthDto);
+						}
+
+					
+				} catch (Exception e) {
+					// ロールバック処理
+					connection.rollback();
+
+					// 切断
+					connection.close();
+
+					throw e;
+				}
+
+				// コミット
+				connection.commit();
+				// 切断
+				connection.close();
+		
 	}
 
 	/**

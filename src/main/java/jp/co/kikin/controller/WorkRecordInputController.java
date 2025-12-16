@@ -15,6 +15,7 @@ import java.util.Map;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jp.co.kikin.dto.WorkRecordDto;
+import jp.co.kikin.dto.WorkRecordMonthDto;
 import jp.co.kikin.model.WorkRecordInputBean;
 import jp.co.kikin.model.WorkRecordInputForm;
 import jp.co.kikin.service.ComboListUtilLogic;
@@ -195,6 +196,23 @@ public class WorkRecordInputController {
 
         // フォームデータをDtoに変換する
         List<WorkRecordDto> workRecordDtoList = this.formToDto(form);
+        
+        // 月次データ登録用追記　古賀
+        if (form.getTotalWorkMinutes() > 0) {
+        	WorkRecordMonthDto workRecordMonth = new WorkRecordMonthDto();
+        	
+        	String yearMonth = workRecordDtoList.get(0).getWorkDay().substring(0, 6);
+        	
+        	workRecordMonth.setEmployeeId(loginUserDto.getEmployeeId());
+        	workRecordMonth.setYearMonth(yearMonth);
+        	workRecordMonth.setTotalWorkMinutes(form.getTotalWorkMinutes());
+        	workRecordMonth.setTotalWorkingDays(form.getTotalWorkingDays());
+        	workRecordMonth.setTotalOverMinutes(form.getTotalOverMinutes());
+        	workRecordMonth.setTotalNightMinutes(form.getTotalNightMinutes());
+        	
+        	workRecordLogic.registerWorkRecordMonth(workRecordMonth);
+		}
+        
 
         // 時間計算を行う
         workRecordLogic.calculation(workRecordDtoList);
