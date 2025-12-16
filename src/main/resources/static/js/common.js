@@ -54,3 +54,31 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+//給料情報のパスワード入力
+function openSalaryPasswordBar() {
+  document.getElementById("salaryPasswordBar").classList.add("show");
+  document.getElementById("salaryPasswordInput").focus();
+}
+
+function closeSalaryPassword() {
+  document.getElementById("salaryPasswordBar").classList.remove("show");
+  document.getElementById("salaryPasswordError").innerText = "";
+  document.getElementById("salaryPasswordInput").value = "";
+}
+
+function checkSalaryPassword() {
+  const password = document.getElementById("salaryPasswordInput").value;
+
+  if (!password) {
+    document.getElementById("salaryPasswordError").innerText = "パスワードを入力してください";
+    return;
+  }
+
+  // 仮：フロント確認（※後述でサーバ確認に変える）
+  if (password === "root") {
+    window.location.href = "/kikin/salaryInformation";
+  } else {
+    document.getElementById("salaryPasswordError").innerText = "パスワードが違います";
+  }
+}
+
