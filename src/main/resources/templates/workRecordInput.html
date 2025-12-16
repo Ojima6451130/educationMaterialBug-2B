@@ -266,26 +266,29 @@
 .holiday {
 	background-color: yellow;
 }
+
 #workRecordPage .tableAndSummary {
-    width: max-content;   /* テーブルの実幅にピッタリ */
-    margin: 0 auto;       /* その全体を中央寄せ */
-    position: relative;   /* summaryBox の右寄せに対応 */
+	width: max-content; /* テーブルの実幅にピッタリ */
+	margin: 0 auto; /* その全体を中央寄せ */
+	position: relative; /* summaryBox の右寄せに対応 */
 }
+
 .workWrapper {
-    width: max-content;    
-    margin: 0 auto;        
-    text-align: right;
-    }    
+	width: max-content;
+	margin: 0 auto;
+	text-align: right;
+}
+
 .summaryBox {
-    display: inline-block;
-    background: #00c6b7;
-    border: 3px solid #000;
-    border-radius: 5px;
-    padding: 0px 10px 0px 20px;
-    margin-top: 5px;
-    position: absolute;
-    right: 15%;  /* 右端に寄せる */
-    text-align: right;
+	display: inline-block;
+	background: #00c6b7;
+	border: 3px solid #000;
+	border-radius: 5px;
+	padding: 0px 10px 0px 20px;
+	margin-top: 5px;
+	position: absolute;
+	right: 15%; /* 右端に寄せる */
+	text-align: right;
 }
 </style>
 
@@ -296,8 +299,7 @@
 
 			<table class="centered-container">
 				<tr>
-					<td id="headLeft">
-					</td>
+					<td id="headLeft"></td>
 					<td id="headCenter">勤務実績入力</td>
 					<td id="headRight">
 						<!-- <input value="ログアウト" type="button" class="smallButton" onclick="logout()" /> コメントアウト長谷川-->
@@ -306,28 +308,41 @@
 				</tr>
 			</table>
 		</div>
-
 		<div id="businessBody" style="text-align: center">
-			<form action="/kikin/workRecordInput/search" method="post"
-				th:object="${workRecordInputForm}">
-				<label>表示年月：</label>
-				<!-- 検索ボタンを削除しonchange="this.form.submit()"を追記(久野) -->
-				<select name="yearMonth" id="yearMonth"
-					onchange="this.form.submit()">
-					<!-- yearMonthValues リストをループして表示 -->
-					<option th:each="entry : ${yearMonthCmbMap.entrySet()}"
-						th:text="${entry.value}" th:value="${entry.key}"
-						th:selected="${entry.key == workRecordInputForm.yearMonth}"
-						th:inline="text">[[${yearMonth}]></option>
-				</select>
-				<div
-					style="display: inline; margin-left: 700px; box-sizing: border-box;">
-					社員ID&nbsp;<span th:text="${loginUserDto.employeeId}"></span>
-					：社員名&nbsp;<span th:text="${loginUserDto.employeeName}"></span>
-				</div>
-			</form>
-		</div>
+			<div class="searchArea">
+				<form action="/kikin/workRecordInput/search" method="post"
+					th:object="${workRecordInputForm}">
 
+					<!-- 表示年月 -->
+					<div class="userTable">
+						<table>
+							<tr>
+								<th>表示年月</th>
+								<td><select name="yearMonth" id="yearMonth"
+									onchange="this.form.submit()">
+										<option th:each="entry : ${yearMonthCmbMap.entrySet()}"
+											th:value="${entry.key}" th:text="${entry.value}"
+											th:selected="${entry.key == workRecordInputForm.yearMonth}">
+										</option>
+								</select></td>
+							</tr>
+						</table>
+					</div>
+					<div class="userTable">
+						<table>
+							<tr>
+								<th>ID</th>
+								<td><span th:text="${loginUserDto.employeeId}"></span></td>
+							</tr>
+							<tr>
+								<th>社員名</th>
+								<td><span th:text="${loginUserDto.employeeName}"></span></td>
+							</tr>
+						</table>
+					</div>
+				</form>
+			</div>
+		</div>
 		<div id="businessBody" style="justify-content: center; padding: 0;">
 			<form action="/kikin/workRecordInput/regist" id="registForm"
 				method="post" th:object="${workRecordInputForm}">
@@ -372,7 +387,8 @@
 						<tbody class="tableBody"
 							style="display: block; width: max-content; height: 400px; overflow-y: scroll; scrollbar-gutter: stable;">
 							<!-- scroll追加（細井）-->
-							<tr th:each="workRecordInput, iterStat : ${workRecordInputForm.workRecordInputList }"
+							<tr
+								th:each="workRecordInput, iterStat : ${workRecordInputForm.workRecordInputList }"
 								class="list">
 								<td
 									style="width: 70px; text-align: center; box-sizing: border-box;">

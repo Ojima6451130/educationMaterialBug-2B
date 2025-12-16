@@ -791,7 +791,7 @@ td #headCenter {
 /* =========================
    ▼（疑似要素で追加）
    ========================= */
-.userTable table td::after {
+.userTable table td:has(#yearMonth, #employeeId)::after {
 	content: "";
 	position: absolute;
 	top: 50%;
