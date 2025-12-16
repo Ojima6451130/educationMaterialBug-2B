@@ -74,7 +74,7 @@
 							</table>
 						</td>
 						<!-- 以下テーブルの修正（久野） -->
-						<td th:each="dailyShiftBean : ${dailyShiftBeanList}"
+						<td th:each="dailyShiftBean : ${dailyShiftBeanList}"  th:if="${dailyShiftBean.startTime != null and dailyShiftBean.startTime != ''}"
 							style="width: 154px; text-align: center; white-space: nowrap;">
 							<table class="tableHeaderDaily">
 								<tr>
@@ -109,7 +109,7 @@
 							</table>
 						</td>
 						<!-- 右側のテーブル部分 -->
-						<td th:each="dailyShiftBean : ${dailyShiftBeanList}">
+						<td th:each="dailyShiftBean : ${dailyShiftBeanList}" th:if="${dailyShiftBean.startTime != null and dailyShiftBean.startTime != ''}">
 							<table class="tableBodyDaily">
 								<tr style="height: 50px;">
 									<!-- 各時間帯のboolTime分岐箇所にbackground-color: lightpink;を追加 -->
@@ -344,7 +344,7 @@
 			</table>
 		</div>
 
-		<div id="footer">
+		<div id="footer" style="display: none;">
 			<table>
 				<tr>
 					<td id="footLeft"></td>
