@@ -45,30 +45,44 @@
 			</table>
 		</div>
 
-		<div id="businessBody" style="text-align: center">
-			<form action="/kikin/workRecordCheck/search" method="post"
-				th:object="${workRecordInputForm}">
-				<!-- 表示年月と社員名を検索ボタンなしで表示しなおせるよう修正(久野) -->
-				<label class="selectbox-1">表示年月： <select name="yearMonth" id="yearMonth"
-					onchange="this.form.submit()">
-						<!-- yearMonthValues リストをループして表示 -->
-						<option th:each="entry : ${yearMonthCmbMap.entrySet()}"
-							th:text="${entry.value}" th:value="${entry.key}"
-							th:selected="${entry.key == workRecordInputForm.yearMonth}"
-							th:inline="text">[[${yearMonth}]></option>
-				</select>
-				</label>
-				<div style="display: inline; margin-left: 700px;">
-					<!-- margin-left: 700px 追記　瀬口  -->
-					社員名： <select name="employeeId" id="employeeId"
-						onchange="this.form.submit()">
-						<option th:each="entry : ${employeeCmbMap.entrySet()}"
-							th:text="${entry.value}" th:value="${entry.key}"
-							th:selected="${entry.key == workRecordInputForm.employeeId}"
-							th:inline="text">[[${employeeId}]></option>
-					</select>
-				</div>
-			</form>
+		<div id="businessBody">
+			<div class="searchArea">
+				<form action="/kikin/workRecordCheck/search" method="post"
+					th:object="${workRecordInputForm}">
+					<div class="userTable">
+						<table>
+							<tr>
+								<th>表示年月</th>
+								<td><select name="yearMonth" id="yearMonth"
+									onchange="this.form.submit()">
+										<option th:each="entry : ${yearMonthCmbMap.entrySet()}"
+											th:text="${entry.value}" th:value="${entry.key}"
+											th:selected="${entry.key == workRecordInputForm.yearMonth}">
+										</option>
+								</select></td>
+							</tr>
+						</table>
+					</div>
+
+					<!-- 社員名 -->
+					<div class="userTable">
+						<table>
+							<tr>
+								<th>社員名</th>
+								<td><select name="employeeId" id="employeeId"
+									onchange="this.form.submit()">
+										<option th:each="entry : ${employeeCmbMap.entrySet()}"
+											th:text="${entry.value}" th:value="${entry.key}"
+											th:selected="${entry.key == workRecordInputForm.employeeId}">
+										</option>
+								</select></td>
+							</tr>
+						</table>
+					</div>
+
+				</form>
+			</div>
+
 		</div>
 
 		<div class="businessBody">
@@ -114,8 +128,7 @@
 						class="list">
 						<td
 							style="width: 70px; text-align: center; box-sizing: border-box;">
-							<span th:text="${workRecordCheck.workDayDisp}"></span>
-						<!-- </span>追記　久野 -->
+							<span th:text="${workRecordCheck.workDayDisp}"></span> <!-- </span>追記　久野 -->
 						</td>
 						<td
 							style="width: 50px; text-align: center; box-sizing: border-box;"

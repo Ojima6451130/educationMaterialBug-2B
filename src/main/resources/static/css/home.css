@@ -77,14 +77,16 @@
 }
 /* 写真 */
 #leftArea img {
-	width: 120px; /* 横幅を固定 */
-	height: auto; /* 縦は自動で比率を保持 */
+	width: 120px;
+	height: 120px;          /* ← 高さも固定 */
+	object-fit: contain;    /* ← はみ出た分をトリミング */
 	display: block;
-	margin: 10px auto 15px auto; /* 上下の余白を調整して中央寄せ */
-	border-radius: 8px; /* 角丸（任意） */
+	margin: 10px auto 15px auto;
+	border-radius: 8px;
 	background-color: #0058ac;
-	padding: 5px 20px 0 20px;
+	padding: 5px;
 }
+
 
 /* ▼ メイン画面を右にずらす */
 #content {

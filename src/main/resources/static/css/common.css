@@ -98,7 +98,17 @@ td #headCenter {
 	height: 82%;
 	overflow: auto;
 }
-
+.searchArea {
+	display: flex;
+	justify-content: center;   /* ← これが足りない */
+	gap: 20px;                 /* userTable同士の間隔 */
+	margin-bottom: 10px;
+}
+.searchArea form {
+  display: flex;
+  gap: 20px;            /* 表示年月と社員名の間隔 */
+  align-items: flex-end; /* 下揃え（ラベル高さ差対策） */
+}
 /*
 * フッター定義
 */
@@ -461,60 +471,6 @@ td #headCenter {
 	color: red;
 }
 
-/*一旦以下をコメントアウト*/
-/*表示年月*/
-.selectbox-1 {
-	position: relative;
-	width: 20%;
-	background-color: #00c6b7;
-	border-radius: 25px;
-	padding-left: 4px;
-}
-
-.selectbox-1::before, .selectbox-1::after {
-	position: absolute;
-	content: '';
-	pointer-events: none;
-}
-
-.selectbox-1::before {
-	display: inline-block;
-	right: 0;
-	width: 1.4em;
-	height: 1.4em;
-	border-radius: 0 25px 25px 0;
-	background-color: #00c6b7;
-}
-
-.selectbox-1::after {
-	position: absolute;
-	top: 50%;
-	right: 1.0em;
-	transform: translate(50%, -50%) rotate(45deg);
-	width: 6px;
-	height: 6px;
-	border-bottom: 3px solid #fff;
-	border-right: 3px solid #fff;
-}
-
-.selectbox-1 select {
-	appearance: none;
-	min-width: 130px;
-	height: 1.6em;
-	padding: 0 .2em;
-	border: none;
-	border-radius: 25px;
-	color: #3f4753;
-	font-size: 1em;
-	cursor: pointer;
-	background-color: transparent;
-	text-align: center;
-}
-
-.selectbox-1 select:focus {
-	outline: none;
-}
-
 /*
 * ページの列（細井）
 */
@@ -524,11 +480,6 @@ td #headCenter {
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-end;
-}
-
-.header2Body {
-	width: 400px;
-	margin-bottom: 5px;
 }
 
 .header2Body #yearMonth {
@@ -760,4 +711,95 @@ td #headCenter {
 .sub-menu ul li>a:hover::before {
 	transform-origin: left top;
 	transform: scale(1, 1);
+}
+
+/*userテーブル*/
+/* =========================
+   userテーブル（※ここは元のまま）
+   ========================= */
+.userTable table {
+	width: 260px;
+	border-collapse: collapse;
+	font-size: 0.9em;
+}
+
+.userTable table tr {
+	border-bottom: solid 2px white;
+}
+
+.userTable table tr:last-child {
+	border-bottom: none;
+}
+
+.userTable table th {
+	position: relative;
+	width: 35%;
+	background-color: #00c6b7;
+	color: white;
+	text-align: center;
+	border-radius: 10px;
+}
+
+.userTable table td {
+	width: 65%;
+	text-align: center;
+	background-color: #eee;
+	padding: 5px 0;
+	position: relative;
+}
+
+/* =========================
+   select（見た目を消す）
+   ========================= */
+.userTable #employeeId {
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	border: none;
+	background: transparent;
+	color: #008f86;
+	font-size: 0.9em;
+	cursor: pointer;
+	outline: none;
+	box-shadow: none;
+	padding-right: 14px;
+	padding-left: 10px;
+	width: 100%;
+}
+/* 表示年月の select も社員名と同じ見た目に */
+.userTable #yearMonth {
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	border: none;
+	background: transparent;
+	color: #008f86;
+	font-size: 0.9em;
+	cursor: pointer;
+	outline: none;
+	box-shadow: none;
+	padding: 0 14px 0 10px;
+	width: 100%;
+}
+
+/* フォーカス時の黒枠対策（念のため） */
+.userTable:focus {
+	outline: none;
+	box-shadow: none;
+}
+
+/* =========================
+   ▼（疑似要素で追加）
+   ========================= */
+.userTable table td::after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	right: 13px;
+	transform: translateY(-50%) rotate(45deg);
+	width: 6px;
+	height: 6px;
+	border-bottom: 2px solid #555;
+	border-right: 2px solid #555;
+	pointer-events: none;
 }
