@@ -657,9 +657,6 @@ td #headCenter {
 	color: #ffffff;
 }
 
-/* --------------------------------------
-  ログインステータス（右上に寄せる）
---------------------------------------- */
 #hamburger .login-status {
 	position: absolute;
 	top: 200px;
@@ -713,9 +710,8 @@ td #headCenter {
 	transform: scale(1, 1);
 }
 
-/*userテーブル*/
 /* =========================
-   userテーブル（※ここは元のまま）
+   userテーブル,表示年月
    ========================= */
 .userTable table {
 	width: 260px;
@@ -748,9 +744,6 @@ td #headCenter {
 	position: relative;
 }
 
-/* =========================
-   select（見た目を消す）
-   ========================= */
 .userTable #employeeId {
 	appearance: none;
 	-webkit-appearance: none;
@@ -807,9 +800,8 @@ td #headCenter {
 /*給料情報のパスワードチェック用*/
 .password-bar {
   position: fixed;
-  top: -80px;          /* ← 最初は隠す */
+  top: -80px;
   left: 0;
-  width: 100%;
   height: 80px;
   background-color: #00c6b7;
   color: white;
@@ -833,3 +825,4 @@ td #headCenter {
   color: yellow;
   margin-left: 10px;
 }
+
