@@ -267,10 +267,11 @@
 	background-color: yellow;
 }
 
-#workRecordPage .tableAndSummary {
-	width: max-content; /* テーブルの実幅にピッタリ */
-	margin: 0 auto; /* その全体を中央寄せ */
-	position: relative; /* summaryBox の右寄せに対応 */
+#workRecordPage.tableAndSummary {
+  width: auto;          /* ← 重要 */
+  margin: 0 auto;
+  position: relative;
+  display: inline-block;
 }
 
 .workWrapper {
@@ -280,22 +281,40 @@
 }
 
 .summaryBox {
-	display: inline-block;
-	background: #00c6b7;
-	border: 3px solid #000;
-	border-radius: 5px;
-	padding: 0px 10px 0px 20px;
-	margin-top: 5px;
-	position: absolute;
-	right: 15%; /* 右端に寄せる */
-	text-align: right;
+  display: inline-block;        /* ← 最重要 */
+  background: rgb(0, 213, 197);
+  border-radius: 5px;
+  padding: 4px 10px;
+  white-space: nowrap;
+}
+#summaryArea {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;   /* ← 右端基準 */
+  gap: 8px;
+}
+.registerArea input {
+  min-width: 120px;
 }
 
 #footer {
-    bottom: 1%;
-    height: 70px;
-    width: 100%;
-    position: static;
+  height: 40px;
+}
+.footer-inner {
+  display: flex;
+  justify-content: center;
+}
+
+#footRight {
+  text-align: center;
+}
+body{
+ overflow-x: hidden;
+}
+.centerContainer {
+  display: flex;
+  justify-content: center;
 }
 </style>
 
@@ -350,13 +369,13 @@
 				</form>
 			</div>
 		</div>
-		<div id="businessBody" style="justify-content: center; padding: 0;">
+		<div id="businessBody" class="centerContainer">
 			<form action="/kikin/workRecordInput/regist" id="registForm"
 				method="post" th:object="${workRecordInputForm}">
 				<div id="workRecordPage" class="tableAndSummary">
 					<table class="overflowFixed">
 						<thead class="tableHeader"
-							style="display: block; position: sticky; top: 0; width: max-content;">
+							style="display: block; position: sticky; top: 0;">
 							<tr>
 								<td
 									style="width: 70px; text-align: center; box-sizing: border-box;">
@@ -392,7 +411,7 @@
 							</tr>
 						</thead>
 						<tbody class="tableBody"
-							style="display: block; width: max-content; height: 400px; overflow-y: scroll; scrollbar-gutter: stable;">
+							style="display: block; height: 400px; overflow-y: scroll; scrollbar-gutter: stable;">
 							<!-- scroll追加（細井）-->
 							<tr
 								th:each="workRecordInput, iterStat : ${workRecordInputForm.workRecordInputList }"
@@ -476,12 +495,16 @@
 							</tr>
 						</tbody>
 					</table>
-					<div id="summaryBox" class="summaryBox">
-						<span>勤労日数：</span> <span id="workingDays">0</span> <span
-							style="margin-left: 20px;">総就業時間：</span> <span id="totalWorkTime">00:00</span>
-						<span style="margin-left: 20px;">総残業時間：</span> <span
-							id="totalOverTime">00:00</span> <span style="margin-left: 20px;">総夜勤時間：</span>
-						<span id="totalNightTime">00:00</span>
+					<div id="summaryArea">
+  						<div id="summaryBox" class="summaryBox">
+    						<span>勤労日数：</span><span id="workingDays">0</span>日
+    						<span style="margin-left: 20px;">総就業時間：</span><span id="totalWorkTime">00:00</span>時間
+    						<span style="margin-left: 20px;">総残業時間：</span><span id="totalOverTime">00:00</span>時間
+    						<span style="margin-left: 20px;">総夜勤時間：</span><span id="totalNightTime">00:00</span>時間
+  						</div>
+						<div class="registerArea">
+					    	<input value="登録" type="submit" form="registForm" class="smallButton" onclick="register(event)" />
+						</div>
 					</div>
 					<input type="hidden" name="totalWorkingDays"
 						id="totalWorkingDaysHidden" /> <input type="hidden"
@@ -496,16 +519,17 @@
 	</div>
 
 	<div id="footer">
-		<table style="width: 100%;">
+	<div class="footer-inner">
+		<table>
 			<!--style="width: 100%; 追加　瀬口  -->
 			<tr>
 				<td id="footLeft"></td>
 				<td id="footCenter"></td>
-				<td id="footRight"><input value="登録" type="submit"
-					form="registForm" class="smallButton" onclick="register(event)" style=" margin-right: 50px;"/> />
+				<td id="footRight">
 				</td>
 			</tr>
 		</table>
+		</div>
 	</div>
 </body>
 
