@@ -130,6 +130,19 @@
 	}
 </script>
 </head>
+<style>
+#businessBody {
+  display: flex;
+  justify-content: center;
+}
+#businessBody .tableWrapper {
+  text-align: Right;   /* 中身は右寄せ */
+}
+.tableFooter {
+  margin-top: 8px;         /* テーブルとの間隔 */
+}
+</style>
+
 
 <body>
 	<div th:each="entry : ${dataMap}">
@@ -153,6 +166,7 @@
 			</table>
 		</div>
 		<div id="businessBody" style="overflow-x: hidden;">
+		<div class="tableWrapper">
 			<form id="mntform" action="/kikin/employeeMstMnt/update"
 				method="post" th:object="${employeeMstMntForm}">
 				<table class="overflowFixed">
@@ -208,19 +222,18 @@
 					</tbody>
 				</table>
 			</form>
+			<div class="tableFooter">
+			<input value="新規登録" name="button" type="button" class="smallButton" onclick="location.href='/kikin/employeeMstMnt/regist'" />
+			<input value="更新" name="button" type="button" class="smallButton" onclick="employeeMstMntUpdate()" />
+			</div>
+			</div>
 		</div>
-		<br>
-		<br>
 		<div id="footer">
 			<table style="width: 100%;"><!--style="width: 100%;追加　瀬口  -->
 				<tr>
 					<td id="footLeft"></td>
 					<td id="footCenter"></td>
-					<td id="footRight"><input value="新規登録" name="button"
-						type="button" class="smallButton"
-						onclick="location.href='/kikin/employeeMstMnt/regist'" /> <input
-						value="更新" name="button" type="button" class="smallButton"
-						onclick="employeeMstMntUpdate()" /></td>
+					<td id="footRight"></td>
 				</tr>
 			</table>
 		</div>

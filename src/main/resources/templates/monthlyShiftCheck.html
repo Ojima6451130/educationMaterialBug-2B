@@ -10,6 +10,26 @@
 <script type="text/javascript" th:src="@{/js/common.js}"></script>
 <script type="text/javascript" th:src="@{/js/message.js}"></script>
 </head>
+<style>
+#businessBody {
+  display: flex;
+  justify-content: center;
+}
+
+.tableWrapper {
+  display: inline-block;   /* ← テーブル幅基準 */
+}
+
+.actionArea {
+  margin-top: 10px;
+}
+
+.actionArea form {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-start;  /* ← 左揃え */
+}
+</style>
 
 <body>
 	<div id="wrapper">
@@ -47,14 +67,14 @@
 			<div class="pageSwitch">
 				<div>
 					<ul id="nav">
-						<li><span th:if="${Page.isFirst()}">前</span> <a
+						<li><span th:if="${Page.isFirst()}">Back</span> <a
 							th:unless="${Page.isFirst()}"
 							th:href="@{/kikin/monthlyShiftCheck/dopage(page = (${Page.getNumber() - 1}))}">
-								前 </a></li>
-						<li><span th:if="${Page.isLast()}">後</span> <a
+								Back </a></li>
+						<li><span th:if="${Page.isLast()}">Next</span> <a
 							th:unless="${Page.isLast()}"
 							th:href="@{/kikin/monthlyShiftCheck/dopage(page = (${Page.getNumber() + 1}))}">
-								次 </a></li>
+								Next </a></li>
 					</ul>
 				</div>
 				<div>
@@ -64,6 +84,7 @@
 		</div>
 
 		<div id="businessBody">
+		<div class="tableWrapper">
 			<table class="daysTable">
 				<thead style="display: block; position: sticky;">
 					<tr class="tableHeader">
@@ -164,12 +185,8 @@
 					</tr>
 				</tbody>
 			</table>
-		</div>
-		<div id="footer" style="padding: 0;">
-			<table>
-				<tr>
-					<td id="footLeft">
-						<form id="excelForm" action="/kikin/monthlyShiftCheck/print"
+			<div class="actionArea">
+			<form id="excelForm" action="/kikin/monthlyShiftCheck/print"
 							method="post" th:object="${MonthlyShiftCheckForm}"
 							style="display: flex; gap: 5px;">
 							<!-- /kikin/monthlyShiftCheck/prin から print に変更　瀬口  -->
@@ -180,6 +197,13 @@
 								th:value="${yearMonth}"> <input type="submit"
 								class="smallButton" id="btn_excel" value="印刷">
 						</form>
+						</div>
+			</div>
+		</div>
+		<div id="footer" style="padding: 0; position: static;">
+			<table>
+				<tr>
+					<td id="footLeft" style="padding-left:15%;">
 					</td>
 					<td id="footCenter" style="text-align: right;"></td>
 					<td id="footRight"></td>

@@ -10,6 +10,20 @@
     <script type="text/javascript" th:src="@{/js/common.js}"></script>
     <script type="text/javascript" th:src="@{/js/message.js}"></script>
 </head>
+<style>
+#businessBody {
+  display: flex;
+  justify-content: center;
+}
+#businessBody .tableWrapper {
+  text-align: Right;   /* 中身は右寄せ */
+}
+.tableFooter {
+  margin-top: 8px;         /* テーブルとの間隔 */
+}
+
+</style>
+
 
 <body>
     <div id="wrapper">
@@ -29,6 +43,7 @@
             </table>
         </div>
         <div id="businessBody">
+        <div class="tableWrapper">
             <div class="centered-container">
                 <div id="pattern" style="width:max-content; margin-left:80px; float:left">
                     <div>
@@ -102,17 +117,16 @@
                             </tr>
                         </table>
                     <div style="height:450px; width: max-content;overflow-y: scroll; scrollbar-gutter: stable;">
-                        <table class="tableBody">
                             <form id="registForm" class="baseShiftMstMntForm" action="/kikin/baseShiftInput/regist"
                                 method="post" th:object="${baseShiftMstMntForm}">
+                        <table class="tableBody">
                                 <th:block
                                     th:each="employee, employeeStat : ${baseShiftMstMntForm.baseShiftMstMntBeanList}">
                                     <tr>
                                         <!-- employeeId を隠しフィールドとして送信 -->
+                                        <td width="230px" align="center">
                                         <input type="hidden"
                                             th:field="*{baseShiftMstMntBeanList[__${employeeStat.index}__].employeeId}" />
-
-                                        <td width="230px" align="center">
                                             <span th:text="${employee.employeeName}"></span>
                                         </td>
 									
@@ -201,10 +215,14 @@
                                         </td>
                                     </tr>
                                 </th:block>
-                                </form>
-                        </table>
+                        	</table>
+                           </form>
+                           
                     </div>
-
+                    <div class="tableFooter">
+                           <input value="登録" type="submit" class="smallButton" form="registForm" /> 
+                           </div>
+					</div>
                 </div>
             </div>
         </div>
@@ -218,7 +236,7 @@
                         　
                     </td>
                     <td id="footRight">
-                        <input value="登録" type="submit" class="smallButton" form="registForm" /> 
+                        
                     </td>
                 </tr>
             </table>

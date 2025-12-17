@@ -21,6 +21,23 @@
 	box-sizing: border-box;
 	width: 100%; /* ← 必要に応じて */
 }
+#businessBody {
+  display: flex;
+  justify-content: center;
+}
+.businessInner {
+  display: flex;
+  flex-direction: column; /* ← 縦並び */
+  align-items: stretch;   /* テーブル幅に揃える */
+}
+.tableWrapper {
+  display: inline-block;   /* テーブル幅に合わせる */
+  text-align: left;
+}
+.tableFooter {
+  margin-top: 8px;         /* テーブルとの間隔 */
+}
+
 </style>
 </head>
 
@@ -60,14 +77,14 @@
 					<div class="pageSwitch">
 						<div>
 							<ul id="nav">
-								<li><span th:if="${Page.isFirst()}">前</span> <a
+								<li><span th:if="${Page.isFirst()}">Back</span> <a
 									th:unless="${Page.isFirst()}"
 									th:href="@{/kikin/monthlyShiftInput/dopage(page = (${Page.getNumber() - 1}))}">
-										前 </a></li>
-								<li><span th:if="${Page.isLast()}">後</span> <a
+										Back </a></li>
+								<li><span th:if="${Page.isLast()}">Next</span> <a
 									th:unless="${Page.isLast()}"
 									th:href="@{/kikin/monthlyShiftInput/dopage(page = (${Page.getNumber() + 1}))}">
-										次 </a></li>
+										Next </a></li>
 							</ul>
 						</div>
 						<div>
@@ -77,6 +94,8 @@
 					</div>
 				</div>
 				<div id="businessBody">
+				<div class="businessInner">
+				<div class="tableWrapper">
 					<table class="daysTable" id="resize">
 						<thead style="display: block; position: sticky;">
 							<tr class="tableHeader">
@@ -451,13 +470,13 @@
 											th:value="${shift.key}"
 											th:selected="${shift.key} == ${monthlyShiftInput.shiftId31}"
 											th:inline="text">[[${shift.value}]]</option>
-								</select></td>
-
+								</select>
+								</td>
 							</tr>
 						</tbody>
 					</table>
-				</div>
-				<div id="footer">
+					</div>
+					<div class="tableFooter">
 					<table>
 						<tr>
 							<td id="footLeft">
@@ -479,7 +498,10 @@
 								formaction="/kikin/monthlyShiftInput/regist" /></td>
 						</tr>
 					</table>
+					</div>
+					</div>
 				</div>
+				<div id="footer"></div>
 		</form>
 	</div>
 	<script>

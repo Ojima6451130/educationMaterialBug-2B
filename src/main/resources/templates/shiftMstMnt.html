@@ -119,6 +119,19 @@
 	}
 </script>
 </head>
+<style>
+#businessBody {
+  display: flex;
+  justify-content: center;
+}
+#businessBody .tableWrapper {
+  text-align: Right;   /* 中身は右寄せ */
+}
+.tableFooter {
+  margin-top: 8px;         /* テーブルとの間隔 */
+}
+
+</style>
 
 <body>
 	<div th:each="entry : ${dataMap}">
@@ -145,6 +158,7 @@
 		</div>
 		<br>
 		<div id="businessBody">
+		<div class="tableWrapper">
 			<form id="update" action="/kikin/shiftMstMnt/update"
 				th:object="${shiftMstMntForm}" method="post">
 				<table class="overflowFixed">
@@ -209,6 +223,16 @@
 					</tbody>
 				</table>
 			</form>
+			<div class="tableFooter">
+			<form action="/kikin/shiftMstMnt/regist" method="post" >
+							<input value="新規登録" type="submit" class="smallButton"
+								name="regist" /> 
+								<input value="更新" form="update" type="submit"
+								class="smallButton" style="margin: 10px;"
+								onclick="return shiftMstMntUpdate()" />
+						</form>
+						</div>
+						</div>
 		</div>
 		<div id="footer">
 			<table style="width: 100%;"><!--style="width: 100%;追加　瀬口 -->
@@ -216,13 +240,7 @@
 					<td id="footLeft"></td>
 					<td id="footCenter"></td>
 					<td id="footRight">
-						<form action="/kikin/shiftMstMnt/regist" method="post" >
-							<input value="新規登録" type="submit" class="smallButton"
-								name="regist" /> 
-								<input value="更新" form="update" type="submit"
-								class="smallButton" style="margin: 10px;"
-								onclick="return shiftMstMntUpdate()" />
-						</form>
+						
 					</td>
 				</tr>
 			</table>
