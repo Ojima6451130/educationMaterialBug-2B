@@ -831,9 +831,15 @@ td #headCenter {
 
 /*Back、Next*/
 .Back, .Next {
+	padding: 0.3vw 1.1vw;
     color: #00c6b7;
+    text-decoration: none;
+    transition: background-color 0.1s ease;
+    border-radius: 10px;
+    font-weight: bold;
 }
 .Back:hover, .Next:hover {
     color: #ffffff;
-    text-shadow: 0 2px 0 #3f4753;
+    background-color: #00c6b7;
+    
 }
