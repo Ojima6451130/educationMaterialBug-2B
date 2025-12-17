@@ -78,34 +78,27 @@ document.addEventListener("DOMContentLoaded", function () {
 		alert('エラーが発生しました')
 	}
 </script>
+<script>
+function confirmBreakTime() {
+    // promptで入力させる
+    var breakTime = prompt("休憩時間を入力してください（例：01:00）");
+
+    // キャンセル or 未入力
+    if (breakTime === null || breakTime.trim() === "") {
+        alert("休憩時間を入力してください");
+        return false; // submit中止
+    }
+
+    // hiddenにセット
+    document.getElementById("breakTime").value = breakTime;
+
+    return true; // submit続行
+}
+</script>
 <style>
 .priority-red {
 	color: red;
 	font-weight: bold; /* 任意 */
-}
-
-.news-header {
-	display: flex;
-	align-items: center;
-	gap: 15px;
-	margin: 10px 0;
-}
-
-.news-header p {
-	margin: 0;
-}
-
-.news-add {
-	font-size: 0.9em;
-	text-decoration: underline;
-}
-
-.news-header a {
-	text-decoration: none;
-}
-
-.news-header a:hover {
-	color: #00c6b7;
 }
 </style>
 </head>
@@ -144,7 +137,9 @@ document.addEventListener("DOMContentLoaded", function () {
 				<button type="submit" name="actionType" value="start"
 					class="buttonDesign">出勤</button>
 			</form>
-			<form th:action="@{/kikin/attendance/end}" method="post">
+			<form th:action="@{/kikin/attendance/end}" method="post"
+				onsubmit="return confirmBreakTime();">
+				<input type="hidden" name="breakTime" id="breakTime">
 				<button type="submit" name="actionType" value="end"
 					class="buttonDesign">退勤</button>
 			</form>
@@ -168,18 +163,20 @@ document.addEventListener("DOMContentLoaded", function () {
 					<a href="/kikin/news" class="news-add">追加</a>
 				</span>
 			</div>
-			<div th:if="${news != null and !#lists.isEmpty(news)}">
-				<div class="newsTable"
-					style="width: 1200px; margin: 0 auto 10px auto; text-align: left;">
-					<table>
-						<tr th:each="news, stat : ${news}"
-							th:classappend="${#strings.isEmpty(news.newsPriority) == false} ? 'priority-red'">
-							<td><span th:text="${stat.count}"></span></td>
-							<td><span
-								th:text="${#temporals.format(news.updateDatetime, 'yyyy/MM/dd')}"></span></td>
-							<td><span th:text="${news.memo}"></span></td>
-						</tr>
-					</table>
+			<div class="news-table-wrapper">
+				<div th:if="${news != null and !#lists.isEmpty(news)}">
+					<div class="newsTable"
+						style="width: 1200px; margin: 0 auto 10px auto; text-align: left;">
+						<table>
+							<tr th:each="news, stat : ${news}"
+								th:classappend="${#strings.isEmpty(news.newsPriority) == false} ? 'priority-red'">
+								<td><span th:text="${stat.count}"></span></td>
+								<td><span
+									th:text="${#temporals.format(news.updateDatetime, 'yyyy/MM/dd')}"></span></td>
+								<td><span th:text="${news.memo}"></span></td>
+							</tr>
+						</table>
+					</div>
 				</div>
 			</div>
 			<div th:if="${news == null or #lists.isEmpty(news)}">

@@ -10,7 +10,24 @@
 	font-family: "メイリオ", sans-serif;
 	z-index: 9999;
 	box-shadow: 3px 0 6px rgba(0, 0, 0, 0.4);
-	background-color: #0058ac;
+
+	background: linear-gradient(
+	  150deg,
+	  #2ecc71 0%,
+	  #a6d900 60%,
+	  #1abc9c 100%
+	);
+
+	animation: Grad 20s infinite alternate linear;
+}
+
+@keyframes Grad {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
 }
 
 /* ▼ 日付 */
@@ -78,15 +95,14 @@
 /* 写真 */
 #leftArea img {
 	width: 120px;
-	height: 120px;          /* ← 高さも固定 */
-	object-fit: contain;    /* ← はみ出た分をトリミング */
+	height: 120px; /* ← 高さも固定 */
+	object-fit: contain; /* ← はみ出た分をトリミング */
 	display: block;
 	margin: 10px auto 15px auto;
 	border-radius: 8px;
 	background-color: #0058ac;
 	padding: 5px;
 }
-
 
 /* ▼ メイン画面を右にずらす */
 #content {
@@ -110,10 +126,10 @@
 }
 
 .user {
-    font-weight: bold;
-    background-color: #0058ac;
-    border-radius: 20px;
-    border: 3px solid #e6f0ff;
+	font-weight: bold;
+	background-color: #0058ac;
+	border-radius: 20px;
+	border: 3px solid #e6f0ff;
 }
 
 /* 日付時間情報 */
@@ -165,7 +181,7 @@
 
 /*今日のシフト */
 .todayShift {
-	background-color:rgba(0, 198, 183, 0.2);
+	background-color: rgba(0, 198, 183, 0.2);
 	padding: 0 10px;
 	border: 3px solid #ffffff;
 	height: 100px;
@@ -177,27 +193,115 @@
 
 /*お知らせ */
 .news {
-	background-color:rgba(0, 198, 183, 0.2);
+	background-color: rgba(0, 198, 183, 0.2);
 	padding: 0 10px;
-	border: 3px solid #ffffff;
 	height: 200px;
 	border-top-left-radius: 5px;
 	border-bottom-left-radius: 5px;
 	border-top-right-radius: 30px;
-	border-bottom-right-radius: 30px;
+	border-bottom-right-radius: 5px;
+	overflow-y: auto; /* ← 縦スクロール */
+	overflow-x: hidden; /* ← 横は出さない */
+	display: flex;
+	flex-direction: column;
+	padding-bottom: 15px;
 }
-.news table{
-  border-collapse:collapse;
+
+.news table {
+	border-collapse: collapse;
+	width: 100%;
+	table-layout: fixed; /* ← これ重要 */
 }
-.news td{
-  border-bottom:1px dashed #00c6b7;
+
+.news td:nth-child(1) {
+	width: 40px;
+	text-align: center;
 }
-.news tr:last-child td{
-  border-bottom:2px solid #00c6b7;
+
+.news td:nth-child(2) {
+	width: 120px;
 }
-.news tr:first-child td{
-  border-top:2px solid #00c6b7;
+
+.news td:nth-child(3) {
+	width: auto;
 }
-.news td{
-  padding:10px;
+
+.news td {
+	border-bottom: 1px dashed #00c6b7;
+}
+
+.news tr:last-child td {
+	border-bottom: 2px solid #00c6b7;
+}
+
+.news tr:first-child td {
+	border-top: 2px solid #00c6b7;
+}
+
+.news td {
+	padding: 10px;
+}
+
+.news-header {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	margin: 10px 0;
+	flex: 0 0 auto;
+	align-items: center;
+}
+
+.news-table-wrapper {
+	flex: 1; /* 残り全部 */
+	overflow-y: auto; /* ← テーブルだけスクロール */
+	overflow-x: hidden;
+}
+
+.news-table-wrapper table {
+	width: 100%;
+	table-layout: fixed;
+}
+
+.news-table-wrapper td {
+	word-break: break-word;
+	white-space: normal;
+}
+
+.news-header p {
+	margin: 0;
+}
+
+.news-add {
+	font-size: 0.9em;
+	text-decoration: underline;
+}
+
+.news-header a {
+	text-decoration: none;
+}
+
+.news-header a:hover {
+	color: #00c6b7;
+}
+/*スクロール*/
+.news-table-wrapper::-webkit-scrollbar {
+	width: 10px;
+}
+
+/* 背景（溝） */
+.news-table-wrapper::-webkit-scrollbar-track {
+	background: rgba(255, 255, 255, 0.4);
+	border-radius: 10px;
+}
+
+/* つまみ */
+.news-table-wrapper::-webkit-scrollbar-thumb {
+	background: #00c6b7;
+	border-radius: 10px;
+	border: 2px solid rgba(255, 255, 255, 0.6);
+}
+
+/* ホバー時 */
+.news-table-wrapper::-webkit-scrollbar-thumb:hover {
+	background: #009e91;
 }

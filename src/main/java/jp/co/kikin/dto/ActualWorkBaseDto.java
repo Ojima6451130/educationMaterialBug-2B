@@ -5,8 +5,16 @@ public class ActualWorkBaseDto {
 	private String endTime;
 	private String shiftStartTime;
 	private String shiftEndTime;
+	private String shiftBreakTime;
 	private String breakTime;
 	private boolean noShift;
+	
+	public String getShiftBreakTime() {
+		return shiftBreakTime;
+	}
+	public void setShiftBreakTime(String shiftBreakTime) {
+		this.shiftBreakTime = shiftBreakTime;
+	}
 	
 	public String getStartTime() {
 		return startTime;
