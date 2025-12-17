@@ -10,24 +10,21 @@
 	font-family: "メイリオ", sans-serif;
 	z-index: 9999;
 	box-shadow: 3px 0 6px rgba(0, 0, 0, 0.4);
-
-	background: linear-gradient(
-	  150deg,
-	  #2ecc71 0%,
-	  #a6d900 60%,
-	  #1abc9c 100%
-	);
-
-	animation: Grad 20s infinite alternate linear;
+	overflow: hidden; /* 重要 */
 }
 
+/* 背景専用 */
+#leftArea::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(150deg, #2ecc71 0%, #a6d900 60%, #1abc9c 100%);
+	animation: Grad 20s infinite alternate linear;
+	z-index: -1; /* 背景に回す */
+}
 @keyframes Grad {
-  0% {
-    filter: hue-rotate(0deg);
-  }
-  100% {
-    filter: hue-rotate(360deg);
-  }
+  0%   { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
 }
 
 /* ▼ 日付 */
@@ -94,14 +91,15 @@
 }
 /* 写真 */
 #leftArea img {
-	width: 120px;
-	height: 120px; /* ← 高さも固定 */
+	width: 130px;
+	height: 130px; /* ← 高さも固定 */
 	object-fit: contain; /* ← はみ出た分をトリミング */
 	display: block;
 	margin: 10px auto 15px auto;
-	border-radius: 8px;
-	background-color: #0058ac;
 	padding: 5px;
+	background-color: rgba(255, 255, 255, 0.4);
+	border-radius: 50%;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 }
 
 /* ▼ メイン画面を右にずらす */
@@ -117,19 +115,18 @@
 
 /* ユーザ情報 */
 .userInfo {
-	padding: 10px; /* 内側の余白を少しつけると見やすい */
-	border-radius: 4px; /* 角を少し丸くする（お好みで） */
+	padding: 5px;
 	margin: 10px;
-	background-color: #e6f0ff;
-	height: 165px;
-	margin: 10px;
+	height: 200px;
 }
 
 .user {
 	font-weight: bold;
-	background-color: #0058ac;
-	border-radius: 20px;
-	border: 3px solid #e6f0ff;
+	background-color: rgba(255, 255, 255, 0.4);
+	border-radius: 30px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+	color: #ffffff;
+	text-shadow: 0 3px 2px #00c6b7;
 }
 
 /* 日付時間情報 */
