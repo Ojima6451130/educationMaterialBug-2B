@@ -796,34 +796,37 @@ td #headCenter {
 	border-right: 2px solid #555;
 	pointer-events: none;
 }
-
-/*給料情報のパスワードチェック用*/
+/* 給料情報のパスワードチェック用 */
 .password-bar {
-  position: fixed;
-  top: -80px;
-  left: 0;
-  height: 80px;
-  background-color: #00c6b7;
-  color: white;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 0 20px;
-  transition: top 0.3s ease;
-  z-index: 9999;
+	position: fixed;
+	top: -100px;
+	left: 50%;
+	transform: translateX(-50%);
+	height: 80px;
+	background-color: #00c6b7;
+	color: white;
+	display: flex;
+	flex-direction: column; /* ★ 縦並び */
+	align-items: center; /* ★ 中央寄せ */
+	justify-content: center; /* ★ 縦中央 */
+	gap: 6px;
+	padding: 10px 40px;
+	transition: top 0.3s ease;
+	z-index: 9000;
 }
 
 .password-bar.show {
-  top: 0;              /* ← 表示 */
+	top: 0;
 }
 
 .password-bar input {
-  width: 200px;
+	width: 200px;
 }
 
-.password-bar .error {
-  color: yellow;
-  margin-left: 10px;
+.error-message {
+	color: yellow;
+	font-size: 13px;
+	margin-top: 4px;
 }
 
 /*Back、Next*/

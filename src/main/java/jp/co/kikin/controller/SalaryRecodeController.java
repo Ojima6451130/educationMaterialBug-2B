@@ -147,6 +147,8 @@ public class SalaryRecodeController {
 		model.addAttribute("bacePrice", bacePrice);
 		model.addAttribute("yearMonth", reYearMonth);
 		model.addAttribute("loginUserDto", loginUserDto);
+		model.addAttribute("subSalary", subSalary);
+		model.addAttribute("addSalary", addSalary);
 
 		return "salaryRecodeOutput";
 	}
