@@ -830,8 +830,10 @@ td #headCenter {
 }
 
 /*Back、Next*/
-#Back:first-letter,Next:first-letter{
-font-size: 1.7em;
-	color: #00c6b7;
-	text-shadow: 0 2px 0 #3f4753;
+.Back, .Next {
+    color: #00c6b7;
+}
+.Back:hover, .Next:hover {
+    color: #ffffff;
+    text-shadow: 0 2px 0 #3f4753;
 }

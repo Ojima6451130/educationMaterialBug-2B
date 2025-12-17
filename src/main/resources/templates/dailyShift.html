@@ -44,7 +44,8 @@
 							th:object="${dailyShiftForm}">
 							<input type="hidden" th:field="*{yearMonthDay}" />
 						</form> <a href="#"
-						onclick="document.getElementById('prevForm').submit();return false;">前日</a>
+						onclick="document.getElementById('prevForm').submit();return false;"
+						class="Back">前日</a>
 					</li>
 					<li><span th:field="*{yearMonthDayDisplay}">[[${yearMonthDay}]]</span>
 					</li>
@@ -53,7 +54,8 @@
 							th:object="${dailyShiftForm}">
 							<input type="hidden" th:field="*{yearMonthDay}" />
 						</form> <a href="#"
-						onclick="document.getElementById('nextForm').submit();return false;">翌日</a>
+						onclick="document.getElementById('nextForm').submit();return false;"
+						class="Next">翌日</a>
 					</li>
 				</ul>
 			</div>
