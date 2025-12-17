@@ -22,14 +22,13 @@ public class AttendanceController {
         this.attendanceLogic = attendanceLogic;
     }
 	@PostMapping("/start")
-	public String start(HttpSession session, HttpServletRequest request, Model model, RedirectAttributes redirectAttributes)throws Exception {
+	public String start(HttpSession session, RedirectAttributes redirectAttributes)throws Exception {
 		//ログインID取得
 		String employeeId = (String)session.getAttribute(RequestSessionNameConstant.SESSION_CMN_LOGIN_USER_ID);
-		//出勤時間打刻
-		AttendanceLogic logic = new AttendanceLogic();
 		//エラーメッセージ
 		try {
-			logic.setStartTime(employeeId);
+			//出勤時間打刻
+			attendanceLogic.setStartTime(employeeId);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
 		}
@@ -39,14 +38,13 @@ public class AttendanceController {
 	}
 	
 	@PostMapping("/end")
-	public String end(HttpSession session , HttpServletRequest request, Model model, RedirectAttributes redirectAttributes)throws Exception {
+	public String end(HttpSession session , RedirectAttributes redirectAttributes)throws Exception {
 		//ログインID取得
 		String employeeId = (String)session.getAttribute(RequestSessionNameConstant.SESSION_CMN_LOGIN_USER_ID);
-		//退勤時間打刻
-		AttendanceLogic logic = new AttendanceLogic();
 		//エラーメッセージ
 		try {
-			logic.setEndTime(employeeId);
+			//退勤時間打刻
+			attendanceLogic.setEndTime(employeeId);
 		} catch (Exception e) {
 			redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
 		}
