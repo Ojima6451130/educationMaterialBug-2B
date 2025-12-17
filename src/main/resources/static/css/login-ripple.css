@@ -1,0 +1,229 @@
+body.login-page {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+/* =========================
+   背景 波紋
+========================= */
+
+#container {
+  position: fixed;
+  inset: 0;
+  background-color: #f2f4f7;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.ripples div {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 2px solid rgba(80, 120, 200, 0.45);
+  border-radius: 50%;
+  opacity: 0;
+  animation: ripples_anim 10s linear infinite;
+}
+
+@keyframes ripples_anim {
+  0% { opacity: 0.6; }
+  50% {
+    transform: translate(-250px, -250px);
+    width: 500px;
+    height: 500px;
+    opacity: 0;
+  }
+}
+
+.ripples div:nth-of-type(1) { left: 20%; top: 30%; animation-delay: 0s; }
+.ripples div:nth-of-type(2) { left: 40%; top: 60%; animation-delay: 2s; }
+.ripples div:nth-of-type(3) { left: 60%; top: 20%; animation-delay: 4s; }
+.ripples div:nth-of-type(4) { left: 80%; top: 50%; animation-delay: 1s; }
+.ripples div:nth-of-type(5) { left: 10%; top: 70%; animation-delay: 3s; }
+
+/* =========================
+   ログイン文字
+========================= */
+
+.login-page #headCenter {
+  text-align: center;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+/* =========================
+   メイン中央配置
+========================= */
+
+#businessBody {
+  height: calc(100vh - 140px);
+  transform: translateY(-40px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* =========================
+   ログインアイコン
+========================= */
+
+.login-icon {
+  margin-bottom: 15px;
+}
+
+.login-icon img {
+  width: 150px;
+  opacity: 0.9;
+}
+
+/* =========================
+   ログインカード
+========================= */
+
+.login-card {
+  width: 360px;
+  padding: 40px 32px;
+  background: rgba(255,255,255,0.65);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+}
+
+/* =========================
+   入力欄＋アイコン
+========================= */
+
+.login-page .input-group {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.login-page .input-group img {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  width: 20px;
+  height: 20px;
+  transform: translateY(-50%);
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.login-page .input-group:hover img,
+.login-page .input-group:focus-within img {
+  opacity: 1;
+  filter: drop-shadow(0 0 6px rgba(59,130,246,0.35));
+}
+
+.login-page .input-group input {
+  width: 100%;
+  padding: 12px 12px 12px 44px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.15);
+  box-sizing: border-box;
+  background: rgba(255,255,255,0.75);
+  transition: 
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+/* カーソルを乗せたとき */
+.login-page .input-group input:hover {
+  border-color: rgba(59,130,246,0.5);
+  background: rgba(255,255,255,0.85);
+}
+
+.login-page .input-group input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.18);
+  background: rgba(255,255,255,0.9);
+}
+
+
+/* =========================
+   ボタン
+========================= */
+
+.login-card input[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.login-card input[type="submit"]:hover {
+  background: #2563eb;
+}
+
+.login-card input[type="reset"] {
+  margin-top: 12px;
+  width: 100%;
+  background: none;
+  border: none;
+  color: #555;
+  cursor: pointer;
+}
+
+/* =========================
+   フッター
+========================= */
+
+.login-page #footer {
+  margin:0;
+  padding:0;
+  width: 100%; 
+  z-index: 5;
+}
+
+/* 背景（高さを固定して中央基準を作る） */
+.login-page .footer-bg {
+  width: 100%;
+  height: 90px;              
+  background: linear-gradient(
+    to right,
+    rgba(79,127,211,0.3),
+    rgba(79,127,211,0.3)
+  );
+  backdrop-filter: blur(6px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;    
+  border-top: 1px solid rgba(255,255,255,0.4);    
+}
+
+/* ロゴラッパー */
+.login-page .footer-logo {
+  padding: relative;
+  padding: 8px 32px;                  
+}
+
+/*光のライン*/
+.login-page .footer-logo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255,255,255,0.8),
+    transparent
+  );
+  filter: blur(10px);
+  z-index: -1;
+}
+
+/* ロゴ画像 */
+.login-page .footer-logo img {
+  height: 90px;              
+  display: block;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.15));
+}

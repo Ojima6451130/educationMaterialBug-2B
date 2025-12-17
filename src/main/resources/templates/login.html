@@ -7,51 +7,82 @@
 <meta http-equiv="Expires" content="Thu, 01 Dec 1994 16:00:00 GMT">
 <title>ログイン画面Login</title>
 <link rel="stylesheet" media="all" th:href="@{/css/common.css}" />
+<link rel="stylesheet" media="all" th:href="@{/css/login-ripple.css}" />
+
 <script type="text/javascript" th:src="@{/js/common.js}"></script>
 <script type="text/javascript" th:src="@{/js/message.js}"></script>
 </head>
 
-<body>
+<body class="login-page">
+	<!-- 背景　波紋 -->
+	<div id="container">
+    	<div class="ripples">
+      		<div></div><div></div><div></div><div></div><div></div>
+      		<div></div><div></div><div></div><div></div><div></div>
+    	</div>
+    </div>
 
 	<!-- エラーメッセージの表示 -->
 	<script th:if="${error}" th:inline="javascript">
 		showMessage("E-MSG-000002", []);
 	</script>
-
+	
 	<div id="wrapper">
-		<div id="header">
-			<table class="full-width">
-				<tr>
-					<td id="headLeft"></td>
-					<td id="headCenter">ログイン</td>
-					<td id="headRight"></td>
-				</tr>
-			</table>
-		</div>
+	
+    <div id="header">
+      <table class="full-width">
+        <tr>
+          <td id="headLeft"></td>
+          <td id="headCenter">ログイン</td>
+          <td id="headRight"></td>
+        </tr>
+      </table>
+    </div>
+  </div>
 
-		<div id="businessBody">
-			<div align="center">
-				<div>ID・パスワードを入力してください。</div>
-				<form action="/kikin/dologin" method="post">
-					<input type="text" id="employeeId" name="employeeId" size="16"
-						required /> <br /> <input type="password"
-						id="password" name="password" size="16" required />
-					<br /> <br /> <input type="submit" value="ログイン" /> <input
-						type="reset" value="リセット" />
-				</form>
-			</div>
-		</div>
+<div id="businessBody">
 
-		<div id="footer">
-			<table>
-				<tr>
-					<td id="footLeft"></td>
-					<td id="footCenter"></td>
-					<td id="footRight"></td>
-				</tr>
-			</table>
-		</div>
+	<!-- ログインアイコン -->
+	<div class="login-icon">
+		<img alt="login icon" th:src="@{/images/icons/user1.png}">
 	</div>
+
+	<!-- ログインカード -->
+    <div class="login-card">
+      <form action="/kikin/dologin" method="post">
+      
+      <div class="input-group">
+        <img alt="user" th:src="@{/images/icons/user2.png}">
+        <input type="text"
+               name="employeeId"
+               placeholder="社員ID"
+               required>
+      </div>
+      
+	  <div class="input-group">
+	    <img alt="password" th:src="@{/images/icons/key.png}">
+        <input type="password"
+               name="password"
+               placeholder="パスワード"
+               required>
+      </div>
+
+        <input type="submit" value="ログイン">
+        <input type="reset" value="リセット">
+      </form>
+
+    </div>
+  </div>
+
+<div id="footer">
+  <div class="footer-bg">
+    <div class="footer-logo">
+      <img alt="BLOOM" th:src="@{/images/icons/bloom.png}">
+    </div>
+  </div>
+</div>
+
+	
 
 </body>
 
