@@ -62,12 +62,25 @@ public class SalaryRecodeController {
 
 	// メニュー画面でボタン押下後
 	@GetMapping("/salaryRecodeInput")
-	public String input(Model model) throws SQLException, CommonException {
+	public String input(Model model, HttpSession session) throws SQLException, CommonException {
 
-		// 役職情報の取得
+		String authority_id = (String) session
+				.getAttribute(RequestSessionNameConstant.SESSION_CMN_LOGIN_USER_AUTHORITY_ID);
+
 		List<PostEntity> postList = repositoryPost.findAll();
-		model.addAttribute("postList", postList);
 
+		// リストの修正
+		if (authority_id.equals("02")) {
+			List<PostEntity> postListUser = new ArrayList<>();
+			for (PostEntity post : postList) {
+				if (!post.getPostID().equals("ceo") && !post.getPostID().equals("reader")) {
+					postListUser.add(post);
+				}
+			}
+			model.addAttribute("postList", postListUser);
+		} else {
+			model.addAttribute("postList", postList);
+		}
 		// 表示年月の取得
 		ComboListUtilLogic comboListUtils = new ComboListUtilLogic();
 		Map<String, String> yearMonthCmbMap = new LinkedHashMap<>();
@@ -75,7 +88,6 @@ public class SalaryRecodeController {
 				ComboListUtilLogic.KBN_YEARMONTH_PRE, false);
 
 		model.addAttribute("yearMonthCmbMap", yearMonthCmbMap);
-
 		return "salaryRecodeInput";
 	}
 
@@ -110,10 +122,10 @@ public class SalaryRecodeController {
 				break;
 			}
 		}
-		if(salaryDto.getSalaryRecodeEntity() == null) {
+		if (salaryDto.getSalaryRecodeEntity() == null) {
 			return "salaryRecodeError";
 		}
-		
+
 		// 給料計算
 		int subSalary = 0;
 		int addSalary = 0;
@@ -137,10 +149,10 @@ public class SalaryRecodeController {
 		}
 		// 合計金額
 		int Salary = bacePrice + addSalary - subSalary + salaryInfo.getOther_price();
-		
-		String Year = yearMonth.substring(0,4);
+
+		String Year = yearMonth.substring(0, 4);
 		String month = yearMonth.substring(4);
-		String reYearMonth = Year + "年" + month+ "月";
+		String reYearMonth = Year + "年" + month + "月";
 
 		model.addAttribute("salaryDto", salaryDto);
 		model.addAttribute("Salary", Salary);
