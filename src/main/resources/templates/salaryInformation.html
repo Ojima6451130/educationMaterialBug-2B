@@ -6,11 +6,38 @@
 <meta http-equiv="Cache-Control" content="no-cache">
 <meta http-equiv="Expires" content="Thu, 01 Dec 1994 16:00:00 GMT">
 <title>給料情報登録画面</title>
-
 <link rel="stylesheet" media="all" th:href="@{/css/common.css}" />
 <script th:src="@{/js/common.js}"></script>
 <script th:src="@{/js/message.js}"></script>
 <script th:src="@{/js/checkCommon.js}"></script>
+<style>
+.btn-social-circle{
+  display: inline-block;
+  text-decoration: none;
+  width: max-content;
+  border-radius: 40%;
+  text-align: center;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.66);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.28);
+  transition: .3s;
+}
+.btn-social-circle:hover{
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.28);
+  -webkit-transform: translateY(-5px);
+  transform: translateY(-5px);
+}
+.button{
+	padding: 0 20px 0 20px;
+	border: 2px solid rgba(255, 255, 255, 0.6);
+	background-color: rgba(0, 198, 183, 0.7);
+	margin: 5px 0;
+}
+.input{
+	margin: 0 auto;
+}
+
+</style>
+
 </head>
 
 <body>
@@ -31,11 +58,11 @@
 			<table class="overflowFixed">
 				<thead>
 					<tr class="tableHeader">
-						<th width="200">役職</th>
-						<th width="200">基本給</th>
-						<th width="200">夜間</th>
-						<th width="200">残業</th>
-						<th width="200">特別手当</th>
+						<th width="100">役職</th>
+						<th width="100">基本給</th>
+						<th width="100">夜間</th>
+						<th width="100">残業</th>
+						<th width="100">特別手当</th>
 						<th width="100">更新</th>
 						<th width="100">削除</th>
 					</tr>
@@ -45,7 +72,7 @@
 					<tr th:each="salaryInfo, stat : ${salaryInfoList}">
 						<form th:action="@{/kikin/salaryInformation/update}" method="post">
 							<td align="center"><input type="text" name="postName"
-								th:value="${salaryInfo.postName}" readonly style="width: 100px;">
+								th:value="${salaryInfo.postName}" readonly style="width: 80px;">
 							</td>
 
 							<td align="center"><input type="number" name="basicSalary"
@@ -64,7 +91,7 @@
 								th:value="${salaryInfo.otherPrice}" style="width: 80px;">
 							</td>
 
-							<td align="center"><input type="submit" value="更新">
+							<td align="center"><input type="submit" value="更新" class="btn-social-circle button">
 							</td>
 						</form>
 
@@ -73,7 +100,7 @@
 								method="post">
 								<input type="hidden" name="postName"
 									th:value="${salaryInfo.postName}"> <input type="submit"
-									value="削除">
+									value="削除" class="btn-social-circle button">
 							</form>
 						</td>
 					</tr>
@@ -85,7 +112,7 @@
 						th:if="${insertPostList != null and !#lists.isEmpty(insertPostList)}">
 						<form th:action="@{/kikin/salaryInformation/insert}" method="post">
 							<td align="center"><select name="postName" required
-								style="width: 100px;">
+								style="width: 90px;">
 									<option th:each="postName : ${insertPostList}"
 										th:value="${postName}" th:text="${postName}"></option>
 							</select></td>
@@ -100,7 +127,7 @@
 								value="0" style="width: 80px;"></td>
 
 							<td colspan="2" align="center"><input type="submit"
-								value="登録"></td>
+								value="登録" class="btn-social-circle button"></td>
 						</form>
 					</tr>
 				</tfoot>
