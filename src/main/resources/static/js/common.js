@@ -40,19 +40,13 @@ document.addEventListener("DOMContentLoaded", () => {
         hamburger.classList.toggle("oppenned");
     });
 
-    // メニュー外をクリックしたら閉じる
-    document.body.addEventListener("click", () => {
-        hamburger.classList.remove("oppenned");
-    });
-
-    // × 部分のクリックも閉じる
-    document.querySelectorAll("#hamburger .cls").forEach(c => {
-        c.addEventListener("click", (e) => {
+    document.addEventListener("click", (e) => {
+        if (!hamburger.contains(e.target)) {
             hamburger.classList.remove("oppenned");
-            e.stopPropagation();
-        });
+        }
     });
 });
+
 
 //給料情報のパスワード入力
 function openSalaryPasswordBar() {

@@ -60,7 +60,7 @@
 
 					<li><a href="/kikin/salaryRecodeInput">給料明細</a></li>
 				</ul>
-				<div id="salaryPasswordBar" class="password-bar">
+				<div id="salaryPasswordBar" class="password-bar" onclick="event.stopPropagation()">
 					<div>給料情報を表示するにはパスワードを入力してください</div> 
 					<div><input type="password" id="salaryPasswordInput">
 					<button onclick="checkSalaryPassword()">OK</button>
